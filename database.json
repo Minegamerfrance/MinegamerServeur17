@@ -1,0 +1,879 @@
+{
+  "schema": 1,
+  "updated": "2026-09-05",
+  "description": "MNG FUT 17 online dynamic player portraits. Card artwork remains managed by Frosty.",
+  "rules": {
+    "exactResourceIdOnly": true,
+    "normalPlayersUseFrosty": true,
+    "cardArtworkUseFrosty": true
+  },
+  "images": {
+    "50372884": {
+      "resourceId": 50372884,
+      "assetId": 41236,
+      "name": "Zlatan Ibrahimović",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50372884.png",
+      "dds": "images/50372884.dds",
+      "sha256": {
+        "png": "45b0af6b081d21652e1873f368f0e1261b262ca61e0d316e19239ad11b3b9095",
+        "dds": "a1781efe23c5798cf8d3ebeeac744883ac9f4a9d3bd3fc7b50992d9aa28850f6"
+      }
+    },
+    "50478178": {
+      "resourceId": 50478178,
+      "assetId": 146530,
+      "name": "Dani Alves",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50478178.png",
+      "dds": "images/50478178.dds",
+      "sha256": {
+        "png": "0d277bf804648cd091a670e37b6e5ab677612dc0a5ebc1b67677c3d4142f63e9",
+        "dds": "aca32339dbffe446361b8af4c74220c3126103fd3cea355ce32a7bd9a11d8e7d"
+      }
+    },
+    "50493296": {
+      "resourceId": 50493296,
+      "assetId": 161648,
+      "name": "Ben Arfa",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50493296.png",
+      "dds": "images/50493296.dds",
+      "sha256": {
+        "png": "1e83f772bcb02385a13af9b3cfcc286eca73530fc62c16abf1b2bdc5386f812b",
+        "dds": "054ae9733a20d4ff136f872752d9839a9cc463b44ba1042e79bda68405aba8e6"
+      }
+    },
+    "50495817": {
+      "resourceId": 50495817,
+      "assetId": 164169,
+      "name": "Filipe Luís",
+      "type": "totw",
+      "enabled": true,
+      "rarity": 3,
+      "png": "images/50495817.png",
+      "dds": "images/50495817.dds",
+      "sha256": {
+        "png": "824ee9ad19c3bd2984dc94164aa322f304821ce223fcebbe575f2e38c520b467",
+        "dds": "3e416580f8e40900f6e73e6b2fb6da47445b437dc97c7f643b082582cb095d50"
+      }
+    },
+    "50499079": {
+      "resourceId": 50499079,
+      "assetId": 167431,
+      "name": "Castro",
+      "type": "totw",
+      "enabled": true,
+      "rarity": 3,
+      "png": "images/50499079.png",
+      "dds": "images/50499079.dds",
+      "sha256": {
+        "png": "2ab8c1bcaaf6ad04e7ebef2a523ca2abd1114aaabfa321398ce9793ab035bcbc",
+        "dds": "30a2172ef8f1ab3217cfd54312ab19c48368d890dfb14da3d4daa4efc7eca4a5"
+      }
+    },
+    "50502129": {
+      "resourceId": 50502129,
+      "assetId": 170481,
+      "name": "Ezequiel Garay",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50502129.png",
+      "dds": "images/50502129.dds",
+      "sha256": {
+        "png": "a6fea559cf47b8f1077e4d1c66772871f656bb6ca5d49355791328e5b84710f8",
+        "dds": "8b3f5f362e55676a8b7e02e9f9940f0f3d80d094011994e03bfc739084401b43"
+      }
+    },
+    "50510251": {
+      "resourceId": 50510251,
+      "assetId": 178603,
+      "name": "Hummels",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50510251.png",
+      "dds": "images/50510251.dds",
+      "sha256": {
+        "png": "a13fc06eb787d608446c419d56fc19a59ba977e4884d6195863354043988f5c5",
+        "dds": "4b85362157407e0eafc8105ccd002cbee87cde44ff2665069c3fa134213f7f5e"
+      }
+    },
+    "50511592": {
+      "resourceId": 50511592,
+      "assetId": 179944,
+      "name": "David Luiz",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50511592.png",
+      "dds": "images/50511592.dds",
+      "sha256": {
+        "png": "95261ee801c4b80391304f9b83b4ea00a75e72b6d039648a696ddc7444e01b5e",
+        "dds": "09212f6c33259fb511067d9a1dfb4b53231355fa237f4943f85f30bdcbdbf6d9"
+      }
+    },
+    "50511854": {
+      "resourceId": 50511854,
+      "assetId": 180206,
+      "name": "Pjanić",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50511854.png",
+      "dds": "images/50511854.dds",
+      "sha256": {
+        "png": "4e80007dc08ccfadc6af022b2e68e3c71fc70c4fc791f21242eeba77db1b9dac",
+        "dds": "344d2272fb46a41625e72e163bd6898f6ed8ad8ed1848fd23a65f1bfd9b88eeb"
+      }
+    },
+    "50515042": {
+      "resourceId": 50515042,
+      "assetId": 183394,
+      "name": "Moussa Sissoko",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50515042.png",
+      "dds": "images/50515042.dds",
+      "sha256": {
+        "png": "ff4d32cc68eed8c03e586727315edc377615a7a6cff5e5fecd90a4e9dab7d193",
+        "dds": "f7edd2b97b5f78478d0621e0b22988e6a393b39832232047a067678f4bffbe40"
+      }
+    },
+    "50515759": {
+      "resourceId": 50515759,
+      "assetId": 184111,
+      "name": "Christian Benteke",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50515759.png",
+      "dds": "images/50515759.dds",
+      "sha256": {
+        "png": "b3a930b39667a37d5ff274b073d48fc42ab1dd20dacf8c8d2d2057ebd3da9356",
+        "dds": "ef002a956bc48a9a997b2abda159cde45e245a367669f9a124f5653c413e6526"
+      }
+    },
+    "50515792": {
+      "resourceId": 50515792,
+      "assetId": 184144,
+      "name": "Gaitán",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50515792.png",
+      "dds": "images/50515792.dds",
+      "sha256": {
+        "png": "cd88a1a34654d45a96192fe58dd25ee5d3960d2d7a0c2a8eae185192cae30f8d",
+        "dds": "3eb12efa35974d527268888ecaa0d2c5dd4878ed6ec14d8ac397b4df0088ae64"
+      }
+    },
+    "50516590": {
+      "resourceId": 50516590,
+      "assetId": 184942,
+      "name": "Giuliano",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50516590.png",
+      "dds": "images/50516590.dds",
+      "sha256": {
+        "png": "10779f19394c19f2af72e554d63f450660844ff6e50bb5317886dade460847a3",
+        "dds": "f006aef7850b98b09ef20f05f29efb9be5e6605e941c5926f19a269a07583275"
+      }
+    },
+    "50520477": {
+      "resourceId": 50520477,
+      "assetId": 188829,
+      "name": "Nkoulou",
+      "type": "totw",
+      "enabled": true,
+      "rarity": 3,
+      "png": "images/50520477.png",
+      "dds": "images/50520477.dds",
+      "sha256": {
+        "png": "fc056dbf25b9af6a9a424db9140454fa2c769b3d8af1e7d75da7c60737370f90",
+        "dds": "f53e1029643663b4597f3b4a20ad498b76e3c0f0489f897ddd6a6ed0cd276bf9"
+      }
+    },
+    "50520805": {
+      "resourceId": 50520805,
+      "assetId": 189157,
+      "name": "Yannick Bolasie",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50520805.png",
+      "dds": "images/50520805.dds",
+      "sha256": {
+        "png": "383ae7e4312305f6a46f5680214d19d99a528c3cdd9d46fddcc3766896835357",
+        "dds": "17f1482c143ed281abc6a0675bba17d5eaf6ce15afc3f5a56c5d0b46ffab54c0"
+      }
+    },
+    "50523875": {
+      "resourceId": 50523875,
+      "assetId": 192227,
+      "name": "Mustafi",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50523875.png",
+      "dds": "images/50523875.dds",
+      "sha256": {
+        "png": "0897aebe9edd1754430997a936f709ae06d75958a6ee3d16c21b7d915d8c764f",
+        "dds": "e425f129369f8ef24a6e853644490ab00de31d0932cbfdde58b7da55db4770f2"
+      }
+    },
+    "50523966": {
+      "resourceId": 50523966,
+      "assetId": 192318,
+      "name": "Mario Götze",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50523966.png",
+      "dds": "images/50523966.dds",
+      "sha256": {
+        "png": "5575f0359abd35444690f99e6a9159ed6d0761f5d007eda78a5655d35ba51a8c",
+        "dds": "532fff47b883b90b08e1af8b2eb8a0bdbbb3b82bda11e4523253c4a3f54f2438"
+      }
+    },
+    "50524531": {
+      "resourceId": 50524531,
+      "assetId": 192883,
+      "name": "Henrikh Mkhitaryan",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50524531.png",
+      "dds": "images/50524531.dds",
+      "sha256": {
+        "png": "0e1715df70aeac03583daf7ca16afbeeaab5f0e9cc797990584c28102132e9ed",
+        "dds": "71891555a0e50de3ca641db4b5f21ffc9fad3dd7acb05359323b2df390fcb16c"
+      }
+    },
+    "50524633": {
+      "resourceId": 50524633,
+      "assetId": 192985,
+      "name": "De Bruyne",
+      "type": "totw",
+      "enabled": true,
+      "rarity": 3,
+      "png": "images/50524633.png",
+      "dds": "images/50524633.dds",
+      "sha256": {
+        "png": "32566d5c08361076beb426d67980f3b5debd8e012812d0db3df502251eb44389",
+        "dds": "ca27d4041afc6c17a717deb7e60e5f7ad800c113d1573bf093d7ca1c4a2df291"
+      }
+    },
+    "50528890": {
+      "resourceId": 50528890,
+      "assetId": 197242,
+      "name": "Krychowiak",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50528890.png",
+      "dds": "images/50528890.dds",
+      "sha256": {
+        "png": "1e83f772bcb02385a13af9b3cfcc286eca73530fc62c16abf1b2bdc5386f812b",
+        "dds": "054ae9733a20d4ff136f872752d9839a9cc463b44ba1042e79bda68405aba8e6"
+      }
+    },
+    "50531151": {
+      "resourceId": 50531151,
+      "assetId": 199503,
+      "name": "Granit Xhaka",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50531151.png",
+      "dds": "images/50531151.dds",
+      "sha256": {
+        "png": "32e7649a94bb696215c69fab67d1e4c9be7cfbea2b8b94f755c993f13abe4679",
+        "dds": "14b880094ffba53d0c17cd449c907d8aaeff2434db73b03d153ab17253b727dd"
+      }
+    },
+    "50532177": {
+      "resourceId": 50532177,
+      "assetId": 200529,
+      "name": "Chadli",
+      "type": "totw",
+      "enabled": true,
+      "rarity": 3,
+      "png": "images/50532177.png",
+      "dds": "images/50532177.dds",
+      "sha256": {
+        "png": "3f927aa2c6c578fe1741a811fb330ddb775fdc8602c3a7ad2a4a2747c33c4f57",
+        "dds": "032e090a8d931d2be40940f708bf750b8eb30fd3351a369720c4c59ba2f19f4b"
+      }
+    },
+    "50532801": {
+      "resourceId": 50532801,
+      "assetId": 201153,
+      "name": "Morata",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50532801.png",
+      "dds": "images/50532801.dds",
+      "sha256": {
+        "png": "dafa8cd3522ba15a163f079991fd901c4b72835943ccd19aa40c932e15f6505e",
+        "dds": "70260d5c476ed7cead95a0f6059f21dba32e3be102e4de5098b620e6d27def25"
+      }
+    },
+    "50533506": {
+      "resourceId": 50533506,
+      "assetId": 201858,
+      "name": "Sansone",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50533506.png",
+      "dds": "images/50533506.dds",
+      "sha256": {
+        "png": "61a28f831828c79fd48f86c0698bf7c1be9b47cddc48565b971c58a4e286abbc",
+        "dds": "942aaf7c0c14627c993d596b4139343766e136615c04eb43daac9f1a95388851"
+      }
+    },
+    "50534019": {
+      "resourceId": 50534019,
+      "assetId": 202371,
+      "name": "Thomas Meunier",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50534019.png",
+      "dds": "images/50534019.dds",
+      "sha256": {
+        "png": "a7206e43d910f209dac6dcd1ded5da46327e12ec2eff1adcff5a89f3c77e0ef4",
+        "dds": "40c08c8809fca86cd6e03ae3166edc9b02feaa5d8252911c1d13a079c3b07e90"
+      }
+    },
+    "50535222": {
+      "resourceId": 50535222,
+      "assetId": 203574,
+      "name": "Stones",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50535222.png",
+      "dds": "images/50535222.dds",
+      "sha256": {
+        "png": "480a27adcb249332ba4097da6b0a9318897f6fa8376debcf350fd0c7cd20eb1f",
+        "dds": "d15ed08fe6b7f5c085e0cee03df57cb15a5a1158b9cc064d9e2e3a947ac84254"
+      }
+    },
+    "50535536": {
+      "resourceId": 50535536,
+      "assetId": 203888,
+      "name": "Eric Botteghin",
+      "type": "totw",
+      "enabled": true,
+      "rarity": 3,
+      "png": "images/50535536.png",
+      "dds": "images/50535536.dds",
+      "sha256": {
+        "png": "76aed0f90a72365132bdc9b6d138e5a713b98f97d8484bedae6f1cc0c8e1667a",
+        "dds": "0dfc6069f10109b67a1c4e794cb619a41cacef6db83116793092ce04dae3841f"
+      }
+    },
+    "50536177": {
+      "resourceId": 50536177,
+      "assetId": 204529,
+      "name": "Batshuayi",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50536177.png",
+      "dds": "images/50536177.dds",
+      "sha256": {
+        "png": "52af042aa4c76583353b3b6d690e233c38dacdafe9df94362defc89838d683bc",
+        "dds": "1d9aa88f75c5c6e9da96cf5e15fca02096968869dfd5c06f51b133d30541a44f"
+      }
+    },
+    "50537248": {
+      "resourceId": 50537248,
+      "assetId": 205600,
+      "name": "Umtiti",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50537248.png",
+      "dds": "images/50537248.dds",
+      "sha256": {
+        "png": "8b366581055c9d4545cfb24f73d98f30a0d5845f67ebc0c8d59038e828c4cabc",
+        "dds": "4e812d1acbdd8fe6f346b1b1a422a803166e693101d0406d331a84153f1bb2bd"
+      }
+    },
+    "50540370": {
+      "resourceId": 50540370,
+      "assetId": 208722,
+      "name": "Mané",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50540370.png",
+      "dds": "images/50540370.dds",
+      "sha256": {
+        "png": "870bc11320a1ec3a8a8b4a36517c235ebb34bfcea4f91562c87541b1c76483b3",
+        "dds": "a53e986000bc83be0ad6340a69185cb91d718bc7da21a7794a22847582678205"
+      }
+    },
+    "50540456": {
+      "resourceId": 50540456,
+      "assetId": 208808,
+      "name": "Promes",
+      "type": "totw",
+      "enabled": true,
+      "rarity": 3,
+      "png": "images/50540456.png",
+      "dds": "images/50540456.dds",
+      "sha256": {
+        "png": "0d7023c466971c9645095c5f9c8e2140fc3c06835d870c4d109efc01779781ce",
+        "dds": "0f4317eeb583970e4d9a3be761ec71132335f2711e76d4276b2b726b8339bd05"
+      }
+    },
+    "50540979": {
+      "resourceId": 50540979,
+      "assetId": 209331,
+      "name": "Mohamed Salah",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50540979.png",
+      "dds": "images/50540979.dds",
+      "sha256": {
+        "png": "0b5646c3a0a22e6ec5358be4743a0b2156bbf6437def856d1fe34d24c4865165",
+        "dds": "7d926220772dee5f29001e9b36f3abf4bead863b85e9dd01636c8aa216bd0bb8"
+      }
+    },
+    "50544479": {
+      "resourceId": 50544479,
+      "assetId": 212831,
+      "name": "Alisson",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50544479.png",
+      "dds": "images/50544479.dds",
+      "sha256": {
+        "png": "a3823c830f97fa128a65755cce1423781c10ab896abc72ef9bd03377bfa1c29f",
+        "dds": "b529edfbf27138addfd1e234c5eaa23ec10530869d78a707380e862d7baec21a"
+      }
+    },
+    "50547562": {
+      "resourceId": 50547562,
+      "assetId": 215914,
+      "name": "Kanté",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50547562.png",
+      "dds": "images/50547562.dds",
+      "sha256": {
+        "png": "8a32b4ad41274da70e95a44651fff792e8f58845bc546467c508c1a6cd6c5676",
+        "dds": "ceecd3367db2fa58b41468b7476be227b9e3c86ff71e3c00565ea09053d5efd8"
+      }
+    },
+    "50554005": {
+      "resourceId": 50554005,
+      "assetId": 222357,
+      "name": "Embolo",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50554005.png",
+      "dds": "images/50554005.dds",
+      "sha256": {
+        "png": "fb98a163982b0ce1acd98b4c00349971f1ac9aab15af17d57d29a7898ee37147",
+        "dds": "a073a61868b7a030c59a2740f5982b60f9832861558b58cf23c8dde3234c498a"
+      }
+    },
+    "50554140": {
+      "resourceId": 50554140,
+      "assetId": 222492,
+      "name": "Sané",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50554140.png",
+      "dds": "images/50554140.dds",
+      "sha256": {
+        "png": "5cf7e90d9d1a05ff428af12e4bd1376f93f3b258d89da618a3d9aa10b3ce9e7f",
+        "dds": "6bf88b73b76aecef35229bcf10cd89973e05d8cb5efa052977fde166eabc8bb5"
+      }
+    },
+    "50557156": {
+      "resourceId": 50557156,
+      "assetId": 225508,
+      "name": "Bailly",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50557156.png",
+      "dds": "images/50557156.dds",
+      "sha256": {
+        "png": "e2675e44c9ec22a886ec3709874164410d5a7525cf07da02fd1b5b8f2f70383e",
+        "dds": "aa4504a55bc1292c93a71755a7ba80eef02b0c76f7d316dba23cf5c222d16db1"
+      }
+    },
+    "50562269": {
+      "resourceId": 50562269,
+      "assetId": 230621,
+      "name": "Donnarumma",
+      "type": "totw",
+      "enabled": true,
+      "rarity": 3,
+      "png": "images/50562269.png",
+      "dds": "images/50562269.dds",
+      "sha256": {
+        "png": "5f8804f11b2066e2b7aba83395777685f906b4398d63366e2d04390211317cf6",
+        "dds": "2f5f19842a11799ecfb1895f4d7f7b5dd8924897cef35e4aa7a5313f49679ad7"
+      }
+    },
+    "50562415": {
+      "resourceId": 50562415,
+      "assetId": 230767,
+      "name": "Renato Sanches",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50562415.png",
+      "dds": "images/50562415.dds",
+      "sha256": {
+        "png": "da618f49bf8b4676a45653c51aac871d2694c2acf7c07dbe3d9b3f4196dd26eb",
+        "dds": "53839e07827ffc9a70ba4b9d674643bc3d7c07397df774aaccb6d9a263e2aea9"
+      }
+    },
+    "50563091": {
+      "resourceId": 50563091,
+      "assetId": 231443,
+      "name": "Dembélé",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/50563091.png",
+      "dds": "images/50563091.dds",
+      "sha256": {
+        "png": "09e05bda440f6afba683ffb3241ecda6e5a5486436e71da5f839b785a0f5e42d",
+        "dds": "1238a324d64bfac4c8a19622bc64387a0679ac9a892fd65534ea26ef667538eb"
+      }
+    },
+    "67304728": {
+      "resourceId": 67304728,
+      "assetId": 195864,
+      "name": "Pogba",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/67304728.png",
+      "dds": "images/67304728.dds",
+      "sha256": {
+        "png": "711d5db7fa5dc39a1b2b95366c6d96cb5baa9af72d23ce1f5286769b3336e752",
+        "dds": "a1a93b6e4c4e2ff555d2eb8167bfeee1db005b37b4c7429b2ac3051f11e02636"
+      }
+    },
+    "67314039": {
+      "resourceId": 67314039,
+      "assetId": 205175,
+      "name": "Milik",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/67314039.png",
+      "dds": "images/67314039.dds",
+      "sha256": {
+        "png": "49a1cc4c98966adbe9a31a47029bb8ef502073a7b052dbfcfbed937c536e91d7",
+        "dds": "e8ccd7aaa1cd64b704a2a84c58b5791073da724664d9e04301af42a38f194021"
+      }
+    },
+    "84094528": {
+      "resourceId": 84094528,
+      "assetId": 208448,
+      "name": "Forsberg",
+      "type": "totw",
+      "enabled": true,
+      "rarity": 3,
+      "png": "images/84094528.png",
+      "dds": "images/84094528.dds",
+      "sha256": {
+        "png": "aa71891e8e06b884df0568c1046222afebd5539784a9f5dc3f4c5558f4faa02c",
+        "dds": "03125ac0f93f02d5508ba7075eb838507e9ee10c0dbac18f5b7c24ff0fa41f9d"
+      }
+    },
+    "84099645": {
+      "resourceId": 84099645,
+      "assetId": 213565,
+      "name": "Lemar",
+      "type": "totw",
+      "enabled": true,
+      "rarity": 3,
+      "png": "images/84099645.png",
+      "dds": "images/84099645.dds",
+      "sha256": {
+        "png": "2bbe5ce9ec853cf7b13423e7d41d613a1ef7db640fdb2087d31ad6e8406dc0a7",
+        "dds": "9bac16bed918efa108b250e516cc8138f4fa996c7bf431de14d21407b1b4c054"
+      }
+    },
+    "100663784": {
+      "resourceId": 100663784,
+      "assetId": 488,
+      "name": "Oliver Kahn",
+      "type": "icon",
+      "enabled": true,
+      "rarity": 12,
+      "notes": "DDS available",
+      "dds": "images/100663784.dds",
+      "sha256": {
+        "dds": "7b4690d84f34f673927ec6d92cbe0309cca0b83c7d515796884169214d108f04"
+      }
+    },
+    "100668767": {
+      "resourceId": 100668767,
+      "assetId": 5471,
+      "name": "Frank Lampard",
+      "type": "sbc",
+      "enabled": true,
+      "notes": "Community SBC special",
+      "png": "images/100668767.png",
+      "dds": "images/100668767.dds",
+      "sha256": {
+        "png": "7b488eba6002bc0ef92998e9dcc3a592daa7c47ab6b26831ab79f783eb4a54c3",
+        "dds": "24b2cf5ee66c928aed2928e01f98d37d8f2a593172a7fb8914cb9dd4b0f9c134"
+      }
+    },
+    "100671059": {
+      "resourceId": 100671059,
+      "assetId": 7763,
+      "name": "Andrea Pirlo",
+      "type": "sbc",
+      "enabled": true,
+      "notes": "Community SBC special",
+      "png": "images/100671059.png",
+      "dds": "images/100671059.dds",
+      "sha256": {
+        "png": "65b8e5ff26e6f8f95d0315f9361b1059b719e84f31e5a99f896a155efa0fe5fa",
+        "dds": "8e5b92bb2d551e1ad5a68125f554352b15d450e56454d321f6405ce814182aaf"
+      }
+    },
+    "100677039": {
+      "resourceId": 100677039,
+      "assetId": 13743,
+      "name": "Steven Gerrard",
+      "type": "sbc",
+      "enabled": true,
+      "notes": "Community SBC special",
+      "png": "images/100677039.png",
+      "dds": "images/100677039.dds",
+      "sha256": {
+        "png": "fd231806a069cc52293b2156f3013d506d4502a8ae118e81044b57d0b0a69a86",
+        "dds": "6e2c9bc37691792d7bda825444406bec9d61ceee5a5cbc44f97249f714aef175"
+      }
+    },
+    "100694728": {
+      "resourceId": 100694728,
+      "assetId": 31432,
+      "name": "Didier Drogba",
+      "type": "special",
+      "enabled": true,
+      "notes": "Community special",
+      "png": "images/100694728.png",
+      "dds": "images/100694728.dds",
+      "sha256": {
+        "png": "da221d58935384a403f475b05444da444f11d117565f1b4834b1f9822f1bec50",
+        "dds": "2bc8725111f98a3b9d7692c03ec1241de474135cbf8a53e584b4450784bbb056"
+      }
+    },
+    "100785240": {
+      "resourceId": 100785240,
+      "assetId": 121944,
+      "name": "Bastian Schweinsteiger",
+      "type": "sbc",
+      "enabled": true,
+      "notes": "Community SBC special",
+      "png": "images/100785240.png",
+      "dds": "images/100785240.dds",
+      "sha256": {
+        "png": "00a0cdb9b30ca37f3f0d7c532c842c9e100a261d0fd95147837612239a2e5b47",
+        "dds": "230455a371bd44272c33976d4ec60c704611a5e2630241578cfc518e58d42aad"
+      }
+    },
+    "100813714": {
+      "resourceId": 100813714,
+      "assetId": 150418,
+      "name": "Mario Gómez",
+      "type": "sbc",
+      "enabled": true,
+      "notes": "Community SBC special",
+      "png": "images/100813714.png",
+      "dds": "images/100813714.dds",
+      "sha256": {
+        "png": "6d89e0c8d73f8e66d555fc533db730c7bbcf6f939f3eb12cd95dba5c2bed8e0f",
+        "dds": "78f397beffe13731ea946c2f38b1cbccdc38e2badd8e43b5e86f661900020f28"
+      }
+    },
+    "100819912": {
+      "resourceId": 100819912,
+      "assetId": 156616,
+      "name": "Franck Ribéry",
+      "type": "sbc",
+      "enabled": true,
+      "rarity": 24,
+      "png": "images/100819912.png",
+      "dds": "images/100819912.dds",
+      "sha256": {
+        "png": "8a72ad1c90e2debc9465ef83894d4229e75f5cd1faa318927ccc1b2c6ef0a1ea",
+        "dds": "b073721b95379322f1cbd08463ae2ddc6da688fe3e0eb9cceef2a284f4f54d2b"
+      }
+    },
+    "100843109": {
+      "resourceId": 100843109,
+      "assetId": 179813,
+      "name": "Cavani",
+      "type": "totw",
+      "enabled": true,
+      "rarity": 3,
+      "png": "images/100843109.png",
+      "dds": "images/100843109.dds",
+      "sha256": {
+        "png": "fc1dd2c54ea5fb2adbba44d853747f28feb80c642fa2b699495be66a36d5daf1",
+        "dds": "2b642ee58719ae43c8b1cbaefd4f19cd401c4b7e701ca9952f868634c5e9e25c"
+      }
+    },
+    "100853344": {
+      "resourceId": 100853344,
+      "assetId": 190048,
+      "name": "Gerd Müller",
+      "type": "icon",
+      "enabled": true,
+      "rarity": 12,
+      "notes": "DDS available",
+      "dds": "images/100853344.dds",
+      "sha256": {
+        "dds": "b2ae90d8e7d0f79c47ad0d0db1bd1a9245918baaa50b00b2a350de1562fe946e"
+      }
+    },
+    "100862747": {
+      "resourceId": 100862747,
+      "assetId": 199451,
+      "name": "Wissam Ben Yedder",
+      "type": "otw",
+      "enabled": true,
+      "rarity": 21,
+      "png": "images/100862747.png",
+      "dds": "images/100862747.dds",
+      "sha256": {
+        "png": "31ea47acde83ebbb5de63a1b0db7478888045da4f81c2af34bc649d5081f0bd3",
+        "dds": "11d842a02bc76edfc3e00e094bab910cfb1b988d413dd853eec5397c798ecf8d"
+      }
+    },
+    "100864695": {
+      "resourceId": 100864695,
+      "assetId": 201399,
+      "name": "Icardi",
+      "type": "totw",
+      "enabled": true,
+      "rarity": 3,
+      "png": "images/100864695.png",
+      "dds": "images/100864695.dds",
+      "sha256": {
+        "png": "2b53f8483ed30e473d4a072d004552ff72abe1e42c0ba94ac31f16689831a9c0",
+        "dds": "69182022ab6012b8e1a5bf006438d2fbcf3c40afe54d365bb39ee4c4042d579f"
+      }
+    },
+    "117485709": {
+      "resourceId": 117485709,
+      "assetId": 45197,
+      "name": "Xabi Alonso",
+      "type": "special",
+      "enabled": true,
+      "notes": "MNG special resource",
+      "png": "images/117485709.png",
+      "dds": "images/117485709.dds",
+      "sha256": {
+        "png": "c01f2f2c6e53ab6066fcbcb877de8af56bde4d38db69e4f2143976c5c4ba3e78",
+        "dds": "6fe89048491999932e127b9a30714412441f25b046429f5863c2c12b53102f0a"
+      }
+    },
+    "117553934": {
+      "resourceId": 117553934,
+      "assetId": 113422,
+      "name": "David Villa",
+      "type": "special",
+      "enabled": true,
+      "notes": "MNG special resource",
+      "png": "images/117553934.png",
+      "dds": "images/117553934.dds",
+      "sha256": {
+        "png": "793630872335dcc6c742be7461647e03f8f14cccaa121ca58de6e594e287cac7",
+        "dds": "4061ae044658341660473a228a30e46030ca63edb03a930a5b4e324c179b08b3"
+      }
+    },
+    "117578961": {
+      "resourceId": 117578961,
+      "assetId": 138449,
+      "name": "Kaká",
+      "type": "special",
+      "enabled": true,
+      "notes": "MNG special resource",
+      "png": "images/117578961.png",
+      "dds": "images/117578961.dds",
+      "sha256": {
+        "png": "686985525ee0e50e142a9dc2afdb3df7939587ad232b16ba2d1cad61afb776d3",
+        "dds": "e9a96db5b47d3b3ec5bd71c9e8e75ded7b746f86e24e91d1ddd9fcabdd167301"
+      }
+    },
+    "117597128": {
+      "resourceId": 117597128,
+      "assetId": 156616,
+      "name": "Franck Ribéry",
+      "type": "special",
+      "enabled": true,
+      "notes": "MNG special resource",
+      "png": "images/117597128.png",
+      "dds": "images/117597128.dds",
+      "sha256": {
+        "png": "2602a0f78c3ba1a57de6aabe95091186620018751ad7803305c6e39e2c2ac386",
+        "dds": "212e809a18bb1b7b0e11e64dfaa2b647e02b22354ab824570b5c919b7b3f4c07"
+      }
+    },
+    "134231460": {
+      "resourceId": 134231460,
+      "assetId": 13732,
+      "name": "John Terry",
+      "type": "flashback",
+      "enabled": true,
+      "rarity": 32,
+      "notes": "Flashback special only",
+      "png": "images/134231460.png",
+      "dds": "images/134231460.dds",
+      "sha256": {
+        "png": "f5f756cf5a35204d9d08cf07fd4950cb101f57e86942d77d1d11b35dc8adc7a5",
+        "dds": "db5f0e89f70096aa4c4c1699122ac7595c9b5cae0feccd9302ad5cdaf001a212"
+      }
+    },
+    "184716773": {
+      "resourceId": 184716773,
+      "assetId": 167397,
+      "name": "Radamel Falcao",
+      "type": "special",
+      "enabled": true,
+      "notes": "Normalized from local source p100987654",
+      "png": "images/184716773.png",
+      "dds": "images/184716773.dds",
+      "sha256": {
+        "png": "610443ae26e2ec03ffacf6d8f36014b421d44b8f707d65182fac1a71707b23e7",
+        "dds": "826125b23cf54e63d3eddd8c0a37ca95a96151d6d66c0536eb05206168b28c0b"
+      }
+    }
+  }
+}
