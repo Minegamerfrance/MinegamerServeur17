@@ -3007,13 +3007,15 @@ function openPack(packId, body={}, includeDisabled=false, reward=false) {
     let specialSlots=guaranteed;
     if(!specialSlots&&Math.random()<pack.specialChance)specialSlots=1;
 
+    const cloudCards=Array.isArray(body.cloudResourceIds)?body.cloudResourceIds.map(id=>catalogByResource.get(Number(id))).filter(Boolean):[];
+    if(body.cloudAuthorized===true&&cloudCards.length<pack.players)return {status:503,error:'CLOUD_PACK_CONTENT_INVALID',reason:'CLOUD_PACK_CONTENT_INVALID'};
     for(let slot=0;slot<pack.count;slot++){
       const rare=slot<pack.rares;
       if(slot<pack.players){
         const specialOnly=!contents.base;
-        let card;
-        if(slot<guaranteedLegends)card=randomLegend(used,contents);
-        else if(slot<(guaranteedLegends+specialSlots)||specialOnly)card=randomSpecial(used,contents);
+        let card=cloudCards[slot];
+        if(!card&&slot<guaranteedLegends)card=randomLegend(used,contents);
+        else if(!card&&(slot<(guaranteedLegends+specialSlots)||specialOnly))card=randomSpecial(used,contents);
         if(!card&&contents.base)card=weightedBase(pack.tier,rare,used);
         if(!card)card=randomLegend(used,{...contents,legends:true})||weightedBase(pack.tier,rare,used);
         used.add(card.resourceId);
@@ -3167,7 +3169,7 @@ async function authorizeCloudPackPurchase(packId,body={}) {
     });
     const payload=await response.json().catch(()=>({}));
     if(!response.ok||payload.ok!==true)return {ok:false,status:response.status||503,error:String(payload.error||'CLOUD_PURCHASE_FAILED')};
-    return {ok:true,transactionId,profile:payload.profile};
+    return {ok:true,transactionId,profile:payload.profile,playerResourceIds:Array.isArray(payload.playerResourceIds)?payload.playerResourceIds.map(Number):[]};
   }catch(error){
     logger(`[mng-cloud] pack purchase failed pack=${packId}: ${error.message}`);
     return {ok:false,status:503,error:'CLOUD_UNAVAILABLE'};
@@ -3184,7 +3186,7 @@ async function openStorePack(body={}) {
   }
   const authorization=await authorizeCloudPackPurchase(requested,body);
   if(!authorization.ok)return {status:authorization.status,error:authorization.error,reason:authorization.error};
-  return openPack(requested,{...body,cloudAuthorized:true,cloudProfile:authorization.profile,transactionId:authorization.transactionId});
+  return openPack(requested,{...body,cloudAuthorized:true,cloudProfile:authorization.profile,cloudResourceIds:authorization.playerResourceIds,transactionId:authorization.transactionId});
 }
 
 function openRewardPack(instanceId) {

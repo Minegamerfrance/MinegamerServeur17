@@ -1,13 +1,13 @@
 {
-  "version": "1.3.1",
-  "notes": "Sécurité étape 2A : les achats de packs nécessitent une session MNG et le débit des crédits est validé par le cloud.",
+  "version": "1.3.2",
+  "notes": "Sécurité étape 2B : le cloud choisit désormais les joueurs contenus dans les packs et impose le tirage au serveur local.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "3301154d2419d96690de1f449a701a70ccd284992fb498ca8b5ba24a2ab91209",
-      "size": 389670
+      "sha256": "7d809b93c3cc1e22cc61ee9608eff77de63e49b81661f33adff85cdf1ae34414",
+      "size": 390154
     },
     {
       "scope": "server",
