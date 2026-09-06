@@ -1,6 +1,6 @@
 {
-  "version": "1.1.0",
-  "notes": "Mise à jour complète MNG FUT : serveur local et DB Frosty ModData Editor.",
+  "version": "1.2.0",
+  "notes": "MNG FUT sécurisé : manifeste signé, contrôle d’intégrité du serveur et DB Frosty complète.",
   "files": [
     {
       "scope": "server",
