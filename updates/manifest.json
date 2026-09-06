@@ -1,0 +1,13 @@
+{
+  "version": "1.0.1",
+  "notes": "Premier test du système de mise à jour distante MNG FUT.",
+  "files": [
+    {
+      "scope": "server",
+      "source": "files/server/launcher-update-test.txt",
+      "target": "data/launcher-update-test.txt",
+      "sha256": "fb0201e316cf78f31d5398d4d2cfab2dd23a480d774922a6cd1ad0ae6a6b6653",
+      "size": 64
+    }
+  ]
+}

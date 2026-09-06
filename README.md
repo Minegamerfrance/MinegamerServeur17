@@ -34,3 +34,7 @@ Aucun `assetId` normal n'est utilisé comme alias en ligne.
 5. Sur le serveur MNG : `SYNCHRONISER-IMAGES-GITHUB.bat`.
 
 Le serveur conserve ensuite les fichiers dans son cache local.
+
+## Mises à jour du lanceur
+
+Le dossier `updates` contient le manifeste utilisé par MNG FUT Launcher. La version `1.0.1` installe uniquement un fichier témoin afin de valider le téléchargement, le contrôle SHA-256, la sauvegarde et l'installation sans modifier FIFA ni Frosty.
