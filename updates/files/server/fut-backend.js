@@ -4,6 +4,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const ROOT = __dirname;
 const CATALOG_PATH = path.join(ROOT, 'data', 'fifa17-card-catalog.json');
@@ -2967,8 +2968,21 @@ function openPack(packId, body={}, includeDisabled=false, reward=false) {
   const usePoints=currency.includes('point')||body.useFifaPoints===true;
   const cost=reward?0:usePoints?pack.points:pack.coins;
   const balance=usePoints?state.points:state.coins;
-  if(balance<cost)return {error:'INSUFFICIENT_FUNDS',reason:usePoints?'INSUFFICIENT_POINTS':'INSUFFICIENT_COINS',status:409};
-  if(usePoints)state.points-=cost;else state.coins-=cost;
+  if(!reward&&body.cloudAuthorized===true&&body.cloudProfile){
+    state.coins=Math.max(0,Math.floor(Number(body.cloudProfile.coins)||0));
+    state.points=Math.max(0,Math.floor(Number(body.cloudProfile.fifaPoints)||0));
+    if(MNG_CLOUD_PROFILE){
+      MNG_CLOUD_PROFILE.coins=state.coins;
+      MNG_CLOUD_PROFILE.fifaPoints=state.points;
+      MNG_CLOUD_PROFILE.walletRevision=Math.max(1,Math.floor(Number(body.cloudProfile.walletRevision)||MNG_CLOUD_PROFILE.walletRevision));
+      MNG_CLOUD_PROFILE.walletUpdatedAt=Math.max(0,Math.floor(Number(body.cloudProfile.walletUpdatedAt)||0));
+      persistMngCloudSessionWallet(body.cloudProfile);
+      MNG_CLOUD_LAST_WALLET_KEY=mngWalletKey();
+    }
+  }else{
+    if(balance<cost)return {error:'INSUFFICIENT_FUNDS',reason:usePoints?'INSUFFICIENT_POINTS':'INSUFFICIENT_COINS',status:409};
+    if(usePoints)state.points-=cost;else state.coins-=cost;
+  }
 
   const used=new Set(),drawn=[];
   const contents=pack.contents||PACK_CONTENT_DEFAULTS;
@@ -3141,7 +3155,26 @@ function unopenedRewardPacks() {
   };
 }
 
-function openStorePack(body={}) {
+async function authorizeCloudPackPurchase(packId,body={}) {
+  if(!MNG_CLOUD_PROFILE?.apiBaseUrl||!MNG_CLOUD_PROFILE?.token)return {ok:false,status:401,error:'MNG_CLOUD_LOGIN_REQUIRED'};
+  const currency=String(body.currency||body.currencyType||body.useCurrency||'coins').toLowerCase();
+  const normalizedCurrency=currency.includes('point')||body.useFifaPoints===true?'points':'coins';
+  const transactionId=String(body.transactionId||body.idempotencyKey||crypto.randomUUID());
+  try{
+    const response=await fetch(`${MNG_CLOUD_PROFILE.apiBaseUrl}/api/store/purchase`,{
+      method:'POST',headers:{'content-type':'application/json','authorization':`Bearer ${MNG_CLOUD_PROFILE.token}`},
+      body:JSON.stringify({transactionId,packId:Number(packId),currency:normalizedCurrency})
+    });
+    const payload=await response.json().catch(()=>({}));
+    if(!response.ok||payload.ok!==true)return {ok:false,status:response.status||503,error:String(payload.error||'CLOUD_PURCHASE_FAILED')};
+    return {ok:true,transactionId,profile:payload.profile};
+  }catch(error){
+    logger(`[mng-cloud] pack purchase failed pack=${packId}: ${error.message}`);
+    return {ok:false,status:503,error:'CLOUD_UNAVAILABLE'};
+  }
+}
+
+async function openStorePack(body={}) {
   const requested=Number(body.packId||body.id||body.purchaseId||body.purchasedPackId||304);
   const reward=state.rewardPacks.find(entry=>Number(entry.id)===requested);
   if(reward)return openRewardPack(reward.id);
@@ -3149,7 +3182,9 @@ function openStorePack(body={}) {
     const pending=state.rewardPacks.find(entry=>Number(entry.packId)===requested);
     return pending?openRewardPack(pending.id):{status:404,error:'REWARD_PACK_NOT_FOUND'};
   }
-  return openPack(requested,body);
+  const authorization=await authorizeCloudPackPurchase(requested,body);
+  if(!authorization.ok)return {status:authorization.status,error:authorization.error,reason:authorization.error};
+  return openPack(requested,{...body,cloudAuthorized:true,cloudProfile:authorization.profile,transactionId:authorization.transactionId});
 }
 
 function openRewardPack(instanceId) {
@@ -6032,7 +6067,7 @@ function handle(req,res,urlPath,requestBody) {
   }
   if(urlPath==='/ut/game/fifa17/purchased/items'&&method==='GET')return send(200,purchasedResponse());
   if((urlPath==='/ut/game/fifa17/purchased/items'||urlPath==='/ut/game/fifa17/store')&&method==='POST'){
-    const result=openStorePack(body);
+    const result={status:503,error:'CLOUD_PURCHASE_REQUIRES_ASYNC_RELAY'};
     return send(result.status||200,result);
   }
   if([
@@ -6044,12 +6079,12 @@ function handle(req,res,urlPath,requestBody) {
   match=urlPath.match(/^\/ut\/game\/fifa17\/purchased\/packs\/(\d+)\/open$/);
   if(match&&['POST','PUT'].includes(method)){
     const reward=state.rewardPacks.some(entry=>Number(entry.id)===Number(match[1])||Number(entry.packId)===Number(match[1]))||Number(match[1])===WEEKLY_TOTW_PACK_ID||Number(match[1])===BAYERN_SQUAD_PACK_ID||Number(match[1])===TERRY_SBC_REWARD_PACK_ID;
-    const result=reward?openRewardPack(Number(match[1])):openPack(Number(match[1]),body);
+    const result=reward?openRewardPack(Number(match[1])):{status:503,error:'CLOUD_PURCHASE_REQUIRES_ASYNC_RELAY'};
     return send(result.status||200,result);
   }
   if(/^\/ut\/v2\/game\/fifa17\/store\/transaction(?:\/\d+)?$/.test(urlPath)){
     if(String(body.state||'').toUpperCase()==='TRANSACTIONCANCEL')return send(200,{state:'NOTRANSACTION'});
-    const result=openStorePack(body);
+    const result={status:503,error:'CLOUD_PURCHASE_REQUIRES_ASYNC_RELAY'};
     return send(result.status||200,{state:result.status?'FAILED':'COMPLETED',...result});
   }
   if(urlPath==='/ut/game/fifa17/settings')return send(200,settingsDocument());
@@ -7086,7 +7121,7 @@ const lahmLoanSbcSquad={
   return false;
 }
 
-module.exports={init,handle,squadDocument,squadList,hubDocument,creditsDocument,homeWalletDocument,homeRecordDocument,settingsDocument,pileSizeDocument,seasonListDocument,seasonUserDocument,seasonHistoryDocument,
+module.exports={init,handle,openStorePack,squadDocument,squadList,hubDocument,creditsDocument,homeWalletDocument,homeRecordDocument,settingsDocument,pileSizeDocument,seasonListDocument,seasonUserDocument,seasonHistoryDocument,
   clubStats,packCatalogue,openPack,filteredClub,purchasedResponse,marketSearch,buyMarketListing,updateItems,storeDescriptionsXml,
   getState:()=>state,getCatalog:()=>catalog,getIdentity,setIdentity,getTotwIdentity,syncMngCloudWallet,queueMngCloudWalletSync,syncMngCloudClub,queueMngCloudClubSync,totwUserListDocument,totwPublicUserDocument,totwSquadDocument,totwSessionActive};
 

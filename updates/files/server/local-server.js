@@ -869,7 +869,7 @@ function rawAccountServer() {
 function caHandler(req,res) {
   const chunks=[];
   req.on('data',c=>chunks.push(c));
-  req.on('end',()=>{
+  req.on('end',async ()=>{
     const requestBody=Buffer.concat(chunks).toString('utf8');
     log(`[gosca] ${req.method} ${req.url} body=${requestBody.slice(0,512)}`);
     const pem=fs.readFileSync(path.join(root,'certs','local-server.crt'),'utf8');
@@ -1406,7 +1406,7 @@ function buildPasResponse(method,rawUrl,requestBody=''){
 function serviceHttpHandler(name,req,res){
   const chunks=[];
   req.on('data',c=>chunks.push(c));
-  req.on('end',()=>{
+  req.on('end',async ()=>{
     const requestBody=Buffer.concat(chunks).toString('utf8');
     const isFut=name==='fut'||name==='secure';
     // The supplied Python revival normalizes every route with .lower().
@@ -1568,6 +1568,21 @@ function serviceHttpHandler(name,req,res){
         const wallet=futBackend.homeWalletDocument();
         json(res,200,{clubName:'',clubAbbr:'',established:0,creationTime:0,clubPlayers:0,clubPlayerCount:0,players:0,clubItems:0,squadCount:0,activeSquadId:0,auctionCount:0,tradePileCount:0,transferListCount:0,...wallet});
         log(`[first-run-trace] EMPTY_HUB served path=${urlPath}`);
+    } else if(isFut && req.method==='POST' && (urlPath==='/ut/game/fifa17/purchased/items'||urlPath==='/ut/game/fifa17/store')) {
+        const result=await futBackend.openStorePack(requestBody?JSON.parse(requestBody):{});
+        json(res,result.status||200,result);
+        log(`[${name}] FUT cloud store purchase handled ${req.method} ${req.url}`);
+    } else if(isFut && /^\/ut\/v2\/game\/fifa17\/store\/transaction(?:\/\d+)?$/.test(urlPath)) {
+        const body=requestBody?JSON.parse(requestBody):{};
+        if(String(body.state||'').toUpperCase()==='TRANSACTIONCANCEL')json(res,200,{state:'NOTRANSACTION'});
+        else { const result=await futBackend.openStorePack(body); json(res,result.status||200,{state:result.status?'FAILED':'COMPLETED',...result}); }
+        log(`[${name}] FUT cloud transaction handled ${req.method} ${req.url}`);
+    } else if(isFut && ['POST','PUT'].includes(req.method) && /^\/ut\/game\/fifa17\/purchased\/packs\/\d+\/open$/.test(urlPath)) {
+        const body=requestBody?JSON.parse(requestBody):{};
+        const packId=Number(urlPath.match(/\/(\d+)\/open$/)?.[1]);
+        const result=await futBackend.openStorePack({...body,packId});
+        json(res,result.status||200,result);
+        log(`[${name}] FUT cloud pack opening handled ${req.method} ${req.url}`);
     } else if(isFut && futBackend.handle(req,res,urlPath,requestBody)) {
         log(`[${name}] FUT persistent backend handled ${req.method} ${req.url}`);
     } else if(isFut && (urlPath==='/ut/game/fifa17/phishing' || urlPath==='/ut/game/fifa17/phishing/question')) {

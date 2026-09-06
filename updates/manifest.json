@@ -1,20 +1,20 @@
 {
-  "version": "1.2.0",
-  "notes": "MNG FUT sécurisé : manifeste signé, contrôle d’intégrité du serveur et DB Frosty complète.",
+  "version": "1.3.0",
+  "notes": "Sécurité étape 2A : les achats de packs nécessitent une session MNG et le débit des crédits est validé par le cloud.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "669c1e34bdac8a9f37e232fd3e92df9339ebc89a81ccd5a16e82a57d80cf436c",
-      "size": 387304
+      "sha256": "585ec1ac4f5b3d5fb76f6ba9c26c177b3aac320cb1508c6c47dc3e27d97f0c93",
+      "size": 389678
     },
     {
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "f08b7cb774fc29b76ed55bef5bd2c8b1d5816b4d2dd506a839833c8425a814cc",
-      "size": 99080
+      "sha256": "5580a2cc705dec1c33e8bde8b25010bdd1cbc8489b3d35f5044f04fdab53a444",
+      "size": 100396
     },
     {
       "scope": "server",
