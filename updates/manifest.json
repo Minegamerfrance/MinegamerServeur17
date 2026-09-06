@@ -1,6 +1,6 @@
 {
-  "version": "1.0.2",
-  "notes": "Mise à jour réelle du serveur MNG FUT : backend, routes locales, images dynamiques, catalogue joueurs, entraîneurs et packs.",
+  "version": "1.1.0",
+  "notes": "Mise à jour complète MNG FUT : serveur local et DB Frosty ModData Editor.",
   "files": [
     {
       "scope": "server",
@@ -57,6 +57,16 @@
       "target": "data/mng-pack-admin.json",
       "sha256": "6d455e163c41b62621a0c2d723a6e3622b80e1ec38123f61d1c8723eecaa7511",
       "size": 18548
+    }
+  ],
+  "archives": [
+    {
+      "scope": "game",
+      "source": "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/frosty-db-1.0.0/MNG-FIFA17-FROSTY-DB-1.0.0.zip",
+      "target": "ModData/Editor",
+      "sha256": "e74c4bcd4856222c3a6c13ce8b74d0874aee897e3c5eb00288e27e8d001fc8da",
+      "size": 167071645,
+      "format": "zip"
     }
   ]
 }
