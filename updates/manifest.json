@@ -1,13 +1,62 @@
 {
-  "version": "1.0.1",
-  "notes": "Premier test du système de mise à jour distante MNG FUT.",
+  "version": "1.0.2",
+  "notes": "Mise à jour réelle du serveur MNG FUT : backend, routes locales, images dynamiques, catalogue joueurs, entraîneurs et packs.",
   "files": [
     {
       "scope": "server",
-      "source": "files/server/launcher-update-test.txt",
-      "target": "data/launcher-update-test.txt",
-      "sha256": "fb0201e316cf78f31d5398d4d2cfab2dd23a480d774922a6cd1ad0ae6a6b6653",
-      "size": 64
+      "source": "files/server/fut-backend.js",
+      "target": "fut-backend.js",
+      "sha256": "a008f7c285f55d2bab92d68691e83b7d51e0afb3f63f916377bd4f65614efa5c",
+      "size": 387312
+    },
+    {
+      "scope": "server",
+      "source": "files/server/local-server.js",
+      "target": "local-server.js",
+      "sha256": "f08b7cb774fc29b76ed55bef5bd2c8b1d5816b4d2dd506a839833c8425a814cc",
+      "size": 99080
+    },
+    {
+      "scope": "server",
+      "source": "files/server/mng-online-images.js",
+      "target": "mng-online-images.js",
+      "sha256": "a2ce1aea0eab3904c39cd3fd0f74c10e18f7d158e61799fd929c5fb901308ab4",
+      "size": 8225
+    },
+    {
+      "scope": "server",
+      "source": "files/server/mng-sbc-set-images.js",
+      "target": "mng-sbc-set-images.js",
+      "sha256": "a3933e1aea639f9cebf5a0e4fe0bde0baedf271862202465e5f0147a191ed993",
+      "size": 8761
+    },
+    {
+      "scope": "server",
+      "source": "files/server/Start-Local-FIFA17-Test.ps1",
+      "target": "Start-Local-FIFA17-Test.ps1",
+      "sha256": "c9ebad644c5faa0aeb352034c133577640b1c2299878ae1545ac3efe07e22f59",
+      "size": 19684
+    },
+    {
+      "scope": "server",
+      "source": "files/server/data/fifa17-card-catalog.json",
+      "target": "data/fifa17-card-catalog.json",
+      "sha256": "55ec09781c47e8e22ad0ec4c69c2165395cd0c7757a5d95566c0e1685580ddca",
+      "size": 4868676
+    },
+    {
+      "scope": "server",
+      "source": "files/server/data/fifa17-manager-catalog.json",
+      "target": "data/fifa17-manager-catalog.json",
+      "sha256": "200013d0ae1ffc5775ed65d935bacb61ccae747f09659d56a841e57dd162bb70",
+      "size": 304454
+    },
+    {
+      "scope": "server",
+      "source": "files/server/data/mng-pack-admin.json",
+      "target": "data/mng-pack-admin.json",
+      "sha256": "a3ba0017c374717d6d59a50e148f45a970ea0f0de2ca7ee252fddb41e41189c7",
+      "size": 18856
     }
   ]
 }
