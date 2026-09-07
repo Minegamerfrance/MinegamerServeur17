@@ -1,13 +1,13 @@
 {
-  "version": "1.4.3",
+  "version": "1.4.4",
   "notes": "Marché mondial : synchronisation fiable du joueur avant mise en vente, contrôle d’identité cloud et compteur de liste des transferts actualisé.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "3253db21a2e8c0746f4460d15e0c4d67824a41418fe9e242d63101abe394cc68",
-      "size": 396861
+      "sha256": "923dd3dfac71e67b0458c8ebe2a5319cc6aa9d6dd02b18f6c2e5232663aadaef",
+      "size": 396866
     },
     {
       "scope": "server",
