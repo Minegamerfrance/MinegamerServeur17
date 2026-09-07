@@ -1,6 +1,6 @@
 {
-  "version": "1.4.4",
-  "notes": "Marché mondial : synchronisation fiable du joueur avant mise en vente, contrôle d’identité cloud et compteur de liste des transferts actualisé.",
+  "version": "1.4.5",
+  "notes": "Packs équilibrés côté cloud : les cartes spéciales et les joueurs 87+ sont désormais espacés selon l’historique récent du compte.",
   "files": [
     {
       "scope": "server",
