@@ -6,8 +6,8 @@
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "75261280fc233d2e843dd7753dc3dc92b0f873359bf380bb2619c7135844a874",
-      "size": 396869
+      "sha256": "3253db21a2e8c0746f4460d15e0c4d67824a41418fe9e242d63101abe394cc68",
+      "size": 396861
     },
     {
       "scope": "server",
