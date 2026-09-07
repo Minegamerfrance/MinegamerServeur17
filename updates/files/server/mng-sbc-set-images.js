@@ -66,13 +66,11 @@ function validPng(buf){
 function remoteUrls(id){
   if(!config.rawBaseUrl||!config.remoteDir)return [];
   const base=`${config.rawBaseUrl}/${config.remoteDir}`;
-  // GitHub paths are case-sensitive. Support both the short and the exact
-  // Frosty-like filename, with .png AND .PNG (the user's current files use PNG).
   return [
-    `${base}/${Number(id)}.png`,
-    `${base}/${Number(id)}.PNG`,
     `${base}/sbc_set_image_${Number(id)}.png`,
-    `${base}/sbc_set_image_${Number(id)}.PNG`
+    `${base}/sbc_set_image_${Number(id)}.PNG`,
+    `${base}/${Number(id)}.png`,
+    `${base}/${Number(id)}.PNG`
   ];
 }
 async function downloadOne(id){
