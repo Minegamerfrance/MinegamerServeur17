@@ -1,13 +1,13 @@
 {
-  "version": "1.5.8",
-  "notes": "Correction native FIFA 17 de la liste des transferts : les cartes disponibles utilisent maintenant l'état inactive attendu par le jeu, afin que le bouton A ouvre correctement l'écran de mise en vente.",
+  "version": "1.5.9",
+  "notes": "Correction de la liste des transferts : toutes les cartes disponibles sont de nouveau renvoyées au jeu avec l'état natif inactive, sans masquer les cartes locales lors de la fusion avec le marché cloud.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "4009616644544d780745417bc6e221cdf16fc6f9d4cce45e372268a0b142e015",
-      "size": 402523
+      "sha256": "fc6616fa9552b1552efd494efa851aaf860478d58d6b034eb5273b2a5e2b9b46",
+      "size": 402632
     },
     {
       "scope": "server",
