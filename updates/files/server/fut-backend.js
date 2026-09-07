@@ -2599,8 +2599,24 @@ function nextId(targetState=state) {
   return id;
 }
 
+function totwQuickSellValue(card) {
+  const cardType=String(card?.cardType||'').toLowerCase();
+  const rareFlag=Number(card?.rareFlag??card?.rareflag??0);
+  if(cardType!=='totw'&&rareFlag!==3)return null;
+  const rating=Math.max(0,Number(card?.rating)||0);
+  const quality=String(card?.quality||'').toLowerCase();
+  const ranges=quality==='bronze'
+    ?{min:3421,max:5213,low:45,high:64}
+    :quality==='silver'
+      ?{min:5512,max:8121,low:65,high:74}
+      :{min:9427,max:11753,low:75,high:99};
+  const progress=Math.max(0,Math.min(1,(rating-ranges.low)/Math.max(1,ranges.high-ranges.low)));
+  return Math.round(ranges.min+(ranges.max-ranges.min)*progress);
+}
+
 function makePlayerItem(card, targetState=state, pile=PILE_CLUB, untradeable=false) {
   const attributes = (card.attributes || [0,0,0,0,0,0]).slice(0,6).map(Number);
+  const totwDiscardValue=totwQuickSellValue(card);
   return {
     id: nextId(targetState),
     assetId: Number(card.assetId),
@@ -2649,7 +2665,7 @@ function makePlayerItem(card, targetState=state, pile=PILE_CLUB, untradeable=fal
     suspension: 0,
     training: 0,
     playStyle: 0,
-    discardValue: Math.max(10, Math.floor(Math.pow(Math.max(0,(Number(card.rating)||0)-40),2)/20)),
+    discardValue: totwDiscardValue??Math.max(10, Math.floor(Math.pow(Math.max(0,(Number(card.rating)||0)-40),2)/20)),
     lastSalePrice: 0,
     marketDataMinPrice: 150,
     marketDataMaxPrice: 15000000,
@@ -3464,6 +3480,8 @@ function discardItem(itemId) {
     saveState();
     return {itemData:{id:item.id,pile:0,itemState:'discarded',discardValue:0},credits:state.coins,totalCredits:state.coins,coins:state.coins};
   }
+  const totwDiscardValue=totwQuickSellValue(item);
+  if(totwDiscardValue!==null)item.discardValue=totwDiscardValue;
   const value=Number(item.discardValue)||0;
   state.coins+=value;
   item.itemState='discarded';
@@ -3528,6 +3546,10 @@ function filteredClub(searchParams) {
 
   const responseItems=items.map(item=>{
     const itemType=String(item.itemType||'').toLowerCase();
+    if(itemType==='player'){
+      const totwDiscardValue=totwQuickSellValue(item);
+      if(totwDiscardValue!==null)item.discardValue=totwDiscardValue;
+    }
     if(itemType==='manager')return nativeManagerItem(item);
     if(['kit','stadium','ball','custom','badge'].includes(itemType))return nativeClubIdentityItem(item);
     return item;
