@@ -1,13 +1,13 @@
 {
-  "version": "1.5.5",
-  "notes": "Correction de la liste des transferts cloud : les cartes placées dans la liste réapparaissent immédiatement dans la section disponible, avec leur identifiant d'action conservé pour le bouton A. Inclut aussi l'accélération des images SBC de la version précédente.",
+  "version": "1.5.6",
+  "notes": "Correction native de la liste des transferts : les cartes déplacées restent disponibles au lieu d'apparaître expirées, leur véritable identifiant de carte est conservé et le bouton A ouvre de nouveau l'écran de mise en vente.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "3923a30f582da90475f7fd3df276fda287818e6fedd0d5de69e19d6df7f1d709",
-      "size": 401731
+      "sha256": "74000f223ee088565891298d33c844e53cff795d24d27ea56c7c5740953263ed",
+      "size": 401801
     },
     {
       "scope": "server",
