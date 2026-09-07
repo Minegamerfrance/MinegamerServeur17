@@ -1,13 +1,13 @@
 {
-  "version": "1.5.4",
-  "notes": "Correction native du bouton A dans la liste des transferts : les cartes disponibles utilisent désormais l'état officiel invalide avec un identifiant d'action conservé. Le chargement des images SBC est aussi accéléré en testant d'abord leurs noms réels.",
+  "version": "1.5.5",
+  "notes": "Correction de la liste des transferts cloud : les cartes placées dans la liste réapparaissent immédiatement dans la section disponible, avec leur identifiant d'action conservé pour le bouton A. Inclut aussi l'accélération des images SBC de la version précédente.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "d311f5aa6c7dfe096c69e2d570f0df0bb619ff619f6879381469c21cbf79baa4",
-      "size": 401701
+      "sha256": "3923a30f582da90475f7fd3df276fda287818e6fedd0d5de69e19d6df7f1d709",
+      "size": 401731
     },
     {
       "scope": "server",
