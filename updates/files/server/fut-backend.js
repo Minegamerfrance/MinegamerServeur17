@@ -6116,6 +6116,13 @@ function handle(req,res,urlPath,requestBody) {
     return send(result.status||200,{state:result.status?'FAILED':'COMPLETED',...result});
   }
   if(urlPath==='/ut/game/fifa17/settings')return send(200,settingsDocument());
+  if(urlPath==='/ut/game/fifa17/marketdata/pricelimits'&&method==='GET'){
+    const definitionId=Number(query.get('defId')||query.get('definitionId')||query.get('resourceId')||0);
+    const item=state.items.find(entry=>[Number(entry.resourceId),Number(entry.assetId),16777216+Number(entry.assetId)].includes(definitionId));
+    const minPrice=Math.max(150,Number(item?.marketDataMinPrice)||150);
+    const maxPrice=Math.max(minPrice,Number(item?.marketDataMaxPrice)||15000000);
+    return send(200,{priceLimits:[{resourceId:definitionId,minPrice,maxPrice}]});
+  }
   if((urlPath.includes('/price')||urlPath.includes('/pricerange'))&&method==='GET'){
     return send(200,{minPrice:150,maxPrice:15000000,minimumPrice:150,maximumPrice:15000000,priceRange:{min:150,max:15000000}});
   }

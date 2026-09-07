@@ -1,13 +1,13 @@
 {
-  "version": "1.4.0",
-  "notes": "Marché des transferts mondial MNG FUT : ventes entre joueurs, achats sécurisés par le Cloud et compteur d'annonces en direct.",
+  "version": "1.4.1",
+  "notes": "Correction du blocage de l'écran de mise en vente : format natif FIFA 17 des limites de prix.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "be366d280deea1f83ebeaa4148221c108140958df3c49d2bf5102b3fe13ae359",
-      "size": 394599
+      "sha256": "b495ff8be22a55f755819091a6130f39ef97d563e39732634298ed4171e36758",
+      "size": 395163
     },
     {
       "scope": "server",
