@@ -1,13 +1,13 @@
 {
-  "version": "1.5.9",
-  "notes": "Correction de la liste des transferts : toutes les cartes disponibles sont de nouveau renvoyées au jeu avec l'état natif inactive, sans masquer les cartes locales lors de la fusion avec le marché cloud.",
+  "version": "1.6.0",
+  "notes": "Correction définitive du bouton A dans la liste des transferts : le serveur conserve l'état interne inactive pour retrouver toutes les cartes, mais transmet l'état FIFA 17 none afin que les cartes disponibles restent sélectionnables et puissent être mises en vente.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "fc6616fa9552b1552efd494efa851aaf860478d58d6b034eb5273b2a5e2b9b46",
-      "size": 402632
+      "sha256": "02393b83939c85caa9733272c47538a4e4468d6bf1bf42bb06d0bd024feb0892",
+      "size": 402679
     },
     {
       "scope": "server",

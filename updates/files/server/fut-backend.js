@@ -3850,6 +3850,7 @@ function buyMarketListing(tradeId,body) {
 }
 
 const FIFA_TRADE_STATE_INACTIVE='inactive';
+const FIFA_TRADE_STATE_AVAILABLE='none';
 
 function refreshTradeListings() {
   const now=Math.floor(Date.now()/1000);
@@ -3868,7 +3869,7 @@ function wireTradeListing(listing) {
     ...listing,
     id:inactive?Number(itemData?.id)||0:Number(listing.tradeId),
     tradeId:inactive?0:Number(listing.tradeId),
-    tradeState:inactive?FIFA_TRADE_STATE_INACTIVE:listing.tradeState,
+    tradeState:inactive?FIFA_TRADE_STATE_AVAILABLE:listing.tradeState,
     itemData,
     startingBid:inactive?0:Number(listing.startingBid)||0,
     buyNowPrice:inactive?0:Number(listing.buyNowPrice)||0,
