@@ -1,13 +1,13 @@
 {
-  "version": "1.5.2",
-  "notes": "Correction de l'affichage des cartes simplement placées dans la liste des transferts : elles sont désormais disponibles à lister et ne sont plus faussement marquées comme expirées.",
+  "version": "1.5.3",
+  "notes": "Correction du bouton A dans la liste des transferts : les cartes disponibles conservent maintenant leur identifiant d'action tout en restant hors enchère jusqu'au choix du prix.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "dca2407d10a2e6da0956175e4061283e92c0ed450e36b68bf5e2685d91ea537b",
-      "size": 401693
+      "sha256": "c78fc078c1b09a65fd80ecea74632f5b947cb23dfb08b3bce07508ce29a23a6f",
+      "size": 401627
     },
     {
       "scope": "server",
