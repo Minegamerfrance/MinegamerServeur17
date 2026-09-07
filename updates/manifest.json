@@ -1,13 +1,13 @@
 {
-  "version": "1.4.6",
-  "notes": "Packs plus variés : protection cloud contre les mêmes joueurs répétés dans plusieurs ouvertures récentes.",
+  "version": "1.4.7",
+  "notes": "Transferts corrigés : reconnexion automatique au club cloud, tes annonces masquées de la recherche publique et joueurs non listés conservés dans ta liste des transferts.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "923dd3dfac71e67b0458c8ebe2a5319cc6aa9d6dd02b18f6c2e5232663aadaef",
-      "size": 396866
+      "sha256": "17fb849a4688ef6658284c5376a04f51b47291447c0d60bb3b34caa8ea205a96",
+      "size": 397391
     },
     {
       "scope": "server",
