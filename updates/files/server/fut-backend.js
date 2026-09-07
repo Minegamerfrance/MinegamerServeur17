@@ -239,7 +239,7 @@ let MNG_CLOUD_CLUB_SYNC_ENABLED = false;
 let MNG_CLOUD_CLUB_SYNC_TIMER = null;
 let MNG_CLOUD_CLUB_SYNC_IN_FLIGHT = false;
 let MNG_CLOUD_CLUB_SYNC_PENDING = false;
-let MNG_CLOUD_MARKET_COUNTS = {active:0,sold:0,expired:0,total:0};
+let MNG_CLOUD_MARKET_COUNTS = { active:0, sold:0, expired:0, total:0 };
 let MNG_CLOUD_CLUB_REVISION = 0;
 let MNG_CLOUD_LAST_CLUB_KEY = '';
 
