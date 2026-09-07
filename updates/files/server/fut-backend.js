@@ -3866,7 +3866,7 @@ function wireTradeListing(listing) {
     ...listing,
     id:inactive?Number(itemData?.id)||0:Number(listing.tradeId),
     tradeId:inactive?0:Number(listing.tradeId),
-    tradeState:inactive?'none':listing.tradeState,
+    tradeState:inactive?'inactive':listing.tradeState,
     itemData,
     startingBid:inactive?0:Number(listing.startingBid)||0,
     buyNowPrice:inactive?0:Number(listing.buyNowPrice)||0,
