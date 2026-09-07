@@ -1,13 +1,13 @@
 {
-  "version": "1.5.6",
-  "notes": "Correction native de la liste des transferts : les cartes déplacées restent disponibles au lieu d'apparaître expirées, leur véritable identifiant de carte est conservé et le bouton A ouvre de nouveau l'écran de mise en vente.",
+  "version": "1.5.7",
+  "notes": "Correction complète des actions de la liste des transferts : les cartes non listées utilisent désormais l'état natif FIFA 17 permettant l'action A, et une vente cloud expirée peut être remise en vente avec les nouveaux prix choisis.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "74000f223ee088565891298d33c844e53cff795d24d27ea56c7c5740953263ed",
-      "size": 401801
+      "sha256": "b72a8704c4ef815c7f9af3d671c4f8e109f2331f80b0c6f9a4a7f2b4522d9484",
+      "size": 402519
     },
     {
       "scope": "server",
