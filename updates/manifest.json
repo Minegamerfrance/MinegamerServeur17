@@ -1,6 +1,6 @@
 {
-  "version": "1.4.5",
-  "notes": "Packs équilibrés côté cloud : les cartes spéciales et les joueurs 87+ sont désormais espacés selon l’historique récent du compte.",
+  "version": "1.4.6",
+  "notes": "Packs plus variés : protection cloud contre les mêmes joueurs répétés dans plusieurs ouvertures récentes.",
   "files": [
     {
       "scope": "server",
