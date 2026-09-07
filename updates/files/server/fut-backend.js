@@ -6116,12 +6116,13 @@ function handle(req,res,urlPath,requestBody) {
     return send(result.status||200,{state:result.status?'FAILED':'COMPLETED',...result});
   }
   if(urlPath==='/ut/game/fifa17/settings')return send(200,settingsDocument());
-  if(urlPath==='/ut/game/fifa17/marketdata/pricelimits'&&method==='GET'){
+  if(['/ut/game/fifa17/marketdata/pricelimits','/ut/game/fifa17/marketdata/item/pricelimits'].includes(urlPath)&&method==='GET'){
     const definitionId=Number(query.get('defId')||query.get('definitionId')||query.get('resourceId')||0);
-    const item=state.items.find(entry=>[Number(entry.resourceId),Number(entry.assetId),16777216+Number(entry.assetId)].includes(definitionId));
-    const minPrice=Math.max(150,Number(item?.marketDataMinPrice)||150);
-    const maxPrice=Math.max(minPrice,Number(item?.marketDataMaxPrice)||15000000);
-    return send(200,{priceLimits:[{resourceId:definitionId,minPrice,maxPrice}]});
+    const itemIds=String(query.get('itemIdList')||'').split(',').map(Number).filter(Boolean);
+    const requestedItems=itemIds.length?itemIds.map(id=>state.items.find(entry=>Number(entry.id)===id)).filter(Boolean):[state.items.find(entry=>[Number(entry.resourceId),Number(entry.assetId),16777216+Number(entry.assetId)].includes(definitionId))].filter(Boolean);
+    const limits=requestedItems.map(item=>({...(itemIds.length?{itemId:Number(item.id)}:{defId:definitionId||Number(item.resourceId)}),minPrice:Math.max(150,Number(item.marketDataMinPrice)||150),maxPrice:Math.max(150,Number(item.marketDataMaxPrice)||15000000)}));
+    if(!limits.length)limits.push(itemIds.length?{itemId:itemIds[0]||0,minPrice:150,maxPrice:15000000}:{defId:definitionId,minPrice:150,maxPrice:15000000});
+    return send(200,limits);
   }
   if((urlPath.includes('/price')||urlPath.includes('/pricerange'))&&method==='GET'){
     return send(200,{minPrice:150,maxPrice:15000000,minimumPrice:150,maximumPrice:15000000,priceRange:{min:150,max:15000000}});

@@ -1,13 +1,13 @@
 {
-  "version": "1.4.1",
-  "notes": "Correction du blocage de l'écran de mise en vente : format natif FIFA 17 des limites de prix.",
+  "version": "1.4.2",
+  "notes": "Correction définitive du freeze de mise en vente : réponse MarketData sous forme de tableau natif FUT 17.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "b495ff8be22a55f755819091a6130f39ef97d563e39732634298ed4171e36758",
-      "size": 395163
+      "sha256": "bfa7fc8bba1a55ae832b77d9348c8a5a30fe09b1c6afb820ef52f4e3c8b82eca",
+      "size": 395650
     },
     {
       "scope": "server",
