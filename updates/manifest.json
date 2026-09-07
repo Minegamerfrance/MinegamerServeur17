@@ -1,20 +1,20 @@
 {
-  "version": "1.5.0",
-  "notes": "Cycle complet des transferts raccordé au cloud : état actif, minuterie, suivi périodique et expiration utilisent désormais les routes natives attendues par FIFA 17.",
+  "version": "1.5.1",
+  "notes": "Correction complète de la liste des transferts : les ventes expirées restent relistables, le bouton Relister tout fonctionne avec le cloud, les durées sont conservées et les anciennes cartes fantômes sont nettoyées sans dupliquer les joueurs.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "08a526900399037b0ee76a538d213ca913cf6fbcdb54ab4c92084de88fd7d437",
-      "size": 399002
+      "sha256": "94dcee037d391b09b91d6a70fbfed241c3bdd03e33b586c861b95fe9ec76bb5c",
+      "size": 401561
     },
     {
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "73fc69d43f4682c3f92e8609d1761f200db45c924e45c7513c08288c1a189dd4",
-      "size": 102603
+      "sha256": "c8daeb13298b07be99c98b7866165d14bd3afaf7233ccee743dfa43c2653144f",
+      "size": 104021
     },
     {
       "scope": "server",
