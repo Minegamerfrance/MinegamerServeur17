@@ -1591,6 +1591,20 @@ function serviceHttpHandler(name,req,res){
         const tradeId=Number(urlPath.match(/\/trade\/(\d+)\/bid$/)?.[1]);const result=await futBackend.cloudBuyMarketListing(tradeId,requestBody?JSON.parse(requestBody):{});json(res,result.status||200,result);log(`[${name}] FUT global market purchase tradeId=${tradeId} status=${result.status||200}`);
     } else if(isFut && req.method==='GET' && ['/ut/game/fifa17/tradepile','/tradepile'].includes(urlPath)) {
         const result=await futBackend.cloudTradePile();json(res,result.status||200,result);log(`[${name}] FUT global trade pile total=${result.total||0}`);
+    } else if(isFut && req.method==='PUT' && ['/ut/game/fifa17/auctionhouse/relist','/auctionhouse/relist'].includes(urlPath)) {
+        const localResult=futBackend.relistExpiredListings();
+        const cloudResult=await futBackend.cloudRelistExpired();
+        const result=await futBackend.cloudTradePile();
+        json(res,200,{success:true,relisted:Number(localResult.relisted||0)+Number(cloudResult.relisted||0),auctionInfo:result.auctionInfo||[]});
+        log(`[${name}] FUT relist all local=${localResult.relisted||0} cloud=${cloudResult.relisted||0}`);
+    } else if(isFut && req.method==='DELETE' && /^\/(?:ut\/game\/fifa17\/)?trade\/(?:\d+|sold)$/.test(urlPath)) {
+        const token=String(urlPath.match(/\/trade\/([^/]+)$/)?.[1]||'');
+        const tradeId=token==='sold'?0:Number(token);
+        if(token==='sold'||(tradeId>0&&tradeId<1000000000)){
+          const localResult=token==='sold'?futBackend.clearFinishedListings():{removed:0};
+          const result=await futBackend.cloudClearMarketListing(tradeId);json(res,result.status||200,{...result,removed:Number(result.removed||0)+Number(localResult.removed||0)});log(`[${name}] FUT cloud trade removal target=${token} status=${result.status||200}`);
+        }else if(futBackend.handle(req,res,urlPath,requestBody))log(`[${name}] FUT persistent backend handled ${req.method} ${req.url}`);
+        else json(res,404,{error:'LISTING_NOT_FOUND'});
     } else if(isFut && req.method==='GET' && urlPath==='/ut/game/fifa17/trade/status' && String(new URL(req.url,'http://localhost').searchParams.get('tradeIds')||'').split(',').map(Number).some(id=>id>0&&id<1000000000)) {
         const tradeIds=String(new URL(req.url,'http://localhost').searchParams.get('tradeIds')||'').split(',').map(Number).filter(Boolean);
         const result=await futBackend.cloudTradeStatus(tradeIds);json(res,result.status||200,result);log(`[${name}] FUT cloud trade status ids=${tradeIds.join(',')} total=${result.total||0}`);

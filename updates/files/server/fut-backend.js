@@ -3227,11 +3227,13 @@ async function forceMngCloudClubSync(reason='before-market-list') {
   return MNG_CLOUD_LAST_CLUB_KEY===cloudClubKey();
 }
 async function cloudMarketSearch(query) {const payload=await mngCloudMarketRequest('/api/market/search',{query:new URLSearchParams(query)});if(!payload.ok)return {status:payload.status,error:payload.error,auctionInfo:[],duplicateItemIdList:[],total:0};return {auctionInfo:payload.auctionInfo||[],duplicateItemIdList:[],total:Number(payload.total)||0,credits:state.coins,totalCredits:state.coins};}
-async function cloudListOwnedItem(body={}) {const itemId=Number(body?.itemData?.id||body?.itemId||body?.id||0);const item=state.items.find(entry=>Number(entry.id)===itemId);if(!item)return {status:404,error:'ITEM_NOT_FOUND'};if(!await forceMngCloudClubSync('before-market-list'))return {status:503,error:'CLUB_SYNC_FAILED',reason:'CLUB_SYNC_FAILED'};const payload=await mngCloudMarketRequest('/api/market/list',{method:'POST',body:{...body,itemId,resourceId:Number(item.resourceId)}});if(!payload.ok)return {status:payload.status,error:payload.error,reason:payload.error};state.items=state.items.filter(entry=>Number(entry.id)!==itemId);state.pending=state.pending.filter(id=>Number(id)!==itemId);for(const squad of state.squads||[])if(Array.isArray(squad.itemIds))squad.itemIds=squad.itemIds.map(id=>Number(id)===itemId?0:id);MNG_CLOUD_CLUB_REVISION=Number(payload.revision)||MNG_CLOUD_CLUB_REVISION;MNG_CLOUD_LAST_CLUB_KEY=cloudClubKey();MNG_CLOUD_MARKET_COUNTS.active++;MNG_CLOUD_MARKET_COUNTS.total++;saveState();logger(`[mng-market] listed item=${itemId} resourceId=${item.resourceId} tradeId=${payload.tradeId} price=${payload.buyNowPrice}`);return {status:200,id:Number(payload.tradeId),tradeId:Number(payload.tradeId),tradeState:'active',buyNowPrice:Number(payload.buyNowPrice),startingBid:Number(payload.startingBid),currentBid:0,expires:Number(payload.expires)};}
+async function cloudListOwnedItem(body={}) {const itemId=Number(body?.itemData?.id||body?.itemId||body?.id||0);const item=state.items.find(entry=>Number(entry.id)===itemId);if(!item)return {status:404,error:'ITEM_NOT_FOUND'};if(!await forceMngCloudClubSync('before-market-list'))return {status:503,error:'CLUB_SYNC_FAILED',reason:'CLUB_SYNC_FAILED'};const payload=await mngCloudMarketRequest('/api/market/list',{method:'POST',body:{...body,itemId,resourceId:Number(item.resourceId)}});if(!payload.ok)return {status:payload.status,error:payload.error,reason:payload.error};state.items=state.items.filter(entry=>Number(entry.id)!==itemId);state.pending=state.pending.filter(id=>Number(id)!==itemId);state.listings=(state.listings||[]).filter(entry=>!(Number(entry.itemData?.id)===itemId&&entry.tradeState==='inactive'));for(const squad of state.squads||[])if(Array.isArray(squad.itemIds))squad.itemIds=squad.itemIds.map(id=>Number(id)===itemId?0:id);MNG_CLOUD_CLUB_REVISION=Number(payload.revision)||MNG_CLOUD_CLUB_REVISION;MNG_CLOUD_LAST_CLUB_KEY=cloudClubKey();MNG_CLOUD_MARKET_COUNTS.active++;MNG_CLOUD_MARKET_COUNTS.total++;saveState();logger(`[mng-market] listed item=${itemId} resourceId=${item.resourceId} tradeId=${payload.tradeId} price=${payload.buyNowPrice}`);return {status:200,id:Number(payload.tradeId),tradeId:Number(payload.tradeId),tradeState:'active',buyNowPrice:Number(payload.buyNowPrice),startingBid:Number(payload.startingBid),currentBid:0,expires:Number(payload.expires)};}
 async function cloudBuyMarketListing(tradeId,body={}) {const transactionId=String(body.transactionId||body.idempotencyKey||crypto.randomUUID());const payload=await mngCloudMarketRequest('/api/market/buy',{method:'POST',body:{listingId:Number(tradeId),transactionId}});if(!payload.ok)return {status:payload.status,error:payload.error,reason:payload.error,auctionInfo:[]};const item=payload.itemData;if(item&&!state.items.some(entry=>Number(entry.id)===Number(item.id))){state.items.push(item);state.pending.push(Number(item.id));}MNG_CLOUD_CLUB_REVISION=Number(payload.revision)||MNG_CLOUD_CLUB_REVISION;if(payload.profile){state.coins=Number(payload.profile.coins)||0;state.points=Number(payload.profile.fifaPoints)||0;MNG_CLOUD_PROFILE.coins=state.coins;MNG_CLOUD_PROFILE.fifaPoints=state.points;MNG_CLOUD_PROFILE.walletRevision=Number(payload.profile.walletRevision)||MNG_CLOUD_PROFILE.walletRevision;persistMngCloudSessionWallet(payload.profile);MNG_CLOUD_LAST_WALLET_KEY=mngWalletKey();}MNG_CLOUD_LAST_CLUB_KEY=cloudClubKey();saveState();logger(`[mng-market] bought tradeId=${tradeId} resourceId=${item?.resourceId||0} paid=${item?.lastSalePrice||0}`);return {auctionInfo:payload.auctionInfo||[],itemData:item,items:item?[item]:[],duplicateItemIdList:item?duplicatePairs([item]):[],purchased:true,newItem:true,credits:state.coins,totalCredits:state.coins,coins:state.coins};}
-async function cloudTradePile() {const payload=await mngCloudMarketRequest('/api/market/my');const localInactive=tradePileDocument().auctionInfo.filter(entry=>entry.tradeState==='inactive');if(!payload.ok)return {status:payload.status,error:payload.error,auctionInfo:localInactive,duplicateItemIdList:[],total:localInactive.length};const cloudAuctions=payload.auctionInfo||[];const cloudItemIds=new Set(cloudAuctions.map(entry=>Number(entry.itemData?.id)));const combined=[...cloudAuctions,...localInactive.filter(entry=>!cloudItemIds.has(Number(entry.itemData?.id)))];MNG_CLOUD_MARKET_COUNTS={active:Number(payload.active)||0,sold:Number(payload.sold)||0,expired:Number(payload.expired)||0,total:combined.length};return {auctionInfo:combined,duplicateItemIdList:[],total:combined.length,credits:state.coins,totalCredits:state.coins};}
+async function cloudTradePile() {const payload=await mngCloudMarketRequest('/api/market/my');if(payload.ok){const restoredIds=new Set((payload.restoredItemIds||[]).map(Number));if(restoredIds.size){let repaired=false;for(const item of state.items)if(restoredIds.has(Number(item.id))&&Number(item.pile)===5){item.pile=PILE_CLUB;item.itemState='free';repaired=true;}const before=(state.listings||[]).length;state.listings=(state.listings||[]).filter(entry=>!(entry.tradeState==='inactive'&&restoredIds.has(Number(entry.itemData?.id))));if(state.listings.length!==before)repaired=true;if(repaired)saveState();}}const localInactive=tradePileDocument().auctionInfo.filter(entry=>entry.tradeState==='inactive');if(!payload.ok)return {status:payload.status,error:payload.error,auctionInfo:localInactive,duplicateItemIdList:[],total:localInactive.length};const cloudAuctions=payload.auctionInfo||[];const cloudItemIds=new Set(cloudAuctions.map(entry=>Number(entry.itemData?.id)));const combined=[...cloudAuctions,...localInactive.filter(entry=>!cloudItemIds.has(Number(entry.itemData?.id)))];MNG_CLOUD_MARKET_COUNTS={active:Number(payload.active)||0,sold:Number(payload.sold)||0,expired:Number(payload.expired)||0,total:combined.length};return {auctionInfo:combined,duplicateItemIdList:[],total:combined.length,credits:state.coins,totalCredits:state.coins};}
 async function cloudTradePileCounts() {await cloudTradePile();const counts=MNG_CLOUD_MARKET_COUNTS;return {active:counts.active,sold:counts.sold,expired:counts.expired,tradePileCount:counts.total,auctionCount:counts.active,transferListCount:counts.total};}
 async function cloudTradeStatus(tradeIds=[]) {const ids=[...new Set(tradeIds.map(Number).filter(id=>Number.isSafeInteger(id)&&id>0))];const payload=await mngCloudMarketRequest('/api/market/status',{query:new URLSearchParams({ids:ids.join(',')})});if(!payload.ok)return {status:payload.status,error:payload.error,auctionInfo:[],duplicateItemIdList:[],total:0};return {auctionInfo:payload.auctionInfo||[],duplicateItemIdList:[],total:Number(payload.total)||0,credits:state.coins,totalCredits:state.coins};}
+async function cloudRelistExpired() {const payload=await mngCloudMarketRequest('/api/market/relist',{method:'PUT',body:{}});if(!payload.ok)return {status:payload.status,error:payload.error,reason:payload.error,relisted:0,auctionInfo:[]};logger(`[mng-market] relisted expired auctions=${Number(payload.relisted)||0}`);return {status:200,success:true,relisted:Number(payload.relisted)||0,auctionInfo:payload.auctionInfo||[]};}
+async function cloudClearMarketListing(tradeId) {const payload=await mngCloudMarketRequest('/api/market/remove',{method:'DELETE',body:Number(tradeId)>0?{listingId:Number(tradeId)}:{allSold:true}});if(!payload.ok)return {status:payload.status,error:payload.error,reason:payload.error};if(payload.itemData&&!state.items.some(entry=>Number(entry.id)===Number(payload.itemData.id))){state.items.push(payload.itemData);MNG_CLOUD_CLUB_REVISION=Number(payload.revision)||MNG_CLOUD_CLUB_REVISION;MNG_CLOUD_LAST_CLUB_KEY=cloudClubKey();saveState();}return {status:200,success:true,removed:Number(payload.removed)||0,itemData:payload.itemData?[payload.itemData]:[]};}
 
 async function openStorePack(body={}) {
   const requested=Number(body.packId||body.id||body.purchaseId||body.purchasedPackId||304);
@@ -3834,6 +3836,8 @@ function refreshTradeListings() {
 
 function tradePileDocument() {
   refreshTradeListings();
+  const localItemIds=new Set(state.items.filter(item=>Number(item.pile)===5).map(item=>Number(item.id)));
+  state.listings=(state.listings||[]).filter(entry=>entry.tradeState!=='inactive'||localItemIds.has(Number(entry.itemData?.id)));
   // Repair old saves where an item was pile=5 but no listing record existed.
   for(const item of state.items.filter(entry=>Number(entry.pile)===5&&entry.itemState!=='discarded')){
     let listing=(state.listings||[]).find(entry=>Number(entry.itemData?.id)===Number(item.id)&&entry.tradeState!=='closed');
@@ -3847,7 +3851,7 @@ function tradePileDocument() {
   const auctionInfo=(state.listings||[]).filter(entry=>entry.tradeState!=='closed').map(listing=>({
     ...listing,id:Number(listing.tradeId),tradeId:Number(listing.tradeId),itemData:listing.itemData,
     startingBid:Number(listing.startingBid)||0,buyNowPrice:Number(listing.buyNowPrice)||0,
-    currentBid:Number(listing.currentBid)||0,offers:Number(listing.offers)||0,expires:Number(listing.expires)||0
+    currentBid:Number(listing.currentBid)||0,offers:Number(listing.offers)||0,expires:Number(listing.expires)||0,tradeOwner:true
   }));
   saveState();
   return {auctionInfo,duplicateItemIdList:[],total:auctionInfo.length,credits:state.coins,totalCredits:state.coins};
@@ -3880,7 +3884,7 @@ function listOwnedItem(body) {
   listing.id=Number(listing.tradeId);
   listing.itemData=item;
   listing.startingBid=startingBid;listing.buyNowPrice=buyNowPrice;listing.currentBid=0;listing.offers=0;
-  listing.expires=duration;listing.endTime=now+duration;listing.tradeState='active';listing.bidState='none';
+  listing.duration=duration;listing.expires=duration;listing.endTime=now+duration;listing.tradeState='active';listing.bidState='none';
   item.pile=5;item.itemState='free';
   state.pending=state.pending.filter(id=>Number(id)!==itemId);
   for(const squad of state.squads||[]){if(Array.isArray(squad.itemIds))squad.itemIds=squad.itemIds.map(id=>Number(id)===itemId?0:id);}
@@ -3910,6 +3914,27 @@ function removeTradeListing(tradeId) {
   return {status:200,success:true,itemData:item?[item]:[]};
 }
 
+function relistExpiredListings() {
+  refreshTradeListings();
+  const now=Math.floor(Date.now()/1000);
+  let count=0;
+  for(const entry of state.listings||[]){
+    if(entry.tradeState!=='expired')continue;
+    const previousDuration=[3600,10800,21600,43200,86400,259200].includes(Number(entry.duration))?Number(entry.duration):3600;
+    entry.tradeState='active';entry.expires=previousDuration;entry.endTime=now+previousDuration;entry.bidState='none';count++;
+  }
+  if(count)saveState();
+  return {status:200,success:true,relisted:count,auctionInfo:tradePileDocument().auctionInfo};
+}
+
+function clearFinishedListings() {
+  const before=(state.listings||[]).length;
+  state.listings=(state.listings||[]).filter(entry=>entry.tradeState!=='closed');
+  const removed=before-state.listings.length;
+  if(removed)saveState();
+  return {status:200,success:true,removed};
+}
+
 function tradeStatusDocument(query) {
   refreshTradeListings();
   const raw=String(query?.get?.('tradeIds')||query?.get?.('tradeId')||'');
@@ -3918,7 +3943,7 @@ function tradeStatusDocument(query) {
   const virtual=[...marketListings.values()].map(entry=>entry.listing).filter(entry=>!ids.size||ids.has(Number(entry.tradeId)));
   const byId=new Map([...persistent,...virtual].map(entry=>[Number(entry.tradeId),entry]));
   const listings=[...byId.values()];
-  return {auctionInfo:listings.map(entry=>({...entry,id:Number(entry.tradeId),tradeId:Number(entry.tradeId)})),duplicateItemIdList:[],total:listings.length,credits:state.coins,totalCredits:state.coins};
+  return {auctionInfo:listings.map(entry=>({...entry,id:Number(entry.tradeId),tradeId:Number(entry.tradeId),tradeOwner:true})),duplicateItemIdList:[],total:listings.length,credits:state.coins,totalCredits:state.coins};
 }
 
 function riberyChallengeState(challengeId) {
@@ -6191,14 +6216,10 @@ function handle(req,res,urlPath,requestBody) {
   match=urlPath.match(/^\/(?:ut\/game\/fifa17\/)?trade\/(\d+)$/);
   if(match&&method==='DELETE'){const result=removeTradeListing(match[1]);return send(result.status||200,result);}
   if(['/ut/game/fifa17/trade/sold','/trade/sold','/ut/game/fifa17/tradepile'].includes(urlPath)&&method==='DELETE'){
-    const before=(state.listings||[]).length;
-    state.listings=(state.listings||[]).filter(entry=>!['closed','expired'].includes(entry.tradeState));saveState();
-    return send(200,{success:true,removed:before-state.listings.length});
+    const result=clearFinishedListings();return send(result.status,result);
   }
   if(['/ut/game/fifa17/auctionhouse/relist','/auctionhouse/relist'].includes(urlPath)&&method==='PUT'){
-    const now=Math.floor(Date.now()/1000);let count=0;
-    for(const entry of state.listings||[]){if(entry.tradeState==='expired'){entry.tradeState='active';entry.expires=3600;entry.endTime=now+3600;count++;}}
-    saveState();return send(200,{success:true,relisted:count,auctionInfo:tradePileDocument().auctionInfo});
+    const result=relistExpiredListings();return send(result.status,result);
   }
   if(['/ut/game/fifa17/watchlist','/watchlist'].includes(urlPath)&&method==='GET')return send(200,{auctionInfo:[],duplicateItemIdList:[],total:0});
   if(/^\/ut\/game\/fifa17\/(?:squad\/mode(?:\/\d+)?\/)?draft\/state$/i.test(urlPath)&&method==='GET'){
@@ -7195,9 +7216,6 @@ const lahmLoanSbcSquad={
   return false;
 }
 
-module.exports={init,handle,openStorePack,cloudMarketSearch,cloudListOwnedItem,cloudBuyMarketListing,cloudTradePile,cloudTradePileCounts,cloudTradeStatus,squadDocument,squadList,hubDocument,creditsDocument,homeWalletDocument,homeRecordDocument,settingsDocument,pileSizeDocument,seasonListDocument,seasonUserDocument,seasonHistoryDocument,
+module.exports={init,handle,openStorePack,cloudMarketSearch,cloudListOwnedItem,cloudBuyMarketListing,cloudTradePile,cloudTradePileCounts,cloudTradeStatus,cloudRelistExpired,cloudClearMarketListing,relistExpiredListings,clearFinishedListings,squadDocument,squadList,hubDocument,creditsDocument,homeWalletDocument,homeRecordDocument,settingsDocument,pileSizeDocument,seasonListDocument,seasonUserDocument,seasonHistoryDocument,
   clubStats,packCatalogue,openPack,filteredClub,purchasedResponse,marketSearch,buyMarketListing,updateItems,storeDescriptionsXml,
   getState:()=>state,getCatalog:()=>catalog,getIdentity,setIdentity,getTotwIdentity,syncMngCloudWallet,queueMngCloudWalletSync,syncMngCloudClub,queueMngCloudClubSync,totwUserListDocument,totwPublicUserDocument,totwSquadDocument,totwSessionActive};
-
-
-
