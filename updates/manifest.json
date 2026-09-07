@@ -1,13 +1,13 @@
 {
-  "version": "1.3.2",
-  "notes": "Sécurité étape 2B : le cloud choisit désormais les joueurs contenus dans les packs et impose le tirage au serveur local.",
+  "version": "1.3.3",
+  "notes": "Sécurité inventaire : chaque joueur obtenu dans un pack porte désormais son origine cloud et l'identifiant unique de sa transaction.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "7d809b93c3cc1e22cc61ee9608eff77de63e49b81661f33adff85cdf1ae34414",
-      "size": 390154
+      "sha256": "b13ede77931d91f7ca33ee60f2ea0441483e564f3c3fc65d9d89ff833b3bf7be",
+      "size": 390382
     },
     {
       "scope": "server",

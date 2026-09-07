@@ -3026,6 +3026,14 @@ function openPack(packId, body={}, includeDisabled=false, reward=false) {
     }
   }
 
+  if(body.cloudAuthorized===true){
+    for(const item of drawn){
+      if(item.itemType==='player'){
+        item.acquisitionSource='CLOUD_PACK';
+        item.cloudTransactionId=String(body.transactionId||'');
+      }
+    }
+  }
   const pairs=duplicatePairs(drawn);
   state.pending.push(...drawn.map(item=>item.id));
   state.items.push(...drawn);
