@@ -1,13 +1,13 @@
 {
-  "version": "1.4.8",
-  "notes": "Vente rapide TOTW calculée selon la note : bronze de 3 421 à 5 213, argent de 5 512 à 8 121 et or de 9 427 à 11 753 crédits.",
+  "version": "1.4.9",
+  "notes": "Liste des transferts corrigée selon le comportement natif FIFA 17 : les joueurs déposés sans vente restent inactifs et ne sont plus affichés comme expirés.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "bfbb4afe338068d5f4d25ec47e864f00607919f5be360c51af07d1d9f9659847",
-      "size": 398399
+      "sha256": "6288e438d9f691ce4eabac0ba5625c42c6a8de1b2243dae13661083a43e87a8b",
+      "size": 398480
     },
     {
       "scope": "server",
