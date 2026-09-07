@@ -1,13 +1,13 @@
 {
-  "version": "1.5.3",
-  "notes": "Correction du bouton A dans la liste des transferts : les cartes disponibles conservent maintenant leur identifiant d'action tout en restant hors enchère jusqu'au choix du prix.",
+  "version": "1.5.4",
+  "notes": "Correction native du bouton A dans la liste des transferts : les cartes disponibles utilisent désormais l'état officiel invalide avec un identifiant d'action conservé. Le chargement des images SBC est aussi accéléré en testant d'abord leurs noms réels.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "c78fc078c1b09a65fd80ecea74632f5b947cb23dfb08b3bce07508ce29a23a6f",
-      "size": 401627
+      "sha256": "d311f5aa6c7dfe096c69e2d570f0df0bb619ff619f6879381469c21cbf79baa4",
+      "size": 401701
     },
     {
       "scope": "server",
@@ -27,8 +27,8 @@
       "scope": "server",
       "source": "files/server/mng-sbc-set-images.js",
       "target": "mng-sbc-set-images.js",
-      "sha256": "a3933e1aea639f9cebf5a0e4fe0bde0baedf271862202465e5f0147a191ed993",
-      "size": 8761
+      "sha256": "a34a385532a2781ba239186ffe2fb5715b6c5176aaaef499675feec4171ede8c",
+      "size": 8604
     },
     {
       "scope": "server",
