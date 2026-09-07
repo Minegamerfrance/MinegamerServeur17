@@ -3849,7 +3849,7 @@ function tradePileDocument() {
     if(listing.tradeState==='inactive'){listing.expires=-1;listing.endTime=0;}
   }
   const auctionInfo=(state.listings||[]).filter(entry=>entry.tradeState!=='closed').map(listing=>({
-    ...listing,id:Number(listing.tradeId),tradeId:Number(listing.tradeId),itemData:listing.itemData,
+    ...listing,id:listing.tradeState==='inactive'?0:Number(listing.tradeId),tradeId:listing.tradeState==='inactive'?0:Number(listing.tradeId),itemData:listing.itemData,
     startingBid:Number(listing.startingBid)||0,buyNowPrice:Number(listing.buyNowPrice)||0,
     currentBid:Number(listing.currentBid)||0,offers:Number(listing.offers)||0,expires:Number(listing.expires)||0,tradeOwner:true
   }));
@@ -3943,7 +3943,7 @@ function tradeStatusDocument(query) {
   const virtual=[...marketListings.values()].map(entry=>entry.listing).filter(entry=>!ids.size||ids.has(Number(entry.tradeId)));
   const byId=new Map([...persistent,...virtual].map(entry=>[Number(entry.tradeId),entry]));
   const listings=[...byId.values()];
-  return {auctionInfo:listings.map(entry=>({...entry,id:Number(entry.tradeId),tradeId:Number(entry.tradeId),tradeOwner:true})),duplicateItemIdList:[],total:listings.length,credits:state.coins,totalCredits:state.coins};
+  return {auctionInfo:listings.map(entry=>({...entry,id:entry.tradeState==='inactive'?0:Number(entry.tradeId),tradeId:entry.tradeState==='inactive'?0:Number(entry.tradeId),tradeOwner:true})),duplicateItemIdList:[],total:listings.length,credits:state.coins,totalCredits:state.coins};
 }
 
 function riberyChallengeState(challengeId) {
