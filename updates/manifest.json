@@ -1,13 +1,13 @@
 {
-  "version": "1.4.7",
-  "notes": "Transferts corrigés : reconnexion automatique au club cloud, tes annonces masquées de la recherche publique et joueurs non listés conservés dans ta liste des transferts.",
+  "version": "1.4.8",
+  "notes": "Vente rapide TOTW calculée selon la note : bronze de 3 421 à 5 213, argent de 5 512 à 8 121 et or de 9 427 à 11 753 crédits.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "17fb849a4688ef6658284c5376a04f51b47291447c0d60bb3b34caa8ea205a96",
-      "size": 397391
+      "sha256": "bfbb4afe338068d5f4d25ec47e864f00607919f5be360c51af07d1d9f9659847",
+      "size": 398399
     },
     {
       "scope": "server",
