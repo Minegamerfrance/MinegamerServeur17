@@ -3444,7 +3444,7 @@ function updateItems(body) {
         let entry=(state.listings||[]).find(x=>Number(x.itemData?.id)===Number(item.id)&&x.tradeState!=='closed');
         if(!entry){
           const tradeId=Number(state.nextTradeId++);
-          entry={tradeId,id:tradeId,itemData:item,startingBid:0,buyNowPrice:0,currentBid:0,offers:0,expires:0,endTime:0,tradeState:'inactive',bidState:'none',sellerName:CLUB_NAME,sellerId:PERSONA_ID,sellerEstablished:1472688000,watched:false};
+          entry={tradeId,id:tradeId,itemData:item,startingBid:0,buyNowPrice:0,currentBid:0,offers:0,expires:-1,endTime:0,tradeState:'inactive',bidState:'none',sellerName:CLUB_NAME,sellerId:PERSONA_ID,sellerEstablished:1472688000,watched:false};
           state.listings.push(entry);
           logger(`[market] Moved item=${item.id} to Transfer List as inactive tradeId=${tradeId}`);
         }else{
@@ -3838,9 +3838,10 @@ function tradePileDocument() {
     let listing=(state.listings||[]).find(entry=>Number(entry.itemData?.id)===Number(item.id)&&entry.tradeState!=='closed');
     if(!listing){
       const tradeId=Number(state.nextTradeId++);
-      listing={tradeId,id:tradeId,itemData:item,startingBid:0,buyNowPrice:0,currentBid:0,offers:0,expires:0,endTime:0,tradeState:'inactive',bidState:'none',sellerName:CLUB_NAME,sellerId:PERSONA_ID,sellerEstablished:1472688000,watched:false};
+      listing={tradeId,id:tradeId,itemData:item,startingBid:0,buyNowPrice:0,currentBid:0,offers:0,expires:-1,endTime:0,tradeState:'inactive',bidState:'none',sellerName:CLUB_NAME,sellerId:PERSONA_ID,sellerEstablished:1472688000,watched:false};
       state.listings.push(listing);
     }else listing.itemData=item;
+    if(listing.tradeState==='inactive'){listing.expires=-1;listing.endTime=0;}
   }
   const auctionInfo=(state.listings||[]).filter(entry=>entry.tradeState!=='closed').map(listing=>({
     ...listing,id:Number(listing.tradeId),tradeId:Number(listing.tradeId),itemData:listing.itemData,
