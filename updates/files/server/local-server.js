@@ -1591,6 +1591,8 @@ function serviceHttpHandler(name,req,res){
         const tradeId=Number(urlPath.match(/\/trade\/(\d+)\/bid$/)?.[1]);const result=await futBackend.cloudBuyMarketListing(tradeId,requestBody?JSON.parse(requestBody):{});json(res,result.status||200,result);log(`[${name}] FUT global market purchase tradeId=${tradeId} status=${result.status||200}`);
     } else if(isFut && req.method==='GET' && ['/ut/game/fifa17/tradepile','/tradepile'].includes(urlPath)) {
         const result=await futBackend.cloudTradePile();json(res,result.status||200,result);log(`[${name}] FUT global trade pile total=${result.total||0}`);
+    } else if(isFut && req.method==='GET' && urlPath.toLowerCase()==='/ut/game/fifa17/tradepile/counts') {
+        const result=await futBackend.cloudTradePileCounts();json(res,200,result);log(`[${name}] FUT global trade pile counts active=${result.active||0} total=${result.tradePileCount||0}`);
     } else if(isFut && futBackend.handle(req,res,urlPath,requestBody)) {
         log(`[${name}] FUT persistent backend handled ${req.method} ${req.url}`);
     } else if(isFut && (urlPath==='/ut/game/fifa17/phishing' || urlPath==='/ut/game/fifa17/phishing/question')) {

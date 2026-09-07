@@ -1,20 +1,20 @@
 {
-  "version": "1.4.2",
-  "notes": "Correction définitive du freeze de mise en vente : réponse MarketData sous forme de tableau natif FUT 17.",
+  "version": "1.4.3",
+  "notes": "Marché mondial : synchronisation fiable du joueur avant mise en vente, contrôle d’identité cloud et compteur de liste des transferts actualisé.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "bfa7fc8bba1a55ae832b77d9348c8a5a30fe09b1c6afb820ef52f4e3c8b82eca",
-      "size": 395650
+      "sha256": "75261280fc233d2e843dd7753dc3dc92b0f873359bf380bb2619c7135844a874",
+      "size": 396869
     },
     {
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "740500493929453e93c90aa138301a13cbfbe3d40273359eebcf258eef6da4da",
-      "size": 101751
+      "sha256": "dcf4eb44b39c4d0291f3fdf414da61edefcd21a05e83b0a1caa57ce89656883b",
+      "size": 102048
     },
     {
       "scope": "server",

@@ -239,6 +239,7 @@ let MNG_CLOUD_CLUB_SYNC_ENABLED = false;
 let MNG_CLOUD_CLUB_SYNC_TIMER = null;
 let MNG_CLOUD_CLUB_SYNC_IN_FLIGHT = false;
 let MNG_CLOUD_CLUB_SYNC_PENDING = false;
+let MNG_CLOUD_MARKET_COUNTS = {active:0,sold:0,expired:0,total:0};
 let MNG_CLOUD_CLUB_REVISION = 0;
 let MNG_CLOUD_LAST_CLUB_KEY = '';
 
@@ -3197,10 +3198,20 @@ async function mngCloudMarketRequest(route,{method='GET',body,query}={}) {
     return payload;
   }catch(error){logger(`[mng-market] cloud request failed route=${route}: ${error.message}`);return {ok:false,status:503,error:'CLOUD_UNAVAILABLE'};}
 }
+async function forceMngCloudClubSync(reason='before-market-list') {
+  if(MNG_CLOUD_CLUB_SYNC_TIMER){clearTimeout(MNG_CLOUD_CLUB_SYNC_TIMER);MNG_CLOUD_CLUB_SYNC_TIMER=null;}
+  const deadline=Date.now()+15000;
+  while(MNG_CLOUD_CLUB_SYNC_IN_FLIGHT&&Date.now()<deadline)await new Promise(resolve=>setTimeout(resolve,50));
+  if(MNG_CLOUD_CLUB_SYNC_IN_FLIGHT)return false;
+  MNG_CLOUD_LAST_CLUB_KEY='';
+  await syncMngCloudClub(reason);
+  return MNG_CLOUD_LAST_CLUB_KEY===cloudClubKey();
+}
 async function cloudMarketSearch(query) {const payload=await mngCloudMarketRequest('/api/market/search',{query:new URLSearchParams(query)});if(!payload.ok)return {status:payload.status,error:payload.error,auctionInfo:[],duplicateItemIdList:[],total:0};return {auctionInfo:payload.auctionInfo||[],duplicateItemIdList:[],total:Number(payload.total)||0,credits:state.coins,totalCredits:state.coins};}
-async function cloudListOwnedItem(body={}) {const itemId=Number(body?.itemData?.id||body?.itemId||body?.id||0);const item=state.items.find(entry=>Number(entry.id)===itemId);if(!item)return {status:404,error:'ITEM_NOT_FOUND'};const payload=await mngCloudMarketRequest('/api/market/list',{method:'POST',body:{...body,itemId}});if(!payload.ok)return {status:payload.status,error:payload.error,reason:payload.error};state.items=state.items.filter(entry=>Number(entry.id)!==itemId);state.pending=state.pending.filter(id=>Number(id)!==itemId);for(const squad of state.squads||[])if(Array.isArray(squad.itemIds))squad.itemIds=squad.itemIds.map(id=>Number(id)===itemId?0:id);MNG_CLOUD_CLUB_REVISION=Number(payload.revision)||MNG_CLOUD_CLUB_REVISION;MNG_CLOUD_LAST_CLUB_KEY=cloudClubKey();saveState();logger(`[mng-market] listed item=${itemId} tradeId=${payload.tradeId} price=${payload.buyNowPrice}`);return {status:200,id:Number(payload.tradeId),tradeId:Number(payload.tradeId),tradeState:'active',buyNowPrice:Number(payload.buyNowPrice),startingBid:Number(payload.startingBid),currentBid:0,expires:Number(payload.expires)};}
+async function cloudListOwnedItem(body={}) {const itemId=Number(body?.itemData?.id||body?.itemId||body?.id||0);const item=state.items.find(entry=>Number(entry.id)===itemId);if(!item)return {status:404,error:'ITEM_NOT_FOUND'};if(!await forceMngCloudClubSync('before-market-list'))return {status:503,error:'CLUB_SYNC_FAILED',reason:'CLUB_SYNC_FAILED'};const payload=await mngCloudMarketRequest('/api/market/list',{method:'POST',body:{...body,itemId,resourceId:Number(item.resourceId)}});if(!payload.ok)return {status:payload.status,error:payload.error,reason:payload.error};state.items=state.items.filter(entry=>Number(entry.id)!==itemId);state.pending=state.pending.filter(id=>Number(id)!==itemId);for(const squad of state.squads||[])if(Array.isArray(squad.itemIds))squad.itemIds=squad.itemIds.map(id=>Number(id)===itemId?0:id);MNG_CLOUD_CLUB_REVISION=Number(payload.revision)||MNG_CLOUD_CLUB_REVISION;MNG_CLOUD_LAST_CLUB_KEY=cloudClubKey();MNG_CLOUD_MARKET_COUNTS.active++;MNG_CLOUD_MARKET_COUNTS.total++;saveState();logger(`[mng-market] listed item=${itemId} resourceId=${item.resourceId} tradeId=${payload.tradeId} price=${payload.buyNowPrice}`);return {status:200,id:Number(payload.tradeId),tradeId:Number(payload.tradeId),tradeState:'active',buyNowPrice:Number(payload.buyNowPrice),startingBid:Number(payload.startingBid),currentBid:0,expires:Number(payload.expires)};}
 async function cloudBuyMarketListing(tradeId,body={}) {const transactionId=String(body.transactionId||body.idempotencyKey||crypto.randomUUID());const payload=await mngCloudMarketRequest('/api/market/buy',{method:'POST',body:{listingId:Number(tradeId),transactionId}});if(!payload.ok)return {status:payload.status,error:payload.error,reason:payload.error,auctionInfo:[]};const item=payload.itemData;if(item&&!state.items.some(entry=>Number(entry.id)===Number(item.id))){state.items.push(item);state.pending.push(Number(item.id));}MNG_CLOUD_CLUB_REVISION=Number(payload.revision)||MNG_CLOUD_CLUB_REVISION;if(payload.profile){state.coins=Number(payload.profile.coins)||0;state.points=Number(payload.profile.fifaPoints)||0;MNG_CLOUD_PROFILE.coins=state.coins;MNG_CLOUD_PROFILE.fifaPoints=state.points;MNG_CLOUD_PROFILE.walletRevision=Number(payload.profile.walletRevision)||MNG_CLOUD_PROFILE.walletRevision;persistMngCloudSessionWallet(payload.profile);MNG_CLOUD_LAST_WALLET_KEY=mngWalletKey();}MNG_CLOUD_LAST_CLUB_KEY=cloudClubKey();saveState();logger(`[mng-market] bought tradeId=${tradeId} resourceId=${item?.resourceId||0} paid=${item?.lastSalePrice||0}`);return {auctionInfo:payload.auctionInfo||[],itemData:item,items:item?[item]:[],duplicateItemIdList:item?duplicatePairs([item]):[],purchased:true,newItem:true,credits:state.coins,totalCredits:state.coins,coins:state.coins};}
-async function cloudTradePile() {const payload=await mngCloudMarketRequest('/api/market/my');if(!payload.ok)return {status:payload.status,error:payload.error,auctionInfo:[],duplicateItemIdList:[],total:0};return {auctionInfo:payload.auctionInfo||[],duplicateItemIdList:[],total:Number(payload.total)||0,credits:state.coins,totalCredits:state.coins};}
+async function cloudTradePile() {const payload=await mngCloudMarketRequest('/api/market/my');if(!payload.ok)return {status:payload.status,error:payload.error,auctionInfo:[],duplicateItemIdList:[],total:0};MNG_CLOUD_MARKET_COUNTS={active:Number(payload.active)||0,sold:Number(payload.sold)||0,expired:Number(payload.expired)||0,total:Number(payload.total)||0};return {auctionInfo:payload.auctionInfo||[],duplicateItemIdList:[],total:Number(payload.total)||0,credits:state.coins,totalCredits:state.coins};}
+async function cloudTradePileCounts() {await cloudTradePile();const counts=MNG_CLOUD_MARKET_COUNTS;return {active:counts.active,sold:counts.sold,expired:counts.expired,tradePileCount:counts.total,auctionCount:counts.active,transferListCount:counts.total};}
 
 async function openStorePack(body={}) {
   const requested=Number(body.packId||body.id||body.purchaseId||body.purchasedPackId||304);
@@ -4496,7 +4507,7 @@ function hubDocument() {
   const base={clubName:CLUB_NAME,clubAbbr:CLUB_ABBR,established:1472688000,creationTime:1472688000,
     clubPlayers:stats.players,clubPlayerCount:stats.players,players:stats.players,clubItems:clubItems().length,
     squadCount:state.squads.length,activeSquadId:state.activeSquadId,
-    auctionCount:(state.listings||[]).filter(x=>x.tradeState==='active').length,tradePileCount:(state.listings||[]).length,transferListCount:(state.listings||[]).length,
+    auctionCount:MNG_CLOUD_MARKET_COUNTS.active,tradePileCount:MNG_CLOUD_MARKET_COUNTS.total,transferListCount:MNG_CLOUD_MARKET_COUNTS.total,
     ...wallet,record,clubRecord:record,winLossDraw:record,
     wins:record.wins,draws:record.draws,ties:record.draws,losses:record.losses,
     gamesWon:record.wins,gamesDrawn:record.draws,gamesLost:record.losses,
@@ -7157,7 +7168,7 @@ const lahmLoanSbcSquad={
   return false;
 }
 
-module.exports={init,handle,openStorePack,cloudMarketSearch,cloudListOwnedItem,cloudBuyMarketListing,cloudTradePile,squadDocument,squadList,hubDocument,creditsDocument,homeWalletDocument,homeRecordDocument,settingsDocument,pileSizeDocument,seasonListDocument,seasonUserDocument,seasonHistoryDocument,
+module.exports={init,handle,openStorePack,cloudMarketSearch,cloudListOwnedItem,cloudBuyMarketListing,cloudTradePile,cloudTradePileCounts,squadDocument,squadList,hubDocument,creditsDocument,homeWalletDocument,homeRecordDocument,settingsDocument,pileSizeDocument,seasonListDocument,seasonUserDocument,seasonHistoryDocument,
   clubStats,packCatalogue,openPack,filteredClub,purchasedResponse,marketSearch,buyMarketListing,updateItems,storeDescriptionsXml,
   getState:()=>state,getCatalog:()=>catalog,getIdentity,setIdentity,getTotwIdentity,syncMngCloudWallet,queueMngCloudWalletSync,syncMngCloudClub,queueMngCloudClubSync,totwUserListDocument,totwPublicUserDocument,totwSquadDocument,totwSessionActive};
 
