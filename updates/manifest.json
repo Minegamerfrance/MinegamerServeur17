@@ -1,20 +1,20 @@
 {
-  "version": "1.4.9",
-  "notes": "Liste des transferts corrigée selon le comportement natif FIFA 17 : les joueurs déposés sans vente restent inactifs et ne sont plus affichés comme expirés.",
+  "version": "1.5.0",
+  "notes": "Cycle complet des transferts raccordé au cloud : état actif, minuterie, suivi périodique et expiration utilisent désormais les routes natives attendues par FIFA 17.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "6288e438d9f691ce4eabac0ba5625c42c6a8de1b2243dae13661083a43e87a8b",
-      "size": 398480
+      "sha256": "08a526900399037b0ee76a538d213ca913cf6fbcdb54ab4c92084de88fd7d437",
+      "size": 399002
     },
     {
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "dcf4eb44b39c4d0291f3fdf414da61edefcd21a05e83b0a1caa57ce89656883b",
-      "size": 102048
+      "sha256": "73fc69d43f4682c3f92e8609d1761f200db45c924e45c7513c08288c1a189dd4",
+      "size": 102603
     },
     {
       "scope": "server",
