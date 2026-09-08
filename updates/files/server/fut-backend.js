@@ -887,12 +887,13 @@ const MALDINI_ICON_CARD = {
 // These cards are reward-only: never include them in market listings or pack pools.
 const SBC_EXCLUSIVE_RESOURCE_IDS = new Set([100785235,RIBERY_SBC_RESOURCE_ID,100862747,DANI_ALVES_OTW_RESOURCE_ID,AUBAMEYANG_CHAMPIONS_RESOURCE_ID,100990001,JOHN_TERRY_FLASHBACK_RESOURCE_ID]);
 const WEEKLY_TOTW_PACK_ID = 312;
+const STARTER_TOTW_PACK_ID = 315;
+const STARTER_OTW_PACK_ID = 316;
 const TOTW_CONFIG_PATH = path.join(ROOT, 'totw.json');
 const PACK_ADMIN_CONFIG_PATH = path.join(ROOT, 'data', 'mng-pack-admin.json');
 const TOTW_WEEKS_PATH = path.join(ROOT, 'data', 'fifa17-totw-weeks.json');
 let totwSessionActiveUntil = 0;
 let totwWeekByResourceId = null;
-const BAYERN_SQUAD_PACK_ID = 313;
 const TERRY_SBC_REWARD_PACK_ID = 2014;
 const SEASON_MATCH_COUNT = 10;
 const OFFLINE_SEASON_TEAMS = [
@@ -2171,7 +2172,7 @@ function starterCards() {
   const used = new Set();
   return required.map(position => {
     const choices = catalog.base
-      .filter(card => card.position === position && card.rating >= 75 && card.rating <= 84 && !used.has(card.assetId))
+      .filter(card => card.quality === 'bronze' && card.position === position && card.rating >= 50 && card.rating <= 64 && !used.has(card.assetId))
       .sort((a,b) => b.rating - a.rating || a.assetId - b.assetId);
     const card = choices[0] || catalog.base.find(candidate => !used.has(candidate.assetId));
     used.add(card.assetId);
@@ -2252,8 +2253,8 @@ function repairGhostSquadsInState() {
 function emptyState() {
   const fresh = {
     version: 1,
-    coins: 1000000,
-    points: 100000,
+    coins: 10000,
+    points: 5000,
     nextItemId: 1900000001,
     items: [],
     pending: [],
@@ -2274,10 +2275,12 @@ function emptyState() {
     sbcBenYedderSquad: null,
     sbcWeeklyTotwCompleted: false,
     sbcWeeklyTotwSquad: null,
-    rewardPacks: [],
+    rewardPacks: [
+      {id:1700312001,packId:STARTER_TOTW_PACK_ID,source:'MNG_STARTER_TOTW'},
+      {id:1700312002,packId:STARTER_OTW_PACK_ID,source:'MNG_STARTER_OTW'}
+    ],
     storePackPurchases: {},
-    nextRewardPackId: 1700312001,
-    bayernSquadPackClaimed: false,
+    nextRewardPackId: 1700312003,
     listings: [],
     nextTradeId: 2100000001,
     history: [],
@@ -2352,11 +2355,9 @@ function loadState() {
     if(!Array.isArray(state.rewardPacks)){state.rewardPacks=[];repaired=true;}
     if(!state.storePackPurchases||typeof state.storePackPurchases!=='object'||Array.isArray(state.storePackPurchases)){state.storePackPurchases={};repaired=true;}
     if(!Number.isFinite(Number(state.nextRewardPackId))){state.nextRewardPackId=1700312001;repaired=true;}
-    if(typeof state.bayernSquadPackClaimed!=='boolean'){state.bayernSquadPackClaimed=false;repaired=true;}
-    if(!state.bayernSquadPackClaimed && !state.rewardPacks.some(entry=>Number(entry.packId)===BAYERN_SQUAD_PACK_ID)){
-      state.rewardPacks.push({id:Number(state.nextRewardPackId++),packId:BAYERN_SQUAD_PACK_ID,source:'MNG_BAYERN_SQUAD_PACK'});
-      repaired=true;
-    }
+    const rewardPackCount=state.rewardPacks.length;
+    state.rewardPacks=state.rewardPacks.filter(entry=>Number(entry.packId)!==313&&String(entry.source||'')!=='MNG_BAYERN_SQUAD_PACK');
+    if(state.rewardPacks.length!==rewardPackCount)repaired=true;
     const repairedSeason=repairSinglePlayerSeason(state.singlePlayerSeason);
     if(!state.singlePlayerSeason||JSON.stringify(repairedSeason)!==JSON.stringify(state.singlePlayerSeason))repaired=true;
     state.singlePlayerSeason=repairedSeason;
@@ -3111,15 +3112,16 @@ function rewardPackDocument(entry) {
       coins:0,points:0,currencies:[],isUnopened:true,recovered:true,purchased:true
     };
   }
-  if(packId===BAYERN_SQUAD_PACK_ID){
-    const bayernCount=catalog.base.filter(card=>Number(card.teamId)===21).length;
+  if(packId===STARTER_TOTW_PACK_ID||packId===STARTER_OTW_PACK_ID){
+    const cardType=packId===STARTER_TOTW_PACK_ID?'TOTW':'OTW';
+    const rewardName=`Pack de départ ${cardType}`;
+    const rewardDescription=`Contient exactement 1 joueur de rareté ${cardType}.`;
     return {
-      id:Number(entry.id),purchasedPackId:Number(entry.id),packId:BAYERN_SQUAD_PACK_ID,
+      id:Number(entry.id),purchasedPackId:Number(entry.id),packId,
       assetId:3,actionType:'OPENPACK',packType:'CARDPACK',type:'PACK',quantity:1,
-      name:'Pack FC Bayern MÃ¼nchen',nameLoc:'Pack FC Bayern MÃ¼nchen',
-      description:`Contient les ${bayernCount} joueurs rÃ©guliers du FC Bayern MÃ¼nchen.`,
-      descriptionLoc:`Contient les ${bayernCount} joueurs rÃ©guliers du FC Bayern MÃ¼nchen.`,
-      packContentInfo:{itemQuantity:bayernCount,goldQuantity:bayernCount,silverQuantity:0,bronzeQuantity:0,rareQuantity:bayernCount,contentType:'PLAYERS'},
+      name:rewardName,nameLoc:rewardName,localizedName:rewardName,packName:rewardName,packNameLoc:rewardName,title:rewardName,displayName:rewardName,
+      description:rewardDescription,descriptionLoc:rewardDescription,localizedDescription:rewardDescription,packDescription:rewardDescription,
+      packContentInfo:{itemQuantity:1,goldQuantity:0,silverQuantity:0,bronzeQuantity:0,rareQuantity:1,contentType:'PLAYERS'},
       displayGroup:{priority:0,value:'mypacks'},displayGroupAssetId:1,
       displayGroupUseDefaultImage:true,useDefaultImage:true,isPremium:true,
       dealType:'REWARD',saleType:'NONE',state:'active',visible:1,sortPriority:0,
@@ -3206,6 +3208,19 @@ async function authorizeCloudPackPurchase(packId,body={}) {
   }
 }
 
+async function authorizeCloudStarterReward(packId) {
+  if(!MNG_CLOUD_PROFILE?.apiBaseUrl||!MNG_CLOUD_PROFILE?.token)return {ok:false,status:401,error:'MNG_CLOUD_LOGIN_REQUIRED'};
+  try{
+    const response=await fetch(`${MNG_CLOUD_PROFILE.apiBaseUrl}/api/rewards/starter`,{
+      method:'POST',headers:{'content-type':'application/json','authorization':`Bearer ${MNG_CLOUD_PROFILE.token}`},
+      body:JSON.stringify({packId:Number(packId)})
+    });
+    const payload=await response.json().catch(()=>({}));
+    if(!response.ok||payload.ok!==true)return {ok:false,status:response.status||503,error:String(payload.error||'CLOUD_STARTER_REWARD_FAILED')};
+    return {ok:true,transactionId:String(payload.transactionId||''),playerResourceIds:Array.isArray(payload.playerResourceIds)?payload.playerResourceIds.map(Number):[]};
+  }catch(error){logger(`[mng-cloud] starter reward failed pack=${packId}: ${error.message}`);return {ok:false,status:503,error:'CLOUD_UNAVAILABLE'};}
+}
+
 async function mngCloudMarketRequest(route,{method='GET',body,query}={}) {
   if(!MNG_CLOUD_PROFILE?.apiBaseUrl||!MNG_CLOUD_PROFILE?.token)return {ok:false,status:401,error:'MNG_CLOUD_LOGIN_REQUIRED'};
   const suffix=query?`?${query.toString()}`:'';
@@ -3275,18 +3290,31 @@ async function openStorePack(body={}) {
   return openPack(requested,{...body,cloudAuthorized:true,cloudProfile:authorization.profile,cloudResourceIds:authorization.playerResourceIds,transactionId:authorization.transactionId});
 }
 
-function openRewardPack(instanceId) {
+async function openRewardPack(instanceId) {
   const requested=Number(instanceId);
   const index=state.rewardPacks.findIndex(entry=>
     Number(entry.id)===requested ||
     (Number(entry.rewardResourceId)>0&&requested===Number(entry.packId)) ||
     (requested===WEEKLY_TOTW_PACK_ID&&Number(entry.packId)===WEEKLY_TOTW_PACK_ID) ||
-    (requested===BAYERN_SQUAD_PACK_ID&&Number(entry.packId)===BAYERN_SQUAD_PACK_ID) ||
     (requested===TERRY_SBC_REWARD_PACK_ID&&Number(entry.packId)===TERRY_SBC_REWARD_PACK_ID)
   );
   if(index<0)return {status:404,error:'REWARD_PACK_NOT_FOUND',reason:'Aucun pack rÃ©compense disponible.'};
   const entry=state.rewardPacks[index];
   const packId=Number(entry.packId);
+
+  if(packId===STARTER_TOTW_PACK_ID||packId===STARTER_OTW_PACK_ID){
+    const expectedType=packId===STARTER_TOTW_PACK_ID?'totw':'otw';
+    const authorization=await authorizeCloudStarterReward(packId);
+    if(!authorization.ok)return {status:authorization.status,error:authorization.error,reason:authorization.error};
+    if(authorization.playerResourceIds.length!==1)return {status:503,error:'CLOUD_STARTER_REWARD_INVALID',reason:'CLOUD_STARTER_REWARD_INVALID'};
+    const card=catalogByResource.get(Number(authorization.playerResourceIds[0]));
+    if(!card||String(card.cardType||'').toLowerCase()!==expectedType)return {status:503,error:'CLOUD_STARTER_REWARD_INVALID',reason:'CLOUD_STARTER_REWARD_INVALID'};
+    const item=makePlayerItem(card,state,PILE_PURCHASED,true);
+    state.rewardPacks.splice(index,1);state.items.push(item);state.pending.push(item.id);
+    state.history.unshift({time:new Date().toISOString(),type:`STARTER_${expectedType.toUpperCase()}_REWARD`,packId,items:[item.resourceId],cost:0,currency:'reward'});
+    state.history=state.history.slice(0,200);saveState();
+    return {numberItems:1,purchasedPackId:requested,itemList:[item],itemData:[item],duplicateItemIdList:duplicatePairs([item]),credits:state.coins,totalCredits:state.coins,coins:state.coins,points:state.points,fifaPoints:state.points,transactionId:authorization.transactionId};
+  }
 
   if(Number(entry.rewardResourceId)>0){
     const card=catalogByResource.get(Number(entry.rewardResourceId));
@@ -3336,24 +3364,6 @@ function openRewardPack(instanceId) {
     state.history=state.history.slice(0,200);
     saveState();
     return {...result,purchasedPackId:requested,transactionId:`DRAFT-REWARD-${Date.now()}`};
-  }
-
-  if(packId===BAYERN_SQUAD_PACK_ID){
-    const cards=catalog.base.filter(card=>Number(card.teamId)===21).sort((a,b)=>Number(b.rating)-Number(a.rating)||String(a.name).localeCompare(String(b.name)));
-    if(!cards.length)return {status:409,error:'BAYERN_POOL_EMPTY',reason:'Aucun joueur du Bayern dans le catalogue.'};
-    const items=cards.map(card=>makePlayerItem(card,state,PILE_PURCHASED,true));
-    state.rewardPacks.splice(index,1);
-    state.items.push(...items);
-    state.pending.push(...items.map(item=>item.id));
-    state.bayernSquadPackClaimed=true;
-    state.history.unshift({time:new Date().toISOString(),type:'BAYERN_SQUAD_REWARD_PACK',packId:BAYERN_SQUAD_PACK_ID,items:items.map(item=>item.resourceId),cost:0,currency:'reward'});
-    state.history=state.history.slice(0,200);
-    saveState();
-    return {
-      numberItems:items.length,purchasedPackId:requested,itemList:items,itemData:items,duplicateItemIdList:duplicatePairs(items),
-      credits:state.coins,totalCredits:state.coins,coins:state.coins,points:state.points,fifaPoints:state.points,
-      transactionId:`MNG-BAYERN-${Date.now()}`
-    };
   }
 
   const currentTotw=pools.specials.filter(card=>card.cardType==='totw');
@@ -6213,7 +6223,7 @@ function handle(req,res,urlPath,requestBody) {
   ].includes(urlPath)&&method==='GET')return send(200,unopenedRewardPacks());
   match=urlPath.match(/^\/ut\/game\/fifa17\/purchased\/packs\/(\d+)\/open$/);
   if(match&&['POST','PUT'].includes(method)){
-    const reward=state.rewardPacks.some(entry=>Number(entry.id)===Number(match[1])||Number(entry.packId)===Number(match[1]))||Number(match[1])===WEEKLY_TOTW_PACK_ID||Number(match[1])===BAYERN_SQUAD_PACK_ID||Number(match[1])===TERRY_SBC_REWARD_PACK_ID;
+    const reward=state.rewardPacks.some(entry=>Number(entry.id)===Number(match[1])||Number(entry.packId)===Number(match[1]))||Number(match[1])===WEEKLY_TOTW_PACK_ID||Number(match[1])===TERRY_SBC_REWARD_PACK_ID;
     const result=reward?openRewardPack(Number(match[1])):{status:503,error:'CLOUD_PURCHASE_REQUIRES_ASYNC_RELAY'};
     return send(result.status||200,result);
   }

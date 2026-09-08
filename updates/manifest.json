@@ -1,13 +1,13 @@
 {
-  "version": "1.6.1",
-  "notes": "Sécurité renforcée : les crédits et Points FIFA sont désormais imposés par le cloud. Toute modification locale du solde est automatiquement annulée lors de la synchronisation et ne permet plus de contourner les achats sécurisés.",
+  "version": "1.6.2",
+  "notes": "Nouveau départ FUT : 10 000 crédits, 5 000 Points FIFA, une équipe complète de joueurs bronze, un pack de départ TOTW contenant exactement 1 TOTW et un pack de départ OTW contenant exactement 1 OTW. Le pack des 25 joueurs du Bayern est supprimé et les deux récompenses sont limitées à une ouverture sécurisée par compte.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "1bc38563c85c2635d5344b97ee67b9b9038e2dd1e6cdd4017e7f58d46bb239eb",
-      "size": 402762
+      "sha256": "0b83811a1c3e94b23b2fd640a838f9017406ecf9d37e29005554e5e37ba19a6f",
+      "size": 404037
     },
     {
       "scope": "server",
@@ -34,8 +34,8 @@
       "scope": "server",
       "source": "files/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
-      "sha256": "0603e897dc63fd66380978eba83c46e84919d232e333c407d7d9e82c93960882",
-      "size": 19683
+      "sha256": "c9ebad644c5faa0aeb352034c133577640b1c2299878ae1545ac3efe07e22f59",
+      "size": 19684
     },
     {
       "scope": "server",
@@ -55,8 +55,8 @@
       "scope": "server",
       "source": "files/server/data/mng-pack-admin.json",
       "target": "data/mng-pack-admin.json",
-      "sha256": "6d455e163c41b62621a0c2d723a6e3622b80e1ec38123f61d1c8723eecaa7511",
-      "size": 18548
+      "sha256": "a3ba0017c374717d6d59a50e148f45a970ea0f0de2ca7ee252fddb41e41189c7",
+      "size": 18856
     }
   ],
   "archives": [
