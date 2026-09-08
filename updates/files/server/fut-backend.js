@@ -6908,13 +6908,17 @@ const lahmLoanSbcSquad={
       if(progress.completed)return send(200,{completed:true,isCompleted:true,challenge,awards:challenge.awards});
       const validation=validateSbcSquad(savedSquad,def.requirements);
       if(!validation.ok){logger(`[sbc] Ribery challenge ${challengeId} rejected: ${validation.reason}`);return send(200,{code:'SBC_INVALID_SQUAD',valid:false,reason:validation.reason,rating:validation.rating||0,chemistry:validation.chemistry||0});}
+      const cloudReward=await authorizeCloudSbcCompletion(challengeId,validation.ids);
+      if(!cloudReward.ok)return send(cloudReward.status||503,{code:cloudReward.error||'SBC_CLOUD_REJECTED',valid:false});
+      const challengeCloudReward=cloudReward.rewards?.find(entry=>entry.kind==='challenge')||cloudReward.rewards?.[0];
+      const setCloudReward=cloudReward.rewards?.find(entry=>entry.kind==='set');
       consumeSbcItems(validation.ids);
-      const rewardPack={id:Number(state.nextRewardPackId++),packId:def.packId,source:`SBC_RIBERY_${challengeId}`};
+      const rewardPack={id:Number(state.nextRewardPackId++),packId:def.packId,source:`SBC_RIBERY_${challengeId}`,cloudResourceIds:challengeCloudReward?.resourceIds||[],cloudTransactionId:challengeCloudReward?.transactionId||cloudReward.transactionId};
       state.rewardPacks.push(rewardPack);progress.completed=true;
       let finalRewardPack=null;
       const allDone=riberyChallengeDefs.every(entry=>riberyChallengeState(entry.challengeId).completed);
-      if(allDone&&!state.sbcRiberyCompleted){
-        finalRewardPack={id:Number(state.nextRewardPackId++),packId:296001,source:'SBC_RIBERY_FINAL',setId:96001,playerName:'Franck RibÃ©ry',rewardResourceId:RIBERY_SBC_RESOURCE_ID};
+      if(allDone&&!state.sbcRiberyCompleted&&setCloudReward){
+        finalRewardPack={id:Number(state.nextRewardPackId++),packId:296001,source:'SBC_RIBERY_FINAL',setId:96001,playerName:'Franck RibÃ©ry',rewardResourceId:RIBERY_SBC_RESOURCE_ID,cloudResourceIds:setCloudReward.resourceIds||[],cloudTransactionId:setCloudReward.transactionId};
         state.rewardPacks.push(finalRewardPack);state.sbcRiberyCompleted=true;
       }
       state.history.unshift({time:new Date().toISOString(),type:'SBC',setId:96001,challengeId,packs:finalRewardPack?[def.packId,296001]:[def.packId],items:[],consumed:validation.ids});state.history=state.history.slice(0,200);saveState();
@@ -7005,14 +7009,18 @@ const lahmLoanSbcSquad={
         logger(`[terry-sbc-v12] challenge ${challengeId} rejected: ${validation.reason}`);
         return send(200,{code:'SBC_INVALID_SQUAD',valid:false,reason:validation.reason,rating:validation.rating||0,chemistry:validation.chemistry||0});
       }
+      const cloudReward=await authorizeCloudSbcCompletion(challengeId,validation.ids);
+      if(!cloudReward.ok)return send(cloudReward.status||503,{code:cloudReward.error||'SBC_CLOUD_REJECTED',valid:false});
+      const challengeCloudReward=cloudReward.rewards?.find(entry=>entry.kind==='challenge')||cloudReward.rewards?.[0];
+      const setCloudReward=cloudReward.rewards?.find(entry=>entry.kind==='set');
       consumeSbcItems(validation.ids);
-      const rewardPack={id:Number(state.nextRewardPackId++),packId:def.packId,source:`SBC_TERRY_${challengeId}`};
+      const rewardPack={id:Number(state.nextRewardPackId++),packId:def.packId,source:`SBC_TERRY_${challengeId}`,cloudResourceIds:challengeCloudReward?.resourceIds||[],cloudTransactionId:challengeCloudReward?.transactionId||cloudReward.transactionId};
       state.rewardPacks.push(rewardPack);
       progress.completed=true;
       let finalRewardPack=null;
       const allDone=terryChallengeDefs.every(entry=>terryChallengeState(entry.challengeId).completed);
-      if(allDone&&!state.sbcTerryCompleted){
-        finalRewardPack={id:Number(state.nextRewardPackId++),packId:TERRY_SBC_REWARD_PACK_ID,source:'SBC_TERRY_FINAL',setId:96011,playerName:'John Terry',rewardResourceId:JOHN_TERRY_FLASHBACK_RESOURCE_ID};
+      if(allDone&&!state.sbcTerryCompleted&&setCloudReward){
+        finalRewardPack={id:Number(state.nextRewardPackId++),packId:TERRY_SBC_REWARD_PACK_ID,source:'SBC_TERRY_FINAL',setId:96011,playerName:'John Terry',rewardResourceId:JOHN_TERRY_FLASHBACK_RESOURCE_ID,cloudResourceIds:setCloudReward.resourceIds||[],cloudTransactionId:setCloudReward.transactionId};
         state.rewardPacks.push(finalRewardPack);
         state.sbcTerryCompleted=true;
       }
@@ -7133,14 +7141,19 @@ const lahmLoanSbcSquad={
       }
       const validation=validateSbcSquad(savedSquad,challenge[communityRequirementsSymbol]);
       if(!validation.ok)return send(200,{code:'SBC_INVALID_SQUAD',valid:false,reason:validation.reason,rating:validation.rating||0,chemistry:validation.chemistry||0});
+      const cloudReward=await authorizeCloudSbcCompletion(challengeId,validation.ids);
+      if(!cloudReward.ok)return send(cloudReward.status||503,{code:cloudReward.error||'SBC_CLOUD_REJECTED',valid:false});
+      const challengeCloudReward=cloudReward.rewards?.find(entry=>entry.kind==='challenge')||cloudReward.rewards?.[0];
+      const setCloudReward=cloudReward.rewards?.find(entry=>entry.kind==='set');
+      if(!setCloudReward)return send(409,{code:'SBC_CLOUD_SET_REWARD_MISSING',valid:false});
       consumeSbcItems(validation.ids);
 
       // CHILD reward: one unopened pack.
       const challengePackId=Number(def.challengePackId)||308;
-      const rewardPack={id:Number(state.nextRewardPackId++),packId:challengePackId,source:'SBC_CHILD_CHALLENGE',setId:def.setId,challengeId};
+      const rewardPack={id:Number(state.nextRewardPackId++),packId:challengePackId,source:'SBC_CHILD_CHALLENGE',setId:def.setId,challengeId,cloudResourceIds:challengeCloudReward?.resourceIds||[],cloudTransactionId:challengeCloudReward?.transactionId||cloudReward.transactionId};
       state.rewardPacks.push(rewardPack);
 
-      const finalRewardPack={id:Number(state.nextRewardPackId++),packId:200000+Number(def.setId),source:`SBC_${String(def.shortName).toUpperCase().replace(/\W+/g,'_')}_FINAL`,setId:def.setId,playerName:def.name,rewardResourceId:def.resourceId};
+      const finalRewardPack={id:Number(state.nextRewardPackId++),packId:200000+Number(def.setId),source:`SBC_${String(def.shortName).toUpperCase().replace(/\W+/g,'_')}_FINAL`,setId:def.setId,playerName:def.name,rewardResourceId:def.resourceId,cloudResourceIds:setCloudReward.resourceIds||[],cloudTransactionId:setCloudReward.transactionId};
       state.rewardPacks.push(finalRewardPack);
       progress.completed=true;
 
