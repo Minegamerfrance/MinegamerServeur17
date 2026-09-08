@@ -3221,6 +3221,74 @@ async function authorizeCloudStarterReward(packId) {
   }catch(error){logger(`[mng-cloud] starter reward failed pack=${packId}: ${error.message}`);return {ok:false,status:503,error:'CLOUD_UNAVAILABLE'};}
 }
 
+function applyCloudWalletProfile(profile) {
+  if(!profile||typeof profile!=='object')return;
+  state.coins=Math.max(0,Math.floor(Number(profile.coins)||0));
+  state.points=Math.max(0,Math.floor(Number(profile.fifaPoints)||0));
+  MNG_CLOUD_PROFILE.coins=state.coins;
+  MNG_CLOUD_PROFILE.fifaPoints=state.points;
+  MNG_CLOUD_PROFILE.walletRevision=Math.max(1,Math.floor(Number(profile.walletRevision)||MNG_CLOUD_PROFILE.walletRevision||1));
+  MNG_CLOUD_PROFILE.walletUpdatedAt=Math.max(0,Math.floor(Number(profile.walletUpdatedAt)||0));
+  MNG_CLOUD_LAST_WALLET_KEY=mngWalletKey();
+  persistMngCloudSessionWallet(profile);
+}
+
+async function cloudMatchRequest(endpoint,body) {
+  if(!MNG_CLOUD_PROFILE.apiBaseUrl||!MNG_CLOUD_PROFILE.token)return {ok:false,status:401,error:'MNG_CLOUD_LOGIN_REQUIRED'};
+  try{
+    const response=await fetch(`${MNG_CLOUD_PROFILE.apiBaseUrl}${endpoint}`,{
+      method:'POST',headers:{authorization:`Bearer ${MNG_CLOUD_PROFILE.token}`,'content-type':'application/json'},body:JSON.stringify(body)
+    });
+    const payload=await response.json().catch(()=>({}));
+    return {...payload,ok:response.ok&&payload.ok!==false,status:response.status};
+  }catch(error){
+    logger(`[mng-match] cloud request failed endpoint=${endpoint}: ${error.message}`);
+    return {ok:false,status:503,error:'MNG_CLOUD_UNAVAILABLE'};
+  }
+}
+
+async function startSecureMatch(body={}) {
+  const draftMode=isDraftMatchRequest(body);
+  if(draftMode){
+    const local=startDraftMatch();
+    if(Number(local._status||200)>=400)return local;
+    const authorization=await cloudMatchRequest('/api/matches/start',{mode:'draft',clientMatchId:Number(local.matchId),round:Number(local.round)||1,divisionId:10});
+    if(!authorization.ok){state.offlineDraft.activeMatch=null;state.offlineDraft.status='READY';state.offlineDraft.state='READY';saveState();return {_status:authorization.status||503,code:authorization.error||'MATCH_AUTHORIZATION_FAILED'};}
+    state.offlineDraft.activeMatch.cloudToken=String(authorization.token||'');saveState();
+    logger(`[mng-match] cloud draft start authorized matchId=${local.matchId} token=${String(authorization.token||'').slice(0,8)}`);
+    return {...local,cloudAuthorized:true};
+  }
+  clearStaleDraftMatch();
+  state.activeMode=Number(body?.tournamentId)>0?'tournament':'season';
+  const local=startSeasonMatch(body);
+  const authorization=await cloudMatchRequest('/api/matches/start',{mode:'season',clientMatchId:Number(local.matchId),round:Number(local.round)||Number(state.singlePlayerSeason?.gamesPlayed||0)+1,divisionId:Number(state.singlePlayerSeason?.divisionId)||10});
+  if(!authorization.ok){state.singlePlayerSeason.activeMatch=null;saveState();return {_status:authorization.status||503,code:authorization.error||'MATCH_AUTHORIZATION_FAILED'};}
+  state.singlePlayerSeason.activeMatch.cloudToken=String(authorization.token||'');saveState();
+  logger(`[mng-match] cloud season start authorized matchId=${local.matchId} token=${String(authorization.token||'').slice(0,8)}`);
+  return {...local,cloudAuthorized:true};
+}
+
+async function finishSecureMatch(body={},explicitMatchId=0) {
+  const draftMode=Boolean(state.offlineDraft?.activeMatch);
+  const active=draftMode?state.offlineDraft.activeMatch:state.singlePlayerSeason?.activeMatch;
+  const token=String(active?.cloudToken||'');
+  if(!token)return {_status:409,code:'MATCH_NOT_CLOUD_AUTHORIZED'};
+  const submitted={...body};
+  if(explicitMatchId>0)submitted.matchId=explicitMatchId;
+  const scores=scoresFromMatch(submitted);
+  const cancelled=isEarlyEmptyMatchFailure(submitted,active);
+  const authorization=await cloudMatchRequest('/api/matches/finish',{
+    token,goalsFor:scores.myScore,goalsAgainst:scores.opponentScore,
+    endReason:cancelled?'CANCELLED':String(submitted?.endReason||submitted?.reason||'')
+  });
+  if(!authorization.ok)return {_status:authorization.status||503,code:authorization.error||'MATCH_REWARD_REJECTED',retryAfter:Number(authorization.retryAfter)||0};
+  applyCloudWalletProfile(authorization.profile);
+  const reward={coinsAwarded:Number(authorization.coinsAwarded)||0,seasonCoinsAwarded:Number(authorization.seasonCoinsAwarded)||0};
+  const outcome=draftMode?recordDraftMatch(submitted,reward):recordSeasonMatch(submitted,reward);
+  logger(`[mng-match] cloud finish accepted matchId=${Number(active.id)||0} result=${authorization.result||''} coins=${reward.coinsAwarded}`);
+  return {_status:200,...matchEndDocument(submitted,outcome,!draftMode)};
+}
+
 async function mngCloudMarketRequest(route,{method='GET',body,query}={}) {
   if(!MNG_CLOUD_PROFILE?.apiBaseUrl||!MNG_CLOUD_PROFILE?.token)return {ok:false,status:401,error:'MNG_CLOUD_LOGIN_REQUIRED'};
   const suffix=query?`?${query.toString()}`:'';
@@ -4901,7 +4969,7 @@ function startSeasonMatch(body) {
     startDateTime:Math.floor(Date.now()/1000),squad:userSquad,userSquad,opponentSquad};
 }
 
-function recordSeasonMatch(body) {
+function recordSeasonMatch(body,authorizedReward=null) {
   const season=state.singlePlayerSeason;season.started=true;
   const bodyMatchId=Number(body?.matchId||body?.id||0),active=season.activeMatch;
   if(isEarlyEmptyMatchFailure(body,active)){
@@ -4918,7 +4986,8 @@ function recordSeasonMatch(body) {
   season.results=season.results.slice(-SEASON_MATCH_COUNT);
   let requested=Number(body?.coinsAwarded??body?.matchCoins??body?.reward??body?.totalCoins);
   if(!Number.isFinite(requested)||requested<=0||requested>5000)requested=result==='WIN'?700:result==='DRAW'?500:350;
-  let coinsAwarded=Math.max(250,Math.min(5000,Math.round(requested)))+scores.myScore*50,seasonCoinsAwarded=0;
+  let coinsAwarded=authorizedReward?Math.max(0,Math.floor(Number(authorizedReward.coinsAwarded)||0)):Math.max(250,Math.min(5000,Math.round(requested)))+scores.myScore*50;
+  let seasonCoinsAwarded=authorizedReward?Math.max(0,Math.floor(Number(authorizedReward.seasonCoinsAwarded)||0)):0;
   if(season.gamesPlayed>=SEASON_MATCH_COUNT&&!season.completed){
     season.completed=true;const thresholds=seasonThresholds(season.divisionId);
     season.endResult=season.points>=thresholds.title?'CHAMPIONSHIP':season.points>=thresholds.promotion?'PROMOTION':season.points<thresholds.hold?'RELEGATION':'HOLD';
@@ -4929,10 +4998,10 @@ function recordSeasonMatch(body) {
     else if(season.endResult==='PROMOTION')totals.promotions=(Number(totals.promotions)||0)+1;else if(season.endResult==='RELEGATION')totals.relegations=(Number(totals.relegations)||0)+1;
     const prizeLevel=season.endResult==='HOLD'?'MAINTENANCE':season.endResult;
     const prize=seasonDefinition(season.divisionId).prizeSet.find(entry=>entry.prizeLevel===prizeLevel);
-    seasonCoinsAwarded=Math.max(0,Number(prize?.awardMappings?.find(award=>award.type==='coin')?.value)||0);coinsAwarded+=seasonCoinsAwarded;
+    if(!authorizedReward){seasonCoinsAwarded=Math.max(0,Number(prize?.awardMappings?.find(award=>award.type==='coin')?.value)||0);coinsAwarded+=seasonCoinsAwarded;}
     if(season.points>(Number(totals.bestPoints)||0)){totals.bestPoints=season.points;totals.bestDivision=season.divisionId;}
   }
-  state.coins+=coinsAwarded;state.history.unshift({time:new Date().toISOString(),type:'OFFLINE_SEASON_MATCH',result,
+  if(!authorizedReward)state.coins+=coinsAwarded;state.history.unshift({time:new Date().toISOString(),type:'OFFLINE_SEASON_MATCH',result,
     score:`${scores.myScore}-${scores.opponentScore}`,round:season.gamesPlayed,coins:coinsAwarded});state.history=state.history.slice(0,200);saveState();
   return {result,coinsAwarded,seasonCoinsAwarded,...scores};
 }
@@ -5756,7 +5825,7 @@ function startDraftMatch() {
     squad:userSquad,userSquad,opponentSquad};
 }
 
-function recordDraftMatch(body={}) {
+function recordDraftMatch(body={},authorizedReward=null) {
   const draft=ensureDraftState();
   if(!draft||!draft.activeMatch)return null;
   if(isEarlyEmptyMatchFailure(body,draft.activeMatch)){
@@ -5783,8 +5852,8 @@ function recordDraftMatch(body={}) {
   const finished=!won||draft.wins>=4;
   draft.status=finished?'PRIZE':'READY';draft.state=draft.status;draft.completed=finished;draft.currentRound=Math.min(4,draft.wins+1);draft.activeMatch=null;
   if(draft.wins>=4&&finished)state.draftHistory.titles=Number(state.draftHistory.titles||0)+1;
-  const coinsAwarded=won?750+scores.myScore*50:400+scores.myScore*50;
-  state.coins+=coinsAwarded;
+  const coinsAwarded=authorizedReward?Math.max(0,Math.floor(Number(authorizedReward.coinsAwarded)||0)):(won?750+scores.myScore*50:400+scores.myScore*50);
+  if(!authorizedReward)state.coins+=coinsAwarded;
   state.history.unshift({time:new Date().toISOString(),type:'OFFLINE_DRAFT_MATCH',result:won?'WIN':'LOSS',score:`${scores.myScore}-${scores.opponentScore}`,wins:draft.wins,coins:coinsAwarded});
   saveState();
   return {result:won?'WIN':'LOSS',coinsAwarded,...scores,draft:draftUserDocument(),prize:finished?draftPrizeDocument():null};
@@ -5804,7 +5873,7 @@ function clearStaleDraftMatch() {
   const draft=ensureDraftState();
   if(!draft?.activeMatch)return;
   const matchId=Number(draft.activeMatch.id)||0;
-  const outcome=recordDraftMatch({matchId,matchReportId:matchId||1,endReason:'DNF',matchData:'FORFEIT',myScore:0,opponentScore:3});
+  const outcome=recordDraftMatch({matchId,matchReportId:matchId||1,endReason:'DNF',matchData:'FORFEIT',myScore:0,opponentScore:3},{coinsAwarded:0});
   const prize=outcome?.result==='LOSS'?claimDraftPrize():null;
   logger(`[draft-match] stale match ${matchId} recorded as ${outcome?.result||'LOSS'} on reset prizeClaimed=${Boolean(prize?.claimed)}`);
 }
@@ -7270,6 +7339,6 @@ const lahmLoanSbcSquad={
   return false;
 }
 
-module.exports={init,handle,openStorePack,cloudMarketSearch,cloudListOwnedItem,cloudBuyMarketListing,cloudTradePile,cloudTradePileCounts,cloudTradeStatus,cloudRelistExpired,cloudClearMarketListing,relistExpiredListings,clearFinishedListings,squadDocument,squadList,hubDocument,creditsDocument,homeWalletDocument,homeRecordDocument,settingsDocument,pileSizeDocument,seasonListDocument,seasonUserDocument,seasonHistoryDocument,
+module.exports={init,handle,openStorePack,startSecureMatch,finishSecureMatch,cloudMarketSearch,cloudListOwnedItem,cloudBuyMarketListing,cloudTradePile,cloudTradePileCounts,cloudTradeStatus,cloudRelistExpired,cloudClearMarketListing,relistExpiredListings,clearFinishedListings,squadDocument,squadList,hubDocument,creditsDocument,homeWalletDocument,homeRecordDocument,settingsDocument,pileSizeDocument,seasonListDocument,seasonUserDocument,seasonHistoryDocument,
   clubStats,packCatalogue,openPack,filteredClub,purchasedResponse,marketSearch,buyMarketListing,updateItems,storeDescriptionsXml,
   getState:()=>state,getCatalog:()=>catalog,getIdentity,setIdentity,getTotwIdentity,syncMngCloudWallet,queueMngCloudWalletSync,syncMngCloudClub,queueMngCloudClubSync,totwUserListDocument,totwPublicUserDocument,totwSquadDocument,totwSessionActive};

@@ -1610,6 +1610,10 @@ function serviceHttpHandler(name,req,res){
         const result=await futBackend.cloudTradeStatus(tradeIds);json(res,result.status||200,result);log(`[${name}] FUT cloud trade status ids=${tradeIds.join(',')} total=${result.total||0}`);
     } else if(isFut && req.method==='GET' && urlPath.toLowerCase()==='/ut/game/fifa17/tradepile/counts') {
         const result=await futBackend.cloudTradePileCounts();json(res,200,result);log(`[${name}] FUT global trade pile counts active=${result.active||0} total=${result.tradePileCount||0}`);
+    } else if(isFut && ['POST','PUT'].includes(req.method) && ['/ut/game/fifa17/match/start','/ut/game/fifa17/match','/ut/game/fifa17/season/match/start'].includes(urlPath)) {
+        const result=await futBackend.startSecureMatch(requestBody?JSON.parse(requestBody):{});json(res,result._status||result.status||200,result);log(`[${name}] FUT secure cloud match start status=${result._status||result.status||200}`);
+    } else if(isFut && ['POST','PUT'].includes(req.method) && (urlPath==='/ut/game/fifa17/match/end'||/^\/ut\/game\/fifa17\/match\/\d+\/end$/.test(urlPath))) {
+        const matchId=Number(urlPath.match(/\/match\/(\d+)\/end$/)?.[1]||0);const result=await futBackend.finishSecureMatch(requestBody?JSON.parse(requestBody):{},matchId);json(res,result._status||result.status||200,result);log(`[${name}] FUT secure cloud match finish matchId=${matchId||0} status=${result._status||result.status||200}`);
     } else if(isFut && futBackend.handle(req,res,urlPath,requestBody)) {
         log(`[${name}] FUT persistent backend handled ${req.method} ${req.url}`);
     } else if(isFut && (urlPath==='/ut/game/fifa17/phishing' || urlPath==='/ut/game/fifa17/phishing/question')) {

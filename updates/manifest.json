@@ -1,20 +1,20 @@
 {
-  "version": "1.6.2",
-  "notes": "Nouveau départ FUT : 10 000 crédits, 5 000 Points FIFA, une équipe complète de joueurs bronze, un pack de départ TOTW contenant exactement 1 TOTW et un pack de départ OTW contenant exactement 1 OTW. Le pack des 25 joueurs du Bayern est supprimé et les deux récompenses sont limitées à une ouverture sécurisée par compte.",
+  "version": "1.6.3",
+  "notes": "Sécurité des matchs : chaque match solo ou Draft doit désormais être autorisé par le cloud avant son lancement. Les crédits sont calculés et versés par le cloud, les résultats terminés trop rapidement sont refusés et un même match ne peut jamais payer deux fois.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "b9681558e09fbb7be1a747740677dfec254171479a9668d1ac0d98aed1d82bed",
-      "size": 404032
+      "sha256": "1d9338da9dddf299918e6a323627632f0dbba7415ef3acd73c26403d831f0c99",
+      "size": 408934
     },
     {
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "c8daeb13298b07be99c98b7866165d14bd3afaf7233ccee743dfa43c2653144f",
-      "size": 104021
+      "sha256": "d80c59e4633357c81d281d102770c4f1309c8d0f7190340c61d0a43907a36d70",
+      "size": 104935
     },
     {
       "scope": "server",
