@@ -1,20 +1,20 @@
 {
-  "version": "1.6.3",
-  "notes": "Sécurité des matchs : chaque match solo ou Draft doit désormais être autorisé par le cloud avant son lancement. Les crédits sont calculés et versés par le cloud, les résultats terminés trop rapidement sont refusés et un même match ne peut jamais payer deux fois.",
+  "version": "1.6.4",
+  "notes": "Durcissement du serveur distribué : suppression des routes internes de diagnostic, du catalogue spécial local et de l'ancienne commande permettant d'ajouter gratuitement une carte. La sécurité cloud des matchs de la version 1.6.3 reste incluse.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "1d9338da9dddf299918e6a323627632f0dbba7415ef3acd73c26403d831f0c99",
-      "size": 408934
+      "sha256": "93624fbcbe0f0c1644bebd1a5da3a678c53c2e45a911c44af9b2e3087e8a293d",
+      "size": 407153
     },
     {
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "d80c59e4633357c81d281d102770c4f1309c8d0f7190340c61d0a43907a36d70",
-      "size": 104935
+      "sha256": "f50f220896ebb5333e4a8f3bca40fc8477034d95b61d203dd3c8ec612c5384eb",
+      "size": 104881
     },
     {
       "scope": "server",

@@ -7312,27 +7312,7 @@ const lahmLoanSbcSquad={
     state.activeMode=Number(body?.tournamentId)>0?'tournament':'season';
     const result=startSeasonMatch(body);return send(result.status||200,result);
   }
-  if(urlPath==='/local/mng/cloud-profile'&&method==='GET')return send(200,{ok:true,...getIdentity(),walletSyncEnabled:MNG_CLOUD_SYNC_ENABLED,clubSyncEnabled:MNG_CLOUD_CLUB_SYNC_ENABLED,clubRevision:MNG_CLOUD_CLUB_REVISION,clubItems:Array.isArray(state?.items)?state.items.length:0,lastWalletKey:MNG_CLOUD_LAST_WALLET_KEY,lastClubKey:MNG_CLOUD_LAST_CLUB_KEY});
-  if(urlPath==='/local/mng/cloud-wallet-sync'&&['POST','PUT','GET'].includes(method)){
-    queueMngCloudWalletSync('manual-local-test',0);
-    return send(200,{ok:true,queued:true,coins:state.coins,fifaPoints:state.points});
-  }
-  if(urlPath==='/local/mng/cloud-club-sync'&&['POST','PUT','GET'].includes(method)){
-    queueMngCloudClubSync('manual-local-test',0);
-    return send(200,{ok:true,queued:true,items:Array.isArray(state.items)?state.items.length:0,pending:Array.isArray(state.pending)?state.pending.length:0});
-  }
-  if(urlPath==='/local/fifa17/catalog')return send(200,{...catalog.counts,schema:catalog.schema});
-  if(urlPath==='/local/fifa17/specials'){
-    const limit=Math.min(200,Math.max(1,Number(query.get('count')||50))),offset=Math.max(0,Number(query.get('offset')||0));
-    return send(200,{players:catalog.specials.slice(offset,offset+limit),count:catalog.specials.length,offset});
-  }
-  match=urlPath.match(/^\/local\/fifa17\/grant-special\/(\d+)$/);
-  if(match&&['POST','PUT','GET'].includes(method)){
-    const card=catalog.specials.find(entry=>entry.resourceId===Number(match[1])||entry.assetId===Number(match[1]));
-    if(!card)return send(404,{code:'404',reason:'Special card not found'});
-    if(SBC_EXCLUSIVE_RESOURCE_IDS.has(Number(card.resourceId)))return send(403,{code:'SBC_EXCLUSIVE',reason:'Cette carte est disponible uniquement via son SBC.'});
-    const item=makePlayerItem(card,state,PILE_CLUB,false);state.items.push(item);saveState();return send(200,{itemData:[item],credits:state.coins});
-  }
+  if(urlPath.startsWith('/local/mng/')||urlPath.startsWith('/local/fifa17/'))return send(404,{code:'NOT_FOUND'});
   match=urlPath.match(/^\/fut\/packs\/loc\/storepackdescriptions\.([a-z]{2}_[a-z]{2})\.xml$/);
   if(match){sendXml(res,200,storeDescriptionsXml(match[1]));return true;}
   if(urlPath==='/fut/packs/dreamsquad/dreamsquadpacklist.json')return send(200,{packList:[]});

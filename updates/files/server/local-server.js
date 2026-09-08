@@ -1448,8 +1448,7 @@ function serviceHttpHandler(name,req,res){
         res.end(body);
         log(`[${name}] Python revival authentication contract returned`);
     } else if(isFut && urlPath==='/local/fifa17/first-run-trace') {
-        // MNG FIRST RUN CLUB TRACE V33 - STATUS
-        json(res,200,futFirstRunTraceState());
+        json(res,404,{code:'NOT_FOUND'});
     } else if(isFut && urlPath==='/pow/auth') {
         json(res,200,{success:true});
     } else if(isFut && urlPath==='/ut/game/fifa17/user/accountinfo') {
