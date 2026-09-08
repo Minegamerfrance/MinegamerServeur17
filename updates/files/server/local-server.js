@@ -1602,7 +1602,7 @@ function serviceHttpHandler(name,req,res){
         if(token==='sold'||(tradeId>0&&tradeId<1000000000)){
           const localResult=token==='sold'?futBackend.clearFinishedListings():{removed:0};
           const result=await futBackend.cloudClearMarketListing(tradeId);json(res,result.status||200,{...result,removed:Number(result.removed||0)+Number(localResult.removed||0)});log(`[${name}] FUT cloud trade removal target=${token} status=${result.status||200}`);
-        }else if(futBackend.handle(req,res,urlPath,requestBody))log(`[${name}] FUT persistent backend handled ${req.method} ${req.url}`);
+        }else if(await futBackend.handle(req,res,urlPath,requestBody))log(`[${name}] FUT persistent backend handled ${req.method} ${req.url}`);
         else json(res,404,{error:'LISTING_NOT_FOUND'});
     } else if(isFut && req.method==='GET' && urlPath==='/ut/game/fifa17/trade/status' && String(new URL(req.url,'http://localhost').searchParams.get('tradeIds')||'').split(',').map(Number).some(id=>id>0&&id<1000000000)) {
         const tradeIds=String(new URL(req.url,'http://localhost').searchParams.get('tradeIds')||'').split(',').map(Number).filter(Boolean);
@@ -1613,7 +1613,7 @@ function serviceHttpHandler(name,req,res){
         const result=await futBackend.startSecureMatch(requestBody?JSON.parse(requestBody):{});json(res,result._status||result.status||200,result);log(`[${name}] FUT secure cloud match start status=${result._status||result.status||200}`);
     } else if(isFut && ['POST','PUT'].includes(req.method) && (urlPath==='/ut/game/fifa17/match/end'||/^\/ut\/game\/fifa17\/match\/\d+\/end$/.test(urlPath))) {
         const matchId=Number(urlPath.match(/\/match\/(\d+)\/end$/)?.[1]||0);const result=await futBackend.finishSecureMatch(requestBody?JSON.parse(requestBody):{},matchId);json(res,result._status||result.status||200,result);log(`[${name}] FUT secure cloud match finish matchId=${matchId||0} status=${result._status||result.status||200}`);
-    } else if(isFut && futBackend.handle(req,res,urlPath,requestBody)) {
+    } else if(isFut && await futBackend.handle(req,res,urlPath,requestBody)) {
         log(`[${name}] FUT persistent backend handled ${req.method} ${req.url}`);
     } else if(isFut && (urlPath==='/ut/game/fifa17/phishing' || urlPath==='/ut/game/fifa17/phishing/question')) {
         res.setHeader('Set-Cookie','FUTWebPhishing=LOCAL-FIFA17-PHISHING; Path=/; HttpOnly');

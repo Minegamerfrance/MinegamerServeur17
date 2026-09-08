@@ -3247,6 +3247,13 @@ async function cloudMatchRequest(endpoint,body) {
   }
 }
 
+async function authorizeCloudSbcCompletion(challengeId,itemIds) {
+  if(!await forceMngCloudClubSync('before-sbc-submit'))return {ok:false,status:503,error:'CLUB_SYNC_FAILED'};
+  const result=await cloudMatchRequest('/api/sbc/complete',{challengeId:Number(challengeId),itemIds:itemIds.map(Number)});
+  if(result.ok){MNG_CLOUD_CLUB_REVISION=Number(result.revision)||MNG_CLOUD_CLUB_REVISION;MNG_CLOUD_LAST_CLUB_KEY='';}
+  return result;
+}
+
 async function startSecureMatch(body={}) {
   const draftMode=isDraftMatchRequest(body);
   if(draftMode){
@@ -3369,6 +3376,18 @@ async function openRewardPack(instanceId) {
   if(index<0)return {status:404,error:'REWARD_PACK_NOT_FOUND',reason:'Aucun pack rÃ©compense disponible.'};
   const entry=state.rewardPacks[index];
   const packId=Number(entry.packId);
+
+  if(Array.isArray(entry.cloudResourceIds)&&entry.cloudResourceIds.length){
+    const cards=entry.cloudResourceIds.map(resourceId=>catalogByResource.get(Number(resourceId))).filter(Boolean);
+    if(cards.length!==entry.cloudResourceIds.length)return {status:409,error:'CLOUD_SBC_REWARD_INVALID',reason:'Récompense DCE cloud introuvable.'};
+    const items=cards.map(card=>makePlayerItem(card,state,PILE_PURCHASED,Number(entry.rewardResourceId)>0));
+    const loanGames=Math.max(0,Number(entry.loanGames)||0);
+    if(loanGames>0)for(const item of items){item.loans=loanGames;item.loanGames=loanGames;item.remainingLoanGames=loanGames;item.isLoan=true;item.loan=true;item.untradeable=true;item.tradeable=false;item.contract=99;item.contracts=99;}
+    state.rewardPacks.splice(index,1);state.items.push(...items);state.pending.push(...items.map(item=>item.id));
+    state.history.unshift({time:new Date().toISOString(),type:'CLOUD_SBC_REWARD',setId:Number(entry.setId)||0,packId,items:items.map(item=>item.resourceId),cost:0,currency:'reward'});
+    state.history=state.history.slice(0,200);saveState();
+    return {numberItems:items.length,purchasedPackId:requested,itemList:items,itemData:items,duplicateItemIdList:duplicatePairs(items),credits:state.coins,totalCredits:state.coins,coins:state.coins,points:state.points,fifaPoints:state.points,transactionId:String(entry.cloudTransactionId||'')};
+  }
 
   if(packId===STARTER_TOTW_PACK_ID||packId===STARTER_OTW_PACK_ID){
     const expectedType=packId===STARTER_TOTW_PACK_ID?'totw':'otw';
@@ -6135,7 +6154,7 @@ function resetTournamentUser(tournamentId) {
   return {tournamentId:id,success:true,valid:true};
 }
 
-function handle(req,res,urlPath,requestBody) {
+async function handle(req,res,urlPath,requestBody) {
   loadState();
   if(!state.__diagHotfixSeen){
     state.__diagHotfixSeen=true;
@@ -6722,8 +6741,10 @@ const lahmLoanSbcSquad={
     if(lahmLoanCompleted)return send(200,{completed:true,isCompleted:true,challenge:lahmLoanChallenge,set:lahmLoanSet,awards:[lahmLoanAward]});
     const validation=validateSbcSquad(state.sbcLahmLoanSquad,lahmLoanChallenge.requirements);
     if(!validation.ok)return send(200,{code:'SBC_INVALID_SQUAD',valid:false,reason:validation.reason,rating:validation.rating||0,chemistry:validation.chemistry||0});
+    const cloudReward=await authorizeCloudSbcCompletion(950021,validation.ids);
+    if(!cloudReward.ok)return send(cloudReward.status||503,{code:cloudReward.error||'SBC_CLOUD_REJECTED',valid:false});
     consumeSbcItems(validation.ids);
-    const finalRewardPack={id:Number(state.nextRewardPackId++),packId:295002,source:'SBC_LAHM_LOAN_FINAL',setId:95002,playerName:'Philipp Lahm [Loan]',rewardResourceId:100785235,loanGames:10};
+    const finalRewardPack={id:Number(state.nextRewardPackId++),packId:295002,source:'SBC_LAHM_LOAN_FINAL',setId:95002,playerName:'Philipp Lahm [Loan]',rewardResourceId:100785235,loanGames:10,cloudResourceIds:cloudReward.rewards?.[0]?.resourceIds||[],cloudTransactionId:cloudReward.transactionId};
     state.rewardPacks.push(finalRewardPack);
     state.sbcLahmLoanCompleted=true;
     state.history.unshift({time:new Date().toISOString(),type:'SBC',setId:95002,challengeId:950021,packs:[295002],items:[],consumed:validation.ids,loanGames:10});
@@ -6778,9 +6799,11 @@ const lahmLoanSbcSquad={
     if(lahmCompleted)return send(200,{completed:true,isCompleted:true,challenge:lahmChallenge,set:lahmSet,awards:[lahmAward]});
     const validation=validateSbcSquad(state.sbcLahmSquad,lahmChallenge.requirements);
     if(!validation.ok)return send(200,{code:'SBC_INVALID_SQUAD',valid:false,reason:validation.reason,rating:validation.rating||0,chemistry:validation.chemistry||0});
+    const cloudReward=await authorizeCloudSbcCompletion(950011,validation.ids);
+    if(!cloudReward.ok)return send(cloudReward.status||503,{code:cloudReward.error||'SBC_CLOUD_REJECTED',valid:false});
     consumeSbcItems(validation.ids);
     const uniqueIds=validation.ids;
-    const finalRewardPack={id:Number(state.nextRewardPackId++),packId:295001,source:'SBC_LAHM_FINAL',setId:95001,playerName:'Philipp Lahm',rewardResourceId:100785235};
+    const finalRewardPack={id:Number(state.nextRewardPackId++),packId:295001,source:'SBC_LAHM_FINAL',setId:95001,playerName:'Philipp Lahm',rewardResourceId:100785235,cloudResourceIds:cloudReward.rewards?.[0]?.resourceIds||[],cloudTransactionId:cloudReward.transactionId};
     state.rewardPacks.push(finalRewardPack);
     state.sbcLahmCompleted=true;
     state.history.unshift({time:new Date().toISOString(),type:'SBC',setId:95001,challengeId:950011,packs:[295001],items:[],consumed:uniqueIds});
@@ -7196,9 +7219,11 @@ const lahmLoanSbcSquad={
     if(benYedderCompleted)return send(200,{completed:true,isCompleted:true,challenge:benYedderChallenge,set:benYedderSet,awards:[benYedderAward]});
     const validation=validateSbcSquad(state.sbcBenYedderSquad,benYedderChallenge.requirements);
     if(!validation.ok)return send(200,{code:'SBC_INVALID_SQUAD',valid:false,reason:validation.reason,rating:validation.rating||0,chemistry:validation.chemistry||0});
+    const cloudReward=await authorizeCloudSbcCompletion(960021,validation.ids);
+    if(!cloudReward.ok)return send(cloudReward.status||503,{code:cloudReward.error||'SBC_CLOUD_REJECTED',valid:false});
     consumeSbcItems(validation.ids);
     const uniqueIds=validation.ids;
-    const finalRewardPack={id:Number(state.nextRewardPackId++),packId:296002,source:'SBC_BEN_YEDDER_FINAL',setId:96002,playerName:'Ben Yedder',rewardResourceId:100862747};
+    const finalRewardPack={id:Number(state.nextRewardPackId++),packId:296002,source:'SBC_BEN_YEDDER_FINAL',setId:96002,playerName:'Ben Yedder',rewardResourceId:100862747,cloudResourceIds:cloudReward.rewards?.[0]?.resourceIds||[],cloudTransactionId:cloudReward.transactionId};
     state.rewardPacks.push(finalRewardPack);
     state.sbcBenYedderCompleted=true;
     state.history.unshift({time:new Date().toISOString(),type:'SBC',setId:96002,challengeId:960021,packs:[296002],items:[],consumed:uniqueIds});
@@ -7255,9 +7280,11 @@ const lahmLoanSbcSquad={
     if(weeklyTotwCompleted)return send(200,{completed:true,isCompleted:true,challenge:weeklyTotwChallenge,set:weeklyTotwSet,awards:[weeklyTotwAward]});
     const validation=validateSbcSquad(state.sbcWeeklyTotwSquad,weeklyTotwChallenge.requirements);
     if(!validation.ok)return send(200,{code:'SBC_INVALID_SQUAD',valid:false,reason:validation.reason,rating:validation.rating||0,chemistry:validation.chemistry||0});
+    const cloudReward=await authorizeCloudSbcCompletion(970011,validation.ids);
+    if(!cloudReward.ok)return send(cloudReward.status||503,{code:cloudReward.error||'SBC_CLOUD_REJECTED',valid:false});
     consumeSbcItems(validation.ids);
     const uniqueIds=validation.ids;
-    const rewardPack={id:Number(state.nextRewardPackId++),packId:WEEKLY_TOTW_PACK_ID,source:'SBC_WEEKLY_TOTW'};
+    const rewardPack={id:Number(state.nextRewardPackId++),packId:WEEKLY_TOTW_PACK_ID,source:'SBC_WEEKLY_TOTW',cloudResourceIds:cloudReward.rewards?.[0]?.resourceIds||[],cloudTransactionId:cloudReward.transactionId};
     state.rewardPacks.push(rewardPack);
     state.sbcWeeklyTotwCompleted=true;
     state.history.unshift({time:new Date().toISOString(),type:'SBC',setId:97001,challengeId:970011,packs:[WEEKLY_TOTW_PACK_ID],consumed:uniqueIds});

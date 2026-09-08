@@ -1,20 +1,20 @@
 {
-  "version": "1.6.4",
-  "notes": "Durcissement du serveur distribué : suppression des routes internes de diagnostic, du catalogue spécial local et de l'ancienne commande permettant d'ajouter gratuitement une carte. La sécurité cloud des matchs de la version 1.6.3 reste incluse.",
+  "version": "1.6.5",
+  "notes": "Sécurité DCE cloud, première phase : Lahm, Lahm en prêt, Ben Yedder et l'amélioration TOTW hebdomadaire vérifient désormais les 11 joueurs réellement possédés. La consommation et la récompense sont atomiques et chaque défi ne peut être payé qu'une fois.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "93624fbcbe0f0c1644bebd1a5da3a678c53c2e45a911c44af9b2e3087e8a293d",
-      "size": 407153
+      "sha256": "522ac48827bcd3fa86a385e31047b7ba4bb863376f7e503b703eabdbc5f16a01",
+      "size": 410214
     },
     {
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "f50f220896ebb5333e4a8f3bca40fc8477034d95b61d203dd3c8ec612c5384eb",
-      "size": 104881
+      "sha256": "c6a0d8b961b0f326cccaa4ee0ec5303537e4ff57f000549b81d4fa309c8cc5c7",
+      "size": 104893
     },
     {
       "scope": "server",
