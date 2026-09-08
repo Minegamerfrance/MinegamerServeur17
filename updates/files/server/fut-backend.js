@@ -196,6 +196,8 @@ async function syncMngCloudWallet(reason='state-save') {
     MNG_CLOUD_PROFILE.fifaPoints=Math.max(0,Math.floor(Number(profile.fifaPoints??fifaPoints)||0));
     MNG_CLOUD_PROFILE.walletRevision=Math.max(1,Math.floor(Number(profile.walletRevision)||MNG_CLOUD_PROFILE.walletRevision));
     MNG_CLOUD_PROFILE.walletUpdatedAt=Math.max(0,Math.floor(Number(profile.walletUpdatedAt)||0));
+    state.coins=MNG_CLOUD_PROFILE.coins;
+    state.points=MNG_CLOUD_PROFILE.fifaPoints;
     MNG_CLOUD_LAST_WALLET_KEY=mngWalletKey(MNG_CLOUD_PROFILE.coins,MNG_CLOUD_PROFILE.fifaPoints);
     persistMngCloudSessionWallet({
       id:Number(profile.id)||MNG_CLOUD_PROFILE.userId,

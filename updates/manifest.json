@@ -1,13 +1,13 @@
 {
-  "version": "1.6.0",
-  "notes": "Correction définitive du bouton A dans la liste des transferts : le serveur conserve l'état interne inactive pour retrouver toutes les cartes, mais transmet l'état FIFA 17 none afin que les cartes disponibles restent sélectionnables et puissent être mises en vente.",
+  "version": "1.6.1",
+  "notes": "Sécurité renforcée : les crédits et Points FIFA sont désormais imposés par le cloud. Toute modification locale du solde est automatiquement annulée lors de la synchronisation et ne permet plus de contourner les achats sécurisés.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "228efd6840de7f607ec798f7d7ffef8be25b900753473bf5de0f0e23376a76a0",
-      "size": 402674
+      "sha256": "1bc38563c85c2635d5344b97ee67b9b9038e2dd1e6cdd4017e7f58d46bb239eb",
+      "size": 402762
     },
     {
       "scope": "server",
