@@ -3254,6 +3254,16 @@ async function authorizeCloudSbcCompletion(challengeId,itemIds) {
   return result;
 }
 
+async function authorizeCloudQuickSell(itemIds) {
+  if(!await forceMngCloudClubSync('before-quicksell'))return {ok:false,status:503,error:'CLUB_SYNC_FAILED'};
+  const result=await cloudMatchRequest('/api/items/quicksell',{transactionId:crypto.randomUUID(),itemIds:itemIds.map(Number)});
+  if(result.ok){
+    MNG_CLOUD_CLUB_REVISION=Number(result.revision)||MNG_CLOUD_CLUB_REVISION;
+    applyCloudWalletProfile(result.profile);
+  }
+  return result;
+}
+
 async function startSecureMatch(body={}) {
   const draftMode=isDraftMatchRequest(body);
   if(draftMode){
@@ -3599,7 +3609,7 @@ function updateItems(body) {
   return {itemData:results,credits:state.coins};
 }
 
-function discardItem(itemId) {
+async function discardItem(itemId) {
   const item=state.items.find(entry=>entry.id===Number(itemId));
   if(!item)return {itemData:{id:Number(itemId)||0},credits:state.coins};
   if(item.itemState==='discarded'||Number(item.pile)===0){
@@ -3607,32 +3617,28 @@ function discardItem(itemId) {
     saveState();
     return {itemData:{id:item.id,pile:0,itemState:'discarded',discardValue:0},credits:state.coins,totalCredits:state.coins,coins:state.coins};
   }
-  const totwDiscardValue=totwQuickSellValue(item);
-  if(totwDiscardValue!==null)item.discardValue=totwDiscardValue;
-  const value=Number(item.discardValue)||0;
-  state.coins+=value;
-  item.itemState='discarded';
-  item.pile=0;
-  state.pending=state.pending.filter(id=>id!==item.id);
-  for(const squad of state.squads)squad.itemIds=squad.itemIds.map(id=>id===item.id?0:id);
-  saveState();
-  return {itemData:item,credits:state.coins,totalCredits:state.coins,coins:state.coins,discardValue:value};
+  const result=await discardItems([item.id]);
+  if(result._status)return result;
+  return {itemData:result.itemData[0]||{id:item.id},credits:state.coins,totalCredits:state.coins,coins:state.coins,discardValue:Number(result.discardValue)||0};
 }
 
-function discardItems(itemIds) {
+async function discardItems(itemIds) {
   const ids=[...new Set((Array.isArray(itemIds)?itemIds:[itemIds]).map(Number).filter(Boolean))];
-  const discarded=[];
-  let totalDiscardValue=0;
-  for(const id of ids){
-    const before=Number(state.coins)||0;
-    const result=discardItem(id);
-    const item=state.items.find(entry=>Number(entry.id)===id);
-    if(item&&item.itemState==='discarded')discarded.push({...item});
-    totalDiscardValue+=Math.max(0,(Number(result.coins)||0)-before);
-  }
+  const owned=ids.map(id=>state.items.find(entry=>Number(entry.id)===id&&entry.itemState!=='discarded'&&Number(entry.pile)!==0)).filter(Boolean);
+  if(!owned.length)return {itemId:ids,itemIds:ids,itemData:[],discardedItemIdList:[],discardValue:0,credits:state.coins,totalCredits:state.coins,coins:state.coins};
+  const authorization=await authorizeCloudQuickSell(owned.map(item=>item.id));
+  if(!authorization.ok)return {_status:authorization.status||503,code:authorization.error||'QUICKSELL_CLOUD_REJECTED',itemData:[],credits:state.coins,totalCredits:state.coins,coins:state.coins};
+  const valuesById=new Map((authorization.itemData||[]).map(entry=>[Number(entry.id),Number(entry.discardValue)||0]));
+  const discarded=owned.map(item=>({...item,pile:0,itemState:'discarded',discardValue:valuesById.get(Number(item.id))||0}));
+  const discardedIds=new Set(owned.map(item=>Number(item.id)));
+  state.items=state.items.filter(item=>!discardedIds.has(Number(item.id)));
+  state.pending=state.pending.filter(id=>!discardedIds.has(Number(id)));
+  for(const squad of state.squads)squad.itemIds=squad.itemIds.map(id=>discardedIds.has(Number(id))?0:id);
+  MNG_CLOUD_LAST_CLUB_KEY=cloudClubKey();
+  saveState();
   return {
-    itemId:ids,itemIds:ids,itemData:discarded,discardedItemIdList:ids,
-    discardValue:totalDiscardValue,credits:state.coins,totalCredits:state.coins,coins:state.coins
+    itemId:ids,itemIds:ids,itemData:discarded,discardedItemIdList:[...discardedIds],
+    discardValue:Number(authorization.discardValue)||0,credits:state.coins,totalCredits:state.coins,coins:state.coins
   };
 }
 
@@ -6208,9 +6214,9 @@ async function handle(req,res,urlPath,requestBody) {
   if(['/ut/game/fifa17/item','/ut/game/fifa17/item/list'].includes(urlPath)&&['POST','PUT'].includes(method))return send(200,updateItems(body));
   if(urlPath==='/ut/delete/game/fifa17/item'&&method==='POST'){
     const ids=body?.itemId??body?.itemIds??body?.items??[];
-    const result=discardItems(ids);
+    const result=await discardItems(ids);
     logger(`[quicksell] bulk ids=${result.itemIds.join(',')} value=${result.discardValue} credits=${result.credits}`);
-    return send(200,result);
+    return send(result._status||200,result);
   }
   let match=urlPath.match(/^\/ut\/game\/fifa17\/item\/resource\/(\d+)$/);
   if(match&&['POST','PUT'].includes(method)){
@@ -6218,7 +6224,10 @@ async function handle(req,res,urlPath,requestBody) {
     const result=applyConsumable(consumable,body);return send(result.status||200,result);
   }
   match=urlPath.match(/^\/ut\/game\/fifa17\/item\/(\d+)$/);
-  if(match&&method==='DELETE')return send(200,discardItem(match[1]));
+  if(match&&method==='DELETE'){
+    const result=await discardItem(match[1]);
+    return send(result._status||200,result);
+  }
   if(match&&['POST','PUT'].includes(method)){
     const item=state.items.find(entry=>Number(entry.id)===Number(match[1]));
     const identityTypes=new Set(['kit','stadium','custom','badge','ball']);

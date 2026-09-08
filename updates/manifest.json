@@ -1,13 +1,13 @@
 {
-  "version": "1.6.6",
-  "notes": "Sécurité DCE cloud, deuxième phase : les groupes Ribéry, Terry et Dani Alves communautaire vérifient désormais les joueurs réellement possédés. Les packs de chaque défi et la récompense finale sont décidés par le cloud, atomiques et protégés contre les doublons.",
+  "version": "1.6.7",
+  "notes": "Vente rapide sécurisée : le cloud vérifie que chaque joueur appartient réellement au compte, calcule sa valeur officielle, retire la carte et crédite le portefeuille dans une seule transaction. Les doubles paiements et valeurs modifiées localement sont bloqués.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "e91a43ffbd92b83e1db896415a9ff2673b53b1f8cd26f0fba09b4421197431e0",
-      "size": 412265
+      "sha256": "25f4e7ea2919a104d87b539400bf1fa3bd9957f5c3838e54fae44d1acd2261c0",
+      "size": 413439
     },
     {
       "scope": "server",
