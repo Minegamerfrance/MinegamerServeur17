@@ -3264,18 +3264,30 @@ async function authorizeCloudQuickSell(itemIds) {
   return result;
 }
 
+async function authorizeCloudDraftEntry(currency,clientDraftId) {
+  const result=await cloudMatchRequest('/api/draft/enter',{currency,clientDraftId:Number(clientDraftId)});
+  if(result.ok)applyCloudWalletProfile(result.profile);
+  return result;
+}
+
+async function authorizeCloudDraftReward(token) {
+  const result=await cloudMatchRequest('/api/draft/claim',{token:String(token||'')});
+  if(result.ok)applyCloudWalletProfile(result.profile);
+  return result;
+}
+
 async function startSecureMatch(body={}) {
   const draftMode=isDraftMatchRequest(body);
   if(draftMode){
     const local=startDraftMatch();
     if(Number(local._status||200)>=400)return local;
-    const authorization=await cloudMatchRequest('/api/matches/start',{mode:'draft',clientMatchId:Number(local.matchId),round:Number(local.round)||1,divisionId:10});
+    const authorization=await cloudMatchRequest('/api/matches/start',{mode:'draft',clientMatchId:Number(local.matchId),round:Number(local.round)||1,divisionId:10,draftRunToken:String(state.offlineDraft?.cloudRunToken||'')});
     if(!authorization.ok){state.offlineDraft.activeMatch=null;state.offlineDraft.status='READY';state.offlineDraft.state='READY';saveState();return {_status:authorization.status||503,code:authorization.error||'MATCH_AUTHORIZATION_FAILED'};}
     state.offlineDraft.activeMatch.cloudToken=String(authorization.token||'');saveState();
     logger(`[mng-match] cloud draft start authorized matchId=${local.matchId} token=${String(authorization.token||'').slice(0,8)}`);
     return {...local,cloudAuthorized:true};
   }
-  clearStaleDraftMatch();
+  await clearStaleDraftMatch();
   state.activeMode=Number(body?.tournamentId)>0?'tournament':'season';
   const local=startSeasonMatch(body);
   const authorization=await cloudMatchRequest('/api/matches/start',{mode:'season',clientMatchId:Number(local.matchId),round:Number(local.round)||Number(state.singlePlayerSeason?.gamesPlayed||0)+1,divisionId:Number(state.singlePlayerSeason?.divisionId)||10});
@@ -5708,25 +5720,21 @@ function nativeDraftChoicesDocument() {
   return {choices,positionid:0,tier:0};
 }
 
-function startOfflineDraft(body={}) {
+async function startOfflineDraft(body={}) {
   const existing=ensureDraftState();
   if(existing&&!existing.claimed)return {_status:200,...draftUserDocument()};
   const requested=String(body.entryCurrency||body.currency||body.purchaseMethod||body.method||'coins').toLowerCase();
-  let currency=requested;
+  let currency='coins';
   if(/token/.test(requested)){
-    if(Number(state.draftTokens)<=0)return {_status:409,code:'NO_DRAFT_TOKEN'};
-    state.draftTokens--;
-    currency='token';
+    return {_status:409,code:'DRAFT_TOKEN_NOT_CLOUD_ENABLED'};
   }else if(/point|fifa/.test(requested)){
-    if(Number(state.points)<DRAFT_ENTRY_POINTS)return {_status:409,code:'NOT_ENOUGH_POINTS'};
-    state.points-=DRAFT_ENTRY_POINTS;
     currency='points';
-  }else{
-    if(Number(state.coins)<DRAFT_ENTRY_COINS)return {_status:409,code:'NOT_ENOUGH_COINS'};
-    state.coins-=DRAFT_ENTRY_COINS;
-    currency='coins';
   }
-  state.offlineDraft=freshOfflineDraft(currency);
+  const nextDraft=freshOfflineDraft(currency);
+  const authorization=await authorizeCloudDraftEntry(currency,nextDraft.draftId);
+  if(!authorization.ok)return {_status:authorization.status||503,code:authorization.error||'DRAFT_ENTRY_REJECTED'};
+  nextDraft.cloudRunToken=String(authorization.token||'');
+  state.offlineDraft=nextDraft;
   state.activeMode='draft';
   // The reward/progression panel is per Draft run. Carrying cumulative entries,
   // wins or bestRun into a new run leaves stale score/progression markers on the
@@ -5734,7 +5742,7 @@ function startOfflineDraft(body={}) {
   state.draftHistory=emptyDraftHistory();
   logger(`[draft] new run history reset currency=${currency} draftId=${state.offlineDraft.draftId}`);
   ensureDraftChoices();
-  state.history.unshift({time:new Date().toISOString(),type:'OFFLINE_DRAFT_ENTRY',currency,cost:currency==='coins'?DRAFT_ENTRY_COINS:currency==='points'?DRAFT_ENTRY_POINTS:1});
+  state.history.unshift({time:new Date().toISOString(),type:'OFFLINE_DRAFT_ENTRY',currency,cost:currency==='coins'?DRAFT_ENTRY_COINS:DRAFT_ENTRY_POINTS,cloudRunToken:nextDraft.cloudRunToken});
   saveState();
   return {_status:200,...draftUserDocument(),credits:state.coins,points:state.points};
 }
@@ -5894,12 +5902,12 @@ function isDraftMatchRequest(body={}) {
   return (draft&&(squadId===draftSquadId(draft)||squadId===8001))||draftId>0||mode.includes('DRAFT')||(squadId<=0&&state.activeMode==='draft');
 }
 
-function clearStaleDraftMatch() {
+async function clearStaleDraftMatch() {
   const draft=ensureDraftState();
   if(!draft?.activeMatch)return;
   const matchId=Number(draft.activeMatch.id)||0;
-  const outcome=recordDraftMatch({matchId,matchReportId:matchId||1,endReason:'DNF',matchData:'FORFEIT',myScore:0,opponentScore:3},{coinsAwarded:0});
-  const prize=outcome?.result==='LOSS'?claimDraftPrize():null;
+  const outcome=await finishSecureMatch({matchId,matchReportId:matchId||1,endReason:'DNF',matchData:'FORFEIT',myScore:0,opponentScore:3},matchId);
+  const prize=outcome?.result==='LOSS'?await claimDraftPrize():null;
   logger(`[draft-match] stale match ${matchId} recorded as ${outcome?.result||'LOSS'} on reset prizeClaimed=${Boolean(prize?.claimed)}`);
 }
 
@@ -5913,15 +5921,23 @@ function draftPrizeDocument() {
   return {available:draft.status==='PRIZE',claimed:Boolean(draft.claimed),wins,packIds,coins,awards,award:awards,HAS_PACK_PRIZE:packIds.length>0,HAS_ITEM_PRIZE:false,SHOULD_CLAIM_PRIZE:draft.status==='PRIZE'&&!draft.claimed};
 }
 
-function claimDraftPrize() {
+async function claimDraftPrize() {
   const draft=ensureDraftState();
   if(!draft)return {_status:409,code:'DRAFT_PRIZE_UNAVAILABLE'};
   if(draft.claimed)return {_status:200,success:true,...draftPrizeDocument(),packs:(draft.claimedPacks||[]).map(rewardPackDocument),credits:state.coins};
   if(draft.status!=='PRIZE')return {_status:409,code:'DRAFT_PRIZE_UNAVAILABLE'};
+  if(!draft.cloudRunToken)return {_status:409,code:'DRAFT_NOT_CLOUD_AUTHORIZED'};
+  const authorization=await authorizeCloudDraftReward(draft.cloudRunToken);
+  if(!authorization.ok)return {_status:authorization.status||503,code:authorization.error||'DRAFT_REWARD_REJECTED'};
+  draft.wins=Math.max(0,Math.min(4,Number(authorization.wins)||0));
   const prize=draftPrizeDocument();
-  const packs=prize.packIds.map(packId=>({id:Number(state.nextRewardPackId++),packId,source:`OFFLINE_DRAFT_${draft.wins}_WINS`}));
+  const cloudPacks=Array.isArray(authorization.rewards)?authorization.rewards:[];
+  const packs=cloudPacks.map((reward,index)=>({
+    id:Number(state.nextRewardPackId++),packId:Number(reward.packId),source:`OFFLINE_DRAFT_${draft.wins}_WINS`,
+    cloudResourceIds:Array.isArray(reward.resourceIds)?reward.resourceIds.map(Number):[],
+    cloudTransactionId:String(reward.transactionId||`draft-${draft.cloudRunToken}-${index}`)
+  }));
   state.rewardPacks.push(...packs);
-  state.coins+=prize.coins;
   draft.claimed=true;draft.status='CLAIMED';draft.state='CLAIMED';
   draft.claimedPacks=packs;
   state.activeMode='hub';
@@ -5930,8 +5946,8 @@ function claimDraftPrize() {
   return {_status:200,success:true,...prize,claimed:true,available:false,SHOULD_CLAIM_PRIZE:false,packs:packs.map(rewardPackDocument),credits:state.coins};
 }
 
-function grantNativeDraftAward() {
-  const result=claimDraftPrize();
+async function grantNativeDraftAward() {
+  const result=await claimDraftPrize();
   if(result._status!==200)return result;
   return [
     ...(result.packs||[]).map(pack=>({type:1,value:Number(pack.packId),halId:Number(pack.assetId)||0})),
@@ -6383,7 +6399,7 @@ async function handle(req,res,urlPath,requestBody) {
   match=urlPath.match(/^\/ut\/game\/fifa17\/(?:draft\/mode\/)?purchase\/mode\/(\d+)\/draft$/i);
   if(match&&['POST','PUT'].includes(method)){
     const purchaseModes=['coins','coins','points','token'];
-    const result=startOfflineDraft({...body,entryCurrency:body?.entryCurrency||body?.currency||purchaseModes[Number(match[1])]||'coins'});
+    const result=await startOfflineDraft({...body,entryCurrency:body?.entryCurrency||body?.currency||purchaseModes[Number(match[1])]||'coins'});
     return send(result._status||200,result._status&&result._status!==200?result:fifa17DraftPurchaseWalletDocument());
   }
   // MNG DRAFT V4 - RESTORE AUTOFILL + REAL POST-DIFFICULTY FIX
@@ -6465,16 +6481,16 @@ async function handle(req,res,urlPath,requestBody) {
   match=urlPath.match(/^\/ut\/game\/fifa17\/draft\/mode\/(\d+)\/(stats|grant\/award)$/i);
   if(match&&method==='GET'){
     if(match[2].toLowerCase()==='stats')return send(200,{...emptyDraftHistory(),...(state.draftHistory||{}),...nativeDraftStateDocument()});
-    const result=grantNativeDraftAward();return send(result._status||200,result);
+    const result=await grantNativeDraftAward();return send(result._status||200,result);
   }
   if(match&&match[2].toLowerCase()==='grant/award'&&['POST','PUT'].includes(method)){
-    const result=grantNativeDraftAward();return send(result._status||200,result);
+    const result=await grantNativeDraftAward();return send(result._status||200,result);
   }
   if(['/ut/game/fifa17/draft','/ut/game/fifa17/draft/user','/ut/game/fifa17/draft/user/list','/ut/game/fifa17/draft/offline/user'].includes(urlPath)&&method==='GET'){
     return send(200,draftUserDocument());
   }
   if(['/ut/game/fifa17/draft','/ut/game/fifa17/draft/entry','/ut/game/fifa17/draft/user','/ut/game/fifa17/draft/offline/entry'].includes(urlPath)&&['POST','PUT'].includes(method)){
-    const result=startOfflineDraft(body||{});return send(result._status||200,result);
+    const result=await startOfflineDraft(body||{});return send(result._status||200,result);
   }
   if(['/ut/game/fifa17/draft/choice','/ut/game/fifa17/draft/choices','/ut/game/fifa17/draft/offline/choice'].includes(urlPath)){
     if(method==='GET')return send(200,{...ensureDraftChoices(),draft:draftUserDocument(),squad:draftSquadDocument()});
@@ -6497,13 +6513,13 @@ async function handle(req,res,urlPath,requestBody) {
     const squad=draftSquadDocument();return squad?send(200,{squad,draft:draftUserDocument()}):send(404,{code:'DRAFT_NOT_STARTED'});
   }
   if(['/ut/game/fifa17/draft/match','/ut/game/fifa17/draft/offline/match','/ut/game/fifa17/draft/match/start'].includes(urlPath)&&['GET','POST','PUT'].includes(method)){
-    const result=startDraftMatch();return send(result._status||200,result);
+    const result=await startSecureMatch({...body,mode:'DRAFT'});return send(result._status||200,result);
   }
   match=urlPath.match(/^\/ut\/game\/fifa17\/(?:squad\/mode\/\d+\/)?draft\/(?:mode\/\d+\/)?(?:prize|award|reward|grant\/award)$/i);
   if(match){
-    if(['GET','POST','PUT'].includes(method)&&/\/grant\/award$/i.test(urlPath)){const result=grantNativeDraftAward();return send(result._status||200,result);}
+    if(['GET','POST','PUT'].includes(method)&&/\/grant\/award$/i.test(urlPath)){const result=await grantNativeDraftAward();return send(result._status||200,result);}
     if(method==='GET')return send(200,draftPrizeDocument());
-    if(['POST','PUT'].includes(method)){const result=claimDraftPrize();return send(result._status||200,result);}
+    if(['POST','PUT'].includes(method)){const result=await claimDraftPrize();return send(result._status||200,result);}
   }
   if(['/ut/game/fifa17/draft/history','/ut/game/fifa17/draft/user/history'].includes(urlPath)&&method==='GET')return send(200,{...emptyDraftHistory(),...(state.draftHistory||{})});
   if(['/ut/game/fifa17/draft','/ut/game/fifa17/draft/user','/ut/game/fifa17/draft/offline/user'].includes(urlPath)&&method==='DELETE')return send(200,resetOfflineDraft());
@@ -7333,33 +7349,25 @@ const lahmLoanSbcSquad={
   }
   if((urlPath.startsWith('/ut/game/fifa17/sbs/')||urlPath.startsWith('/ut/game/fifa17/sbc/'))&&method==='GET')return send(200,{challenges:[],sets:[],total:0});
   if(urlPath==='/ut/game/fifa17/match/end'&&['POST','PUT'].includes(method)){
-    const draftOutcome=state.offlineDraft?.activeMatch?recordDraftMatch(body):null;
-    if(draftOutcome)return send(200,matchEndDocument(body,draftOutcome,false));
-    const outcome=recordSeasonMatch(body);
-    return send(200,matchEndDocument(body,outcome,true));
+    const result=await finishSecureMatch(body);
+    return send(result._status||200,result);
   }
   if(urlPath==='/ut/game/fifa17/match/ready'&&['GET','POST','PUT'].includes(method))return send(200,{valid:true,success:true,ready:true,
     matchId:Number(state.offlineDraft?.activeMatch?.id||state.singlePlayerSeason.activeMatch?.id||state.singlePlayerSeason.lastCompletedMatchId||0),opponentPersonaId:0,items:[]});
   if(urlPath==='/ut/game/fifa17/match/reset'&&['GET','POST','PUT','DELETE'].includes(method)){
-    clearStaleDraftMatch();
+    await clearStaleDraftMatch();
     return send(200,{valid:true,success:true});
   }
   match=urlPath.match(/^\/ut\/game\/fifa17\/match\/(\d+)\/ready$/);
   if(match&&['GET','POST','PUT'].includes(method))return send(200,{valid:true,success:true,ready:true,matchId:Number(match[1]),opponentPersonaId:0,items:[]});
   match=urlPath.match(/^\/ut\/game\/fifa17\/match\/(\d+)\/end$/);
   if(match&&['POST','PUT'].includes(method)){
-    const draftOutcome=state.offlineDraft?.activeMatch?recordDraftMatch({...body,matchId:Number(match[1])}):null;
-    if(draftOutcome)return send(200,matchEndDocument(body,draftOutcome,false));
-    const outcome=recordSeasonMatch({...body,matchId:Number(match[1])});
-    return send(200,matchEndDocument(body,outcome,false));
+    const result=await finishSecureMatch(body,Number(match[1]));
+    return send(result._status||200,result);
   }
   if(['/ut/game/fifa17/match/start','/ut/game/fifa17/match','/ut/game/fifa17/season/match/start'].includes(urlPath)&&['POST','PUT'].includes(method)){
-    if(isDraftMatchRequest(body)){
-      const draftResult=startDraftMatch();return send(draftResult._status||200,draftResult);
-    }
-    clearStaleDraftMatch();
-    state.activeMode=Number(body?.tournamentId)>0?'tournament':'season';
-    const result=startSeasonMatch(body);return send(result.status||200,result);
+    const result=await startSecureMatch(body);
+    return send(result._status||result.status||200,result);
   }
   if(urlPath.startsWith('/local/mng/')||urlPath.startsWith('/local/fifa17/'))return send(404,{code:'NOT_FOUND'});
   match=urlPath.match(/^\/fut\/packs\/loc\/storepackdescriptions\.([a-z]{2}_[a-z]{2})\.xml$/);

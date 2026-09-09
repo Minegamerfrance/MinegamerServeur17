@@ -1,13 +1,13 @@
 {
-  "version": "1.6.7",
-  "notes": "Vente rapide sécurisée : le cloud vérifie que chaque joueur appartient réellement au compte, calcule sa valeur officielle, retire la carte et crédite le portefeuille dans une seule transaction. Les doubles paiements et valeurs modifiées localement sont bloqués.",
+  "version": "1.6.8",
+  "notes": "Draft solo sécurisé : le paiement d'entrée, la progression des matchs et les récompenses finales sont désormais contrôlés par le cloud. Les packs sont générés côté serveur et une récompense déjà récupérée ne peut plus être réclamée une seconde fois.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "25f4e7ea2919a104d87b539400bf1fa3bd9957f5c3838e54fae44d1acd2261c0",
-      "size": 413439
+      "sha256": "f1d4cc3918a1f56acfb3ef94e215c4a40cf22b519ffbc094ae3b58d04a6099f1",
+      "size": 414037
     },
     {
       "scope": "server",
