@@ -367,7 +367,7 @@ blaze_port=44321
             $replacementGame=$null
             $elapsedSeconds=((Get-Date)-$launchStartedAt).TotalSeconds
             $unknownRelayExit=($null -eq $exitCode -and $relayCount -gt 0)
-            $relayExit=($exitCode -eq -6 -or $exitCode -eq 42 -or $unknownRelayExit)
+            $relayExit=($exitCode -eq 0 -or $exitCode -eq -6 -or $exitCode -eq 42 -or $unknownRelayExit)
             if($relayExit -and $elapsedSeconds -lt 30 -and $relayCount -lt 8){
                 $relayDeadline=(Get-Date).AddSeconds(15)
                 do {

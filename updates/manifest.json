@@ -1,6 +1,6 @@
 {
-  "version": "1.8.0",
-  "notes": "DB Frosty 1.0.2 complète : le ModData régénéré avec Frosty 2.0.20 contient désormais l’ensemble des 83 fichiers nécessaires aux cartes, images et nouvelles raretés MNG FUT.",
+  "version": "1.8.1",
+  "notes": "Suivi Frosty finalisé : un processus qui termine normalement avec le code 0 dans les premières secondes est désormais traité comme un relais potentiel, afin de garder le serveur actif pendant toute la session FIFA modifiée.",
   "files": [
     {
       "scope": "server",
@@ -34,8 +34,8 @@
       "scope": "server",
       "source": "files/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
-      "sha256": "93602fafd421f5a2e7a01b7101691afc9e49f51e81a8fed933da097577b95f3a",
-      "size": 23676
+      "sha256": "1715a0dbbb05809e0c87190e122040fbfead853e6e0df100038564ad3bf75e6b",
+      "size": 23696
     },
     {
       "scope": "game",
