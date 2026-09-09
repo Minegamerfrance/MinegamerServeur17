@@ -1,6 +1,6 @@
 {
-  "version": "1.8.6",
-  "notes": "Marché mondial : achat immédiat corrigé pour la route FIFA 17 /offer.",
+  "version": "1.8.7",
+  "notes": "Marché mondial : téléchargement public corrigé et achat immédiat activé pour la route FIFA 17 /offer.",
   "files": [
     {
       "scope": "server",
@@ -13,8 +13,8 @@
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "30d27f14b574c9bb5bbd588932be097b63180e85db2cfc94adf051f24d4eafed",
-      "size": 106828
+      "sha256": "27ad24621f8862e47042e4fc58e9c8aee36d854e3c2cb31edde3944cd15b222b",
+      "size": 104866
     },
     {
       "scope": "server",
