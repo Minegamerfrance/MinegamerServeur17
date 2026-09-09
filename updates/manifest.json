@@ -34,8 +34,8 @@
       "scope": "server",
       "source": "files/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
-      "sha256": "c9ebad644c5faa0aeb352034c133577640b1c2299878ae1545ac3efe07e22f59",
-      "size": 19684
+      "sha256": "0603e897dc63fd66380978eba83c46e84919d232e333c407d7d9e82c93960882",
+      "size": 19683
     },
     {
       "scope": "server",
@@ -55,8 +55,8 @@
       "scope": "server",
       "source": "files/server/data/mng-pack-admin.json",
       "target": "data/mng-pack-admin.json",
-      "sha256": "a3ba0017c374717d6d59a50e148f45a970ea0f0de2ca7ee252fddb41e41189c7",
-      "size": 18856
+      "sha256": "6d455e163c41b62621a0c2d723a6e3622b80e1ec38123f61d1c8723eecaa7511",
+      "size": 18548
     }
   ],
   "archives": [
