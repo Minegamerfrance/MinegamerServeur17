@@ -343,6 +343,7 @@ blaze_port=44321
         $launchStartedAt=Get-Date
         $trackedGamePids=[Collections.Generic.HashSet[int]]::new()
         $relayCount=0
+        $finalExitCode=$null
         while($game){
             [void]$trackedGamePids.Add([int]$game.Id)
             Add-Content -LiteralPath $friendPreflight -Value "Suivi FIFA: tentative=$launchAttempt pid=$($game.Id) relais=$relayCount"
@@ -357,7 +358,8 @@ blaze_port=44321
 
             $replacementGame=$null
             $elapsedSeconds=((Get-Date)-$launchStartedAt).TotalSeconds
-            if($exitCode -eq -6 -and $elapsedSeconds -lt 30 -and $relayCount -lt 8){
+            $unknownRelayExit=($null -eq $exitCode -and $relayCount -gt 0)
+            if(($exitCode -eq -6 -or $unknownRelayExit) -and $elapsedSeconds -lt 30 -and $relayCount -lt 8){
                 $relayDeadline=(Get-Date).AddSeconds(5)
                 do {
                     Start-Sleep -Milliseconds 100
@@ -374,17 +376,18 @@ blaze_port=44321
                 $game=$replacementGame
                 continue
             }
-            Add-Content -LiteralPath $friendPreflight -Value "Fin FIFA: pid=$($game.Id) code=$exitCode duree=$([Math]::Round($elapsedSeconds,1))s relais=$relayCount"
+            $finalExitCode=if($null -eq $exitCode -and $relayCount -gt 0){-6}else{$exitCode}
+            Add-Content -LiteralPath $friendPreflight -Value "Fin FIFA: pid=$($game.Id) code=$finalExitCode codeNatif=$exitCode duree=$([Math]::Round($elapsedSeconds,1))s relais=$relayCount"
             break
         }
-        $retryEarlyNativeExit=($game.ExitCode -eq -6 -and $elapsedSeconds -lt 30 -and $launchAttempt -eq 1)
+        $retryEarlyNativeExit=($finalExitCode -eq -6 -and $elapsedSeconds -lt 30 -and $launchAttempt -eq 1)
         if($retryEarlyNativeExit){
             Add-Content -LiteralPath $friendPreflight -Value "Relance complete automatique: code=-6 duree=$([Math]::Round($elapsedSeconds,1))s tentative=$launchAttempt relais=$relayCount"
             Write-Host 'La chaine de démarrage a échoué trop tôt. Nouvelle tentative automatique...' -ForegroundColor Yellow
             Start-Sleep -Seconds 2
         }
     } while($retryEarlyNativeExit)
-    Write-Host "FIFA 17 exited with code $($game.ExitCode)." -ForegroundColor Yellow
+    Write-Host "FIFA 17 exited with code $finalExitCode." -ForegroundColor Yellow
 } finally {
     if($moduleMonitor -and -not $moduleMonitor.HasExited){Stop-Process -Id $moduleMonitor.Id -Force -ErrorAction SilentlyContinue}
     if($monitor -and -not $monitor.HasExited){Stop-Process -Id $monitor.Id -Force -ErrorAction SilentlyContinue}
