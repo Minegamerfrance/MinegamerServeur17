@@ -340,19 +340,47 @@ blaze_port=44321
             Write-Host 'Local prototype is running. Starting FIFA 17...' -ForegroundColor Cyan
             $game=Start-Process -FilePath $GameExe -WorkingDirectory $gameDir -PassThru
         }
-        $gameStartedAt=Get-Date
-        $monitorArgs="-NoProfile -ExecutionPolicy Bypass -File `"$routeTool`" -ProcessId $($game.Id) -OutputPath `"$routeLog`""
-        $monitor=Start-Process powershell.exe -WindowStyle Hidden -PassThru -ArgumentList $monitorArgs
-        $moduleArgs="-NoProfile -ExecutionPolicy Bypass -File `"$moduleTool`" -ProcessId $($game.Id) -OutputPath `"$moduleLog`""
-        $moduleMonitor=Start-Process powershell.exe -WindowStyle Hidden -PassThru -ArgumentList $moduleArgs
-        $game.WaitForExit()
-        $elapsedSeconds=((Get-Date)-$gameStartedAt).TotalSeconds
-        if($moduleMonitor -and -not $moduleMonitor.HasExited){Stop-Process -Id $moduleMonitor.Id -Force -ErrorAction SilentlyContinue}
-        if($monitor -and -not $monitor.HasExited){Stop-Process -Id $monitor.Id -Force -ErrorAction SilentlyContinue}
+        $launchStartedAt=Get-Date
+        $trackedGamePids=[Collections.Generic.HashSet[int]]::new()
+        $relayCount=0
+        while($game){
+            [void]$trackedGamePids.Add([int]$game.Id)
+            Add-Content -LiteralPath $friendPreflight -Value "Suivi FIFA: tentative=$launchAttempt pid=$($game.Id) relais=$relayCount"
+            $monitorArgs="-NoProfile -ExecutionPolicy Bypass -File `"$routeTool`" -ProcessId $($game.Id) -OutputPath `"$routeLog`""
+            $monitor=Start-Process powershell.exe -WindowStyle Hidden -PassThru -ArgumentList $monitorArgs
+            $moduleArgs="-NoProfile -ExecutionPolicy Bypass -File `"$moduleTool`" -ProcessId $($game.Id) -OutputPath `"$moduleLog`""
+            $moduleMonitor=Start-Process powershell.exe -WindowStyle Hidden -PassThru -ArgumentList $moduleArgs
+            $game.WaitForExit()
+            $exitCode=$game.ExitCode
+            if($moduleMonitor -and -not $moduleMonitor.HasExited){Stop-Process -Id $moduleMonitor.Id -Force -ErrorAction SilentlyContinue}
+            if($monitor -and -not $monitor.HasExited){Stop-Process -Id $monitor.Id -Force -ErrorAction SilentlyContinue}
+
+            $replacementGame=$null
+            $elapsedSeconds=((Get-Date)-$launchStartedAt).TotalSeconds
+            if($exitCode -eq -6 -and $elapsedSeconds -lt 30 -and $relayCount -lt 8){
+                $relayDeadline=(Get-Date).AddSeconds(5)
+                do {
+                    Start-Sleep -Milliseconds 100
+                    $replacementGame=Get-Process -Name FIFA17 -ErrorAction SilentlyContinue |
+                        Where-Object { -not $trackedGamePids.Contains([int]$_.Id) } |
+                        Sort-Object StartTime -Descending |
+                        Select-Object -First 1
+                } while(-not $replacementGame -and (Get-Date) -lt $relayDeadline)
+            }
+            if($replacementGame){
+                $relayCount++
+                Add-Content -LiteralPath $friendPreflight -Value "Processus FIFA relais: ancienPid=$($game.Id) nouveauPid=$($replacementGame.Id) code=$exitCode relais=$relayCount"
+                Write-Host "MNG FUT: processus FIFA relais detecte (PID $($replacementGame.Id))." -ForegroundColor Cyan
+                $game=$replacementGame
+                continue
+            }
+            Add-Content -LiteralPath $friendPreflight -Value "Fin FIFA: pid=$($game.Id) code=$exitCode duree=$([Math]::Round($elapsedSeconds,1))s relais=$relayCount"
+            break
+        }
         $retryEarlyNativeExit=($game.ExitCode -eq -6 -and $elapsedSeconds -lt 30 -and $launchAttempt -eq 1)
         if($retryEarlyNativeExit){
-            Add-Content -LiteralPath $friendPreflight -Value "Relance automatique: code=-6 duree=$([Math]::Round($elapsedSeconds,1))s tentative=$launchAttempt"
-            Write-Host 'Le module de démarrage a échoué trop tôt. Nouvelle tentative automatique...' -ForegroundColor Yellow
+            Add-Content -LiteralPath $friendPreflight -Value "Relance complete automatique: code=-6 duree=$([Math]::Round($elapsedSeconds,1))s tentative=$launchAttempt relais=$relayCount"
+            Write-Host 'La chaine de démarrage a échoué trop tôt. Nouvelle tentative automatique...' -ForegroundColor Yellow
             Start-Sleep -Seconds 2
         }
     } while($retryEarlyNativeExit)

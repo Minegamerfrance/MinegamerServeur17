@@ -1,6 +1,6 @@
 {
-  "version": "1.7.2",
-  "notes": "Matchs renforcés : le cloud exige désormais onze titulaires possédés avec des contrats, refuse les scores impossibles, impose quatre minutes minimum avant une fin normale et conserve la protection contre les doubles récompenses.",
+  "version": "1.7.3",
+  "notes": "Démarrage FIFA/Frosty fiabilisé : le lanceur suit désormais les processus FIFA relais au lieu de couper prématurément le serveur après un code -6.",
   "files": [
     {
       "scope": "server",
@@ -34,8 +34,8 @@
       "scope": "server",
       "source": "files/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
-      "sha256": "5b12ca45a91bc9d3749f02c23d4f193343e6684ff0db618dab4a4b13b1bf4b39",
-      "size": 20655
+      "sha256": "8f0be3ab820c4c03477058506cd9c92322d1c59e33187cd2127daf30ca3b1870",
+      "size": 22323
     },
     {
       "scope": "server",
