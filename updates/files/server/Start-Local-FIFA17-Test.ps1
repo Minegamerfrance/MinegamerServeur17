@@ -331,15 +331,21 @@ blaze_port=44321
     $launchAttempt=0
     do {
         $launchAttempt++
-        if($useModData){
+        $attemptUseModData=($useModData -and $launchAttempt -eq 1)
+        if($attemptUseModData){
             Write-Host "MNG FUT: chargement des images Frosty depuis $modDataRoot" -ForegroundColor Green
             $gameArgs=@('-dataPath',('"{0}"' -f $modDataRoot))
             $game=Start-Process -FilePath $GameExe -WorkingDirectory $gameDir -ArgumentList $gameArgs -PassThru
         }else{
-            Write-Host 'ATTENTION: ModData\Editor est introuvable ou vide. Les images personnalisees Frosty peuvent manquer.' -ForegroundColor Yellow
+            if($useModData){
+                Write-Host 'MNG FUT: test de secours sans les images Frosty apres l echec du moteur ModData.' -ForegroundColor Yellow
+            }else{
+                Write-Host 'ATTENTION: ModData\Editor est introuvable ou vide. Les images personnalisees Frosty peuvent manquer.' -ForegroundColor Yellow
+            }
             Write-Host 'Local prototype is running. Starting FIFA 17...' -ForegroundColor Cyan
             $game=Start-Process -FilePath $GameExe -WorkingDirectory $gameDir -PassThru
         }
+        Add-Content -LiteralPath $friendPreflight -Value "Mode lancement: tentative=$launchAttempt frostymoddata=$attemptUseModData"
         $launchStartedAt=Get-Date
         $trackedGamePids=[Collections.Generic.HashSet[int]]::new()
         $relayCount=0

@@ -1,6 +1,6 @@
 {
-  "version": "1.7.4",
-  "notes": "Démarrage FIFA/Frosty corrigé : le lanceur suit toute la chaîne des processus relais, même lorsqu’un relais ne fournit aucun code de sortie.",
+  "version": "1.7.5",
+  "notes": "Diagnostic de démarrage renforcé : après une boucle d’échec Frosty, le lanceur effectue automatiquement un essai de secours sans ModData afin d’isoler précisément la cause.",
   "files": [
     {
       "scope": "server",
@@ -34,8 +34,8 @@
       "scope": "server",
       "source": "files/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
-      "sha256": "b1d4866bd6161e40283d933fb6b80cddf895e44845eb5fd521051ab71c0ba2ce",
-      "size": 22566
+      "sha256": "8f3579f97bb49c4e2e9fe3ab4bd6000a14fdbbdcb215c2da7ad74f0bad458ff5",
+      "size": 22973
     },
     {
       "scope": "server",
