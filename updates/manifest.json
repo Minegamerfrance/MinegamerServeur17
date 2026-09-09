@@ -1,6 +1,6 @@
 {
-  "version": "1.8.5",
-  "notes": "Installation publique corrigée : ajout automatique du runtime Node, du certificat local et de la DLL de démarrage manquante.",
+  "version": "1.8.6",
+  "notes": "Marché mondial : achat immédiat corrigé pour la route FIFA 17 /offer.",
   "files": [
     {
       "scope": "server",
@@ -13,8 +13,8 @@
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "4e35b51cdffd25086b0146eed8570456a7f7c3dc1ed302cbd4628a722a7b9c53",
-      "size": 104846
+      "sha256": "30d27f14b574c9bb5bbd588932be097b63180e85db2cfc94adf051f24d4eafed",
+      "size": 106828
     },
     {
       "scope": "server",
