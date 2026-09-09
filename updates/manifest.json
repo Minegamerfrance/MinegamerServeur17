@@ -1,6 +1,6 @@
 {
-  "version": "1.7.9",
-  "notes": "Lancement Frosty autonome corrigé : la chaîne suit désormais FIFA17.exe et son relais stp-fifa17.exe pendant quinze secondes, empêchant le secours sans ModData de démarrer pendant que le jeu moddé se prépare.",
+  "version": "1.8.0",
+  "notes": "DB Frosty 1.0.2 complète : le ModData régénéré avec Frosty 2.0.20 contient désormais l’ensemble des 83 fichiers nécessaires aux cartes, images et nouvelles raretés MNG FUT.",
   "files": [
     {
       "scope": "server",
@@ -69,10 +69,10 @@
   "archives": [
     {
       "scope": "game",
-      "source": "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/frosty-db-1.0.1/MNG-FIFA17-FROSTY-DB-1.0.1.zip",
+      "source": "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/frosty-db-1.0.2/MNG-FIFA17-FROSTY-DB-1.0.2.zip",
       "target": "ModData/Editor",
-      "sha256": "ee124b90e462cbe8b6e0f62e041c4149d66cee42664684efe41bce89fcc9f341",
-      "size": 167082514,
+      "sha256": "2d176efd5f240dd426a3bd6cc3e2b33847cd0ad529c28411fb18b7618514db74",
+      "size": 167082416,
       "format": "zip"
     }
   ]
