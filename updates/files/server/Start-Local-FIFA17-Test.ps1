@@ -324,24 +324,38 @@ blaze_port=44321
         throw "The FIFA local server did not claim all required ports after 30 seconds.`r`n$missingText`r`n`r`n$details"
     }
 
-    if($useModData){
-        Write-Host "MNG FUT: chargement des images Frosty depuis $modDataRoot" -ForegroundColor Green
-        $gameArgs=@('-dataPath',('"{0}"' -f $modDataRoot))
-        $game=Start-Process -FilePath $GameExe -WorkingDirectory $gameDir -ArgumentList $gameArgs -PassThru
-    }else{
-        Write-Host 'ATTENTION: ModData\Editor est introuvable ou vide. Les images personnalisees Frosty peuvent manquer.' -ForegroundColor Yellow
-        Write-Host 'Local prototype is running. Starting FIFA 17...' -ForegroundColor Cyan
-        $game=Start-Process -FilePath $GameExe -WorkingDirectory $gameDir -PassThru
-    }
     $routeLog=Join-Path $root 'logs\fifa17-route-capture.log'
     $routeTool=Join-Path $root 'tools\capture-fifa17-routes.ps1'
-    $monitorArgs="-NoProfile -ExecutionPolicy Bypass -File `"$routeTool`" -ProcessId $($game.Id) -OutputPath `"$routeLog`""
-    $monitor=Start-Process powershell.exe -WindowStyle Hidden -PassThru -ArgumentList $monitorArgs
     $moduleLog=Join-Path $root 'logs\fifa17-modules.log'
     $moduleTool=Join-Path $root 'tools\capture-fifa17-modules.ps1'
-    $moduleArgs="-NoProfile -ExecutionPolicy Bypass -File `"$moduleTool`" -ProcessId $($game.Id) -OutputPath `"$moduleLog`""
-    $moduleMonitor=Start-Process powershell.exe -WindowStyle Hidden -PassThru -ArgumentList $moduleArgs
-    $game.WaitForExit()
+    $launchAttempt=0
+    do {
+        $launchAttempt++
+        if($useModData){
+            Write-Host "MNG FUT: chargement des images Frosty depuis $modDataRoot" -ForegroundColor Green
+            $gameArgs=@('-dataPath',('"{0}"' -f $modDataRoot))
+            $game=Start-Process -FilePath $GameExe -WorkingDirectory $gameDir -ArgumentList $gameArgs -PassThru
+        }else{
+            Write-Host 'ATTENTION: ModData\Editor est introuvable ou vide. Les images personnalisees Frosty peuvent manquer.' -ForegroundColor Yellow
+            Write-Host 'Local prototype is running. Starting FIFA 17...' -ForegroundColor Cyan
+            $game=Start-Process -FilePath $GameExe -WorkingDirectory $gameDir -PassThru
+        }
+        $gameStartedAt=Get-Date
+        $monitorArgs="-NoProfile -ExecutionPolicy Bypass -File `"$routeTool`" -ProcessId $($game.Id) -OutputPath `"$routeLog`""
+        $monitor=Start-Process powershell.exe -WindowStyle Hidden -PassThru -ArgumentList $monitorArgs
+        $moduleArgs="-NoProfile -ExecutionPolicy Bypass -File `"$moduleTool`" -ProcessId $($game.Id) -OutputPath `"$moduleLog`""
+        $moduleMonitor=Start-Process powershell.exe -WindowStyle Hidden -PassThru -ArgumentList $moduleArgs
+        $game.WaitForExit()
+        $elapsedSeconds=((Get-Date)-$gameStartedAt).TotalSeconds
+        if($moduleMonitor -and -not $moduleMonitor.HasExited){Stop-Process -Id $moduleMonitor.Id -Force -ErrorAction SilentlyContinue}
+        if($monitor -and -not $monitor.HasExited){Stop-Process -Id $monitor.Id -Force -ErrorAction SilentlyContinue}
+        $retryEarlyNativeExit=($game.ExitCode -eq -6 -and $elapsedSeconds -lt 30 -and $launchAttempt -eq 1)
+        if($retryEarlyNativeExit){
+            Add-Content -LiteralPath $friendPreflight -Value "Relance automatique: code=-6 duree=$([Math]::Round($elapsedSeconds,1))s tentative=$launchAttempt"
+            Write-Host 'Le module de démarrage a échoué trop tôt. Nouvelle tentative automatique...' -ForegroundColor Yellow
+            Start-Sleep -Seconds 2
+        }
+    } while($retryEarlyNativeExit)
     Write-Host "FIFA 17 exited with code $($game.ExitCode)." -ForegroundColor Yellow
 } finally {
     if($moduleMonitor -and -not $moduleMonitor.HasExited){Stop-Process -Id $moduleMonitor.Id -Force -ErrorAction SilentlyContinue}
