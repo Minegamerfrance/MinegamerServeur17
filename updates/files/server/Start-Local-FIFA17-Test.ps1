@@ -369,11 +369,11 @@ blaze_port=44321
             $unknownRelayExit=($null -eq $exitCode -and $relayCount -gt 0)
             $relayExit=($exitCode -eq -6 -or $exitCode -eq 42 -or $unknownRelayExit)
             if($relayExit -and $elapsedSeconds -lt 30 -and $relayCount -lt 8){
-                $relayDeadline=(Get-Date).AddSeconds(5)
+                $relayDeadline=(Get-Date).AddSeconds(15)
                 do {
                     Start-Sleep -Milliseconds 100
-                    $replacementGame=Get-Process -Name FIFA17 -ErrorAction SilentlyContinue |
-                        Where-Object { -not $trackedGamePids.Contains([int]$_.Id) } |
+                    $replacementGame=Get-Process -Name FIFA17,stp-fifa17 -ErrorAction SilentlyContinue |
+                        Where-Object { -not $trackedGamePids.Contains([int]$_.Id) -and $_.StartTime -ge $launchStartedAt.AddSeconds(-1) } |
                         Sort-Object StartTime -Descending |
                         Select-Object -First 1
                 } while(-not $replacementGame -and (Get-Date) -lt $relayDeadline)

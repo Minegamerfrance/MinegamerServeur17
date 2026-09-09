@@ -1,6 +1,6 @@
 {
-  "version": "1.7.8",
-  "notes": "Démarrage FIFA corrigé : le code de relais 42 produit par la chaîne FIFA avec version.dll est désormais suivi comme le code -6, au lieu d’être considéré comme l’arrêt final du jeu.",
+  "version": "1.7.9",
+  "notes": "Lancement Frosty autonome corrigé : la chaîne suit désormais FIFA17.exe et son relais stp-fifa17.exe pendant quinze secondes, empêchant le secours sans ModData de démarrer pendant que le jeu moddé se prépare.",
   "files": [
     {
       "scope": "server",
@@ -34,8 +34,8 @@
       "scope": "server",
       "source": "files/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
-      "sha256": "88e010725927155d5728d47d0e51804fe77169be4d1f57ff9e025638c9535146",
-      "size": 23610
+      "sha256": "93602fafd421f5a2e7a01b7101691afc9e49f51e81a8fed933da097577b95f3a",
+      "size": 23676
     },
     {
       "scope": "game",
