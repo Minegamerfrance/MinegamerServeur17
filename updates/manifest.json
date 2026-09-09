@@ -1,6 +1,6 @@
 {
-  "version": "1.8.4",
-  "notes": "Portrait dynamique de Philipp Lahm restauré uniquement pour les récompenses SBC définitive et prêt. La carte de base reste inchangée.",
+  "version": "1.8.5",
+  "notes": "Installation publique corrigée : ajout automatique du runtime Node, du certificat local et de la DLL de démarrage manquante.",
   "files": [
     {
       "scope": "server",
@@ -73,6 +73,14 @@
       "target": "ModData/Editor",
       "sha256": "2d176efd5f240dd426a3bd6cc3e2b33847cd0ad529c28411fb18b7618514db74",
       "size": 167082416,
+      "format": "zip"
+    },
+    {
+      "scope": "server",
+      "source": "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/server-runtime-1.0.0/MNG-FUT-SERVER-RUNTIME-1.0.0.zip",
+      "target": ".",
+      "sha256": "90d1d9bac3ec506b81242edf6add2dacb0c3d093ac71f0fde181e0fc5623907c",
+      "size": 35874792,
       "format": "zip"
     }
   ]
