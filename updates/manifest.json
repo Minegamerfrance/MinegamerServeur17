@@ -1,6 +1,6 @@
 {
-  "version": "1.7.5",
-  "notes": "Diagnostic de démarrage renforcé : après une boucle d’échec Frosty, le lanceur effectue automatiquement un essai de secours sans ModData afin d’isoler précisément la cause.",
+  "version": "1.7.6",
+  "notes": "Démarrage FIFA renforcé : si la chaîne Frosty termine avec le code -6 après plusieurs processus relais, un essai automatique sans ModData est lancé jusqu’à dix minutes après le démarrage. La durée de chaque processus est aussi enregistrée dans le diagnostic.",
   "files": [
     {
       "scope": "server",
@@ -34,8 +34,8 @@
       "scope": "server",
       "source": "files/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
-      "sha256": "8f3579f97bb49c4e2e9fe3ab4bd6000a14fdbbdcb215c2da7ad74f0bad458ff5",
-      "size": 22973
+      "sha256": "8ef46e113e287b072bc29b172c65b54ff32e39d2b0a0a322057776e8544164ed",
+      "size": 23527
     },
     {
       "scope": "server",

@@ -351,6 +351,7 @@ blaze_port=44321
         $relayCount=0
         $finalExitCode=$null
         while($game){
+            $trackedProcessStartedAt=Get-Date
             [void]$trackedGamePids.Add([int]$game.Id)
             Add-Content -LiteralPath $friendPreflight -Value "Suivi FIFA: tentative=$launchAttempt pid=$($game.Id) relais=$relayCount"
             $monitorArgs="-NoProfile -ExecutionPolicy Bypass -File `"$routeTool`" -ProcessId $($game.Id) -OutputPath `"$routeLog`""
@@ -359,6 +360,7 @@ blaze_port=44321
             $moduleMonitor=Start-Process powershell.exe -WindowStyle Hidden -PassThru -ArgumentList $moduleArgs
             $game.WaitForExit()
             $exitCode=$game.ExitCode
+            $trackedProcessSeconds=((Get-Date)-$trackedProcessStartedAt).TotalSeconds
             if($moduleMonitor -and -not $moduleMonitor.HasExited){Stop-Process -Id $moduleMonitor.Id -Force -ErrorAction SilentlyContinue}
             if($monitor -and -not $monitor.HasExited){Stop-Process -Id $monitor.Id -Force -ErrorAction SilentlyContinue}
 
@@ -377,19 +379,23 @@ blaze_port=44321
             }
             if($replacementGame){
                 $relayCount++
-                Add-Content -LiteralPath $friendPreflight -Value "Processus FIFA relais: ancienPid=$($game.Id) nouveauPid=$($replacementGame.Id) code=$exitCode relais=$relayCount"
+                Add-Content -LiteralPath $friendPreflight -Value "Processus FIFA relais: ancienPid=$($game.Id) nouveauPid=$($replacementGame.Id) code=$exitCode dureeProcessus=$([Math]::Round($trackedProcessSeconds,1))s relais=$relayCount"
                 Write-Host "MNG FUT: processus FIFA relais detecte (PID $($replacementGame.Id))." -ForegroundColor Cyan
                 $game=$replacementGame
                 continue
             }
             $finalExitCode=if($null -eq $exitCode -and $relayCount -gt 0){-6}else{$exitCode}
-            Add-Content -LiteralPath $friendPreflight -Value "Fin FIFA: pid=$($game.Id) code=$finalExitCode codeNatif=$exitCode duree=$([Math]::Round($elapsedSeconds,1))s relais=$relayCount"
+            Add-Content -LiteralPath $friendPreflight -Value "Fin FIFA: pid=$($game.Id) code=$finalExitCode codeNatif=$exitCode dureeProcessus=$([Math]::Round($trackedProcessSeconds,1))s dureeTotale=$([Math]::Round($elapsedSeconds,1))s relais=$relayCount"
             break
         }
-        $retryEarlyNativeExit=($finalExitCode -eq -6 -and $elapsedSeconds -lt 30 -and $launchAttempt -eq 1)
+        $retryEarlyNativeExit=($finalExitCode -eq -6 -and $launchAttempt -eq 1 -and (($attemptUseModData -and $elapsedSeconds -lt 600) -or (-not $attemptUseModData -and $elapsedSeconds -lt 30)))
         if($retryEarlyNativeExit){
             Add-Content -LiteralPath $friendPreflight -Value "Relance complete automatique: code=-6 duree=$([Math]::Round($elapsedSeconds,1))s tentative=$launchAttempt relais=$relayCount"
-            Write-Host 'La chaine de démarrage a échoué trop tôt. Nouvelle tentative automatique...' -ForegroundColor Yellow
+            if($attemptUseModData){
+                Write-Host 'Le lancement Frosty a échoué avant l accès FUT. Essai automatique sans ModData...' -ForegroundColor Yellow
+            }else{
+                Write-Host 'La chaine de démarrage a échoué trop tôt. Nouvelle tentative automatique...' -ForegroundColor Yellow
+            }
             Start-Sleep -Seconds 2
         }
     } while($retryEarlyNativeExit)
