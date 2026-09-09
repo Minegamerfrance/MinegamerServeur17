@@ -1,6 +1,6 @@
 {
-  "version": "1.8.2",
-  "notes": "Expérience de lancement améliorée : PowerShell peut désormais fonctionner entièrement en mode intégré, sans demande d’appuyer sur Entrée. Les informations de démarrage sont affichées directement dans le journal du lanceur MNG FUT.",
+  "version": "1.8.3",
+  "notes": "Installation Frosty corrigée : le lanceur reconstruit de façon sécurisée les 52 liens nécessaires entre ModData et les fichiers FIFA d’origine. Les 83 éléments générés par Frosty sont désormais restaurés sans autoriser de chemin externe.",
   "files": [
     {
       "scope": "server",
