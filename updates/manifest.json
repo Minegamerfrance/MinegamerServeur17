@@ -1,6 +1,6 @@
 {
-  "version": "1.7.6",
-  "notes": "Démarrage FIFA renforcé : si la chaîne Frosty termine avec le code -6 après plusieurs processus relais, un essai automatique sans ModData est lancé jusqu’à dix minutes après le démarrage. La durée de chaque processus est aussi enregistrée dans le diagnostic.",
+  "version": "1.7.7",
+  "notes": "Compatibilité serveur FIFA renforcée : version.dll est désormais installé et contrôlé automatiquement dans le dossier contenant FIFA17.exe. Le ModData Frosty reste téléchargé dans ce même dossier de jeu.",
   "files": [
     {
       "scope": "server",
@@ -36,6 +36,13 @@
       "target": "Start-Local-FIFA17-Test.ps1",
       "sha256": "8ef46e113e287b072bc29b172c65b54ff32e39d2b0a0a322057776e8544164ed",
       "size": 23527
+    },
+    {
+      "scope": "game",
+      "source": "files/game/version.dll",
+      "target": "version.dll",
+      "sha256": "c23cc6f50a47191cdc590f50138da91a29190f2ecffccae79f368421825adb43",
+      "size": 226304
     },
     {
       "scope": "server",
