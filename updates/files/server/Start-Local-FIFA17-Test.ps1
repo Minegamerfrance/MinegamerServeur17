@@ -367,7 +367,8 @@ blaze_port=44321
             $replacementGame=$null
             $elapsedSeconds=((Get-Date)-$launchStartedAt).TotalSeconds
             $unknownRelayExit=($null -eq $exitCode -and $relayCount -gt 0)
-            if(($exitCode -eq -6 -or $unknownRelayExit) -and $elapsedSeconds -lt 30 -and $relayCount -lt 8){
+            $relayExit=($exitCode -eq -6 -or $exitCode -eq 42 -or $unknownRelayExit)
+            if($relayExit -and $elapsedSeconds -lt 30 -and $relayCount -lt 8){
                 $relayDeadline=(Get-Date).AddSeconds(5)
                 do {
                     Start-Sleep -Milliseconds 100
@@ -388,7 +389,7 @@ blaze_port=44321
             Add-Content -LiteralPath $friendPreflight -Value "Fin FIFA: pid=$($game.Id) code=$finalExitCode codeNatif=$exitCode dureeProcessus=$([Math]::Round($trackedProcessSeconds,1))s dureeTotale=$([Math]::Round($elapsedSeconds,1))s relais=$relayCount"
             break
         }
-        $retryEarlyNativeExit=($finalExitCode -eq -6 -and $launchAttempt -eq 1 -and (($attemptUseModData -and $elapsedSeconds -lt 600) -or (-not $attemptUseModData -and $elapsedSeconds -lt 30)))
+        $retryEarlyNativeExit=(($finalExitCode -eq -6 -or $finalExitCode -eq 42) -and $launchAttempt -eq 1 -and (($attemptUseModData -and $elapsedSeconds -lt 600) -or (-not $attemptUseModData -and $elapsedSeconds -lt 30)))
         if($retryEarlyNativeExit){
             Add-Content -LiteralPath $friendPreflight -Value "Relance complete automatique: code=-6 duree=$([Math]::Round($elapsedSeconds,1))s tentative=$launchAttempt relais=$relayCount"
             if($attemptUseModData){

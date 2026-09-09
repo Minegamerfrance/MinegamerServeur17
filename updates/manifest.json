@@ -1,6 +1,6 @@
 {
-  "version": "1.7.7",
-  "notes": "Compatibilité serveur FIFA renforcée : version.dll est désormais installé et contrôlé automatiquement dans le dossier contenant FIFA17.exe. Le ModData Frosty reste téléchargé dans ce même dossier de jeu.",
+  "version": "1.7.8",
+  "notes": "Démarrage FIFA corrigé : le code de relais 42 produit par la chaîne FIFA avec version.dll est désormais suivi comme le code -6, au lieu d’être considéré comme l’arrêt final du jeu.",
   "files": [
     {
       "scope": "server",
@@ -34,8 +34,8 @@
       "scope": "server",
       "source": "files/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
-      "sha256": "8ef46e113e287b072bc29b172c65b54ff32e39d2b0a0a322057776e8544164ed",
-      "size": 23527
+      "sha256": "88e010725927155d5728d47d0e51804fe77169be4d1f57ff9e025638c9535146",
+      "size": 23610
     },
     {
       "scope": "game",
