@@ -1,13 +1,13 @@
 {
-  "version": "1.6.9",
-  "notes": "Tournois solo sécurisés : chaque parcours et chaque tour sont suivis par le cloud. Les crédits de match, la prime du titre et Aubameyang Champions sont accordés uniquement après quatre victoires validées, avec protection contre les doubles récompenses.",
+  "version": "1.7.0",
+  "notes": "Sécurité des packs renforcée : les consommables sont désormais tirés et autorisés par le cloud, les doubles envois ne donnent aucun objet supplémentaire et toute injection locale d'objet non autorisé est refusée.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "6474004b2d291e3ee053daf61ba9aae570a318a4d2133db678f8676074d1c390",
-      "size": 418014
+      "sha256": "9cbd40ca0abab90485ad7d6adc167240715920fe15c70939d1936db8dff8fbab",
+      "size": 418688
     },
     {
       "scope": "server",
@@ -34,8 +34,8 @@
       "scope": "server",
       "source": "files/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
-      "sha256": "0603e897dc63fd66380978eba83c46e84919d232e333c407d7d9e82c93960882",
-      "size": 19683
+      "sha256": "c9ebad644c5faa0aeb352034c133577640b1c2299878ae1545ac3efe07e22f59",
+      "size": 19684
     },
     {
       "scope": "server",
@@ -55,8 +55,8 @@
       "scope": "server",
       "source": "files/server/data/mng-pack-admin.json",
       "target": "data/mng-pack-admin.json",
-      "sha256": "6d455e163c41b62621a0c2d723a6e3622b80e1ec38123f61d1c8723eecaa7511",
-      "size": 18548
+      "sha256": "a3ba0017c374717d6d59a50e148f45a970ea0f0de2ca7ee252fddb41e41189c7",
+      "size": 18856
     }
   ],
   "archives": [

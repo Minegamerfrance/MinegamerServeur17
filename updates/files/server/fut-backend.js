@@ -3031,7 +3031,9 @@ function openPack(packId, body={}, includeDisabled=false, reward=false) {
     if(!specialSlots&&Math.random()<pack.specialChance)specialSlots=1;
 
     const cloudCards=Array.isArray(body.cloudResourceIds)?body.cloudResourceIds.map(id=>catalogByResource.get(Number(id))).filter(Boolean):[];
+    const cloudNonPlayers=Array.isArray(body.cloudNonPlayerResourceIds)?body.cloudNonPlayerResourceIds.map(id=>CONSUMABLES.find(definition=>Number(definition.definitionId)===Number(id))).filter(Boolean):[];
     if(body.cloudAuthorized===true&&cloudCards.length<pack.players)return {status:503,error:'CLOUD_PACK_CONTENT_INVALID',reason:'CLOUD_PACK_CONTENT_INVALID'};
+    if(body.cloudAuthorized===true&&cloudNonPlayers.length<(pack.count-pack.players))return {status:503,error:'CLOUD_PACK_CONTENT_INVALID',reason:'CLOUD_PACK_CONTENT_INVALID'};
     for(let slot=0;slot<pack.count;slot++){
       const rare=slot<pack.rares;
       if(slot<pack.players){
@@ -3044,17 +3046,16 @@ function openPack(packId, body={}, includeDisabled=false, reward=false) {
         used.add(card.resourceId);
         drawn.push(makePlayerItem(card,state,PILE_PURCHASED,false));
       }else{
-        drawn.push(randomMixedNonPlayer(pack,rare,slot));
+        const cloudDefinition=cloudNonPlayers[slot-pack.players];
+        drawn.push(cloudDefinition?makeConsumableItem(cloudDefinition,Number(cloudDefinition.rareflag)>0,PILE_PURCHASED):randomMixedNonPlayer(pack,rare,slot));
       }
     }
   }
 
   if(body.cloudAuthorized===true){
     for(const item of drawn){
-      if(item.itemType==='player'){
-        item.acquisitionSource='CLOUD_PACK';
-        item.cloudTransactionId=String(body.transactionId||'');
-      }
+      item.acquisitionSource='CLOUD_PACK';
+      item.cloudTransactionId=String(body.transactionId||'');
     }
   }
   const pairs=duplicatePairs(drawn);
@@ -3201,7 +3202,7 @@ async function authorizeCloudPackPurchase(packId,body={}) {
     });
     const payload=await response.json().catch(()=>({}));
     if(!response.ok||payload.ok!==true)return {ok:false,status:response.status||503,error:String(payload.error||'CLOUD_PURCHASE_FAILED')};
-    return {ok:true,transactionId,profile:payload.profile,playerResourceIds:Array.isArray(payload.playerResourceIds)?payload.playerResourceIds.map(Number):[]};
+    return {ok:true,transactionId,profile:payload.profile,playerResourceIds:Array.isArray(payload.playerResourceIds)?payload.playerResourceIds.map(Number):[],nonPlayerResourceIds:Array.isArray(payload.nonPlayerResourceIds)?payload.nonPlayerResourceIds.map(Number):[]};
   }catch(error){
     logger(`[mng-cloud] pack purchase failed pack=${packId}: ${error.message}`);
     return {ok:false,status:503,error:'CLOUD_UNAVAILABLE'};
@@ -3424,7 +3425,7 @@ async function openStorePack(body={}) {
   }
   const authorization=await authorizeCloudPackPurchase(requested,body);
   if(!authorization.ok)return {status:authorization.status,error:authorization.error,reason:authorization.error};
-  return openPack(requested,{...body,cloudAuthorized:true,cloudProfile:authorization.profile,cloudResourceIds:authorization.playerResourceIds,transactionId:authorization.transactionId});
+  return openPack(requested,{...body,cloudAuthorized:true,cloudProfile:authorization.profile,cloudResourceIds:authorization.playerResourceIds,cloudNonPlayerResourceIds:authorization.nonPlayerResourceIds,transactionId:authorization.transactionId});
 }
 
 async function openRewardPack(instanceId) {
