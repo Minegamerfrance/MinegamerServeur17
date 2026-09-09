@@ -186,7 +186,7 @@ try{
 // Preserve the two hand-positioned portraits supplied and approved by the
 // user. Their source image IDs differ from the FUT card resource IDs.
 for(const alias of [50499312,184717040]) dynamicPlayerHeadMap.set(alias,184717040);
-for(const alias of [16899155,100785235,117562451]) dynamicPlayerHeadMap.set(alias,117562451);
+dynamicPlayerHeadMap.set(100785235,100785235);
 for(const sourceId of [100663784,100853344,16992775,16968406]){
   const ddsPath=path.join(root,'data','playerheads',`p${sourceId}.dds`);
   if(fs.existsSync(ddsPath)){

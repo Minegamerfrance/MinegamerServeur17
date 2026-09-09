@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-09-05",
+  "updated": "2026-09-09T18:33:35.295Z",
   "description": "MNG FUT 17 online dynamic player portraits. Card artwork remains managed by Frosty.",
   "rules": {
     "exactResourceIdOnly": true,
@@ -691,6 +691,20 @@
       "sha256": {
         "png": "da221d58935384a403f475b05444da444f11d117565f1b4834b1f9822f1bec50",
         "dds": "2bc8725111f98a3b9d7692c03ec1241de474135cbf8a53e584b4450784bbb056"
+      }
+    },
+    "100785235": {
+      "resourceId": 100785235,
+      "assetId": 121939,
+      "name": "Philipp Lahm",
+      "type": "premium_sbc",
+      "enabled": true,
+      "notes": "Lahm SBC and Lahm SBC loan dynamic portrait",
+      "png": "images/100785235.png",
+      "dds": "images/100785235.dds",
+      "sha256": {
+        "png": "053f6e636a593fa538a38b3e205c8b4d4da90146b178a158cc6f4298d12d48ca",
+        "dds": "ef4e40af1275a7e48390788e27052181e738bf396576dfe64eb43d837a5cd358"
       }
     },
     "100785240": {

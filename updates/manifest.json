@@ -1,6 +1,6 @@
 {
-  "version": "1.8.3",
-  "notes": "Installation Frosty corrigée : le lanceur reconstruit de façon sécurisée les 52 liens nécessaires entre ModData et les fichiers FIFA d’origine. Les 83 éléments générés par Frosty sont désormais restaurés sans autoriser de chemin externe.",
+  "version": "1.8.4",
+  "notes": "Portrait dynamique de Philipp Lahm restauré uniquement pour les récompenses SBC définitive et prêt. La carte de base reste inchangée.",
   "files": [
     {
       "scope": "server",
@@ -13,8 +13,8 @@
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "c6a0d8b961b0f326cccaa4ee0ec5303537e4ff57f000549b81d4fa309c8cc5c7",
-      "size": 104893
+      "sha256": "4e35b51cdffd25086b0146eed8570456a7f7c3dc1ed302cbd4628a722a7b9c53",
+      "size": 104846
     },
     {
       "scope": "server",
