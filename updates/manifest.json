@@ -1,13 +1,13 @@
 {
-  "version": "1.6.8",
-  "notes": "Draft solo sécurisé : le paiement d'entrée, la progression des matchs et les récompenses finales sont désormais contrôlés par le cloud. Les packs sont générés côté serveur et une récompense déjà récupérée ne peut plus être réclamée une seconde fois.",
+  "version": "1.6.9",
+  "notes": "Tournois solo sécurisés : chaque parcours et chaque tour sont suivis par le cloud. Les crédits de match, la prime du titre et Aubameyang Champions sont accordés uniquement après quatre victoires validées, avec protection contre les doubles récompenses.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "f1d4cc3918a1f56acfb3ef94e215c4a40cf22b519ffbc094ae3b58d04a6099f1",
-      "size": 414037
+      "sha256": "6474004b2d291e3ee053daf61ba9aae570a318a4d2133db678f8676074d1c390",
+      "size": 418014
     },
     {
       "scope": "server",

@@ -3276,6 +3276,21 @@ async function authorizeCloudDraftReward(token) {
   return result;
 }
 
+async function authorizeCloudTournamentEntry(tournamentId,clientRunId) {
+  return await cloudMatchRequest('/api/tournaments/enter',{tournamentId:Number(tournamentId),clientRunId:Number(clientRunId)});
+}
+
+async function cloudTournamentStatus(token) {
+  const query=new URLSearchParams({token:String(token||'')});
+  return await mngCloudMarketRequest('/api/tournaments/status',{query});
+}
+
+async function authorizeCloudTournamentReward(token) {
+  const result=await cloudMatchRequest('/api/tournaments/claim',{token:String(token||'')});
+  if(result.ok)applyCloudWalletProfile(result.profile);
+  return result;
+}
+
 async function startSecureMatch(body={}) {
   const draftMode=isDraftMatchRequest(body);
   if(draftMode){
@@ -3286,6 +3301,18 @@ async function startSecureMatch(body={}) {
     state.offlineDraft.activeMatch.cloudToken=String(authorization.token||'');saveState();
     logger(`[mng-match] cloud draft start authorized matchId=${local.matchId} token=${String(authorization.token||'').slice(0,8)}`);
     return {...local,cloudAuthorized:true};
+  }
+  const tournamentMode=state.activeMode==='tournament'||Number(body?.tournamentId)>0;
+  if(tournamentMode){
+    const tournamentId=Math.max(1,Number(body?.tournamentId||state.activeTournamentId)||1);
+    const progress=ensureTournamentProgressState()[tournamentId];
+    if(!progress?.cloudRunToken)return {_status:409,code:'TOURNAMENT_NOT_CLOUD_AUTHORIZED'};
+    state.activeMode='tournament';state.activeTournamentId=tournamentId;
+    const local=startSeasonMatch(body);
+    const authorization=await cloudMatchRequest('/api/matches/start',{mode:'tournament',clientMatchId:Number(local.matchId),round:Number(progress.round)||1,divisionId:10,tournamentRunToken:String(progress.cloudRunToken)});
+    if(!authorization.ok){state.singlePlayerSeason.activeMatch=null;saveState();return {_status:authorization.status||503,code:authorization.error||'MATCH_AUTHORIZATION_FAILED'};}
+    state.singlePlayerSeason.activeMatch.cloudToken=String(authorization.token||'');saveState();
+    return {...local,cloudAuthorized:true,tournamentId};
   }
   await clearStaleDraftMatch();
   state.activeMode=Number(body?.tournamentId)>0?'tournament':'season';
@@ -3299,6 +3326,7 @@ async function startSecureMatch(body={}) {
 
 async function finishSecureMatch(body={},explicitMatchId=0) {
   const draftMode=Boolean(state.offlineDraft?.activeMatch);
+  const tournamentMode=!draftMode&&state.activeMode==='tournament';
   const active=draftMode?state.offlineDraft.activeMatch:state.singlePlayerSeason?.activeMatch;
   const token=String(active?.cloudToken||'');
   if(!token)return {_status:409,code:'MATCH_NOT_CLOUD_AUTHORIZED'};
@@ -3313,7 +3341,19 @@ async function finishSecureMatch(body={},explicitMatchId=0) {
   if(!authorization.ok)return {_status:authorization.status||503,code:authorization.error||'MATCH_REWARD_REJECTED',retryAfter:Number(authorization.retryAfter)||0};
   applyCloudWalletProfile(authorization.profile);
   const reward={coinsAwarded:Number(authorization.coinsAwarded)||0,seasonCoinsAwarded:Number(authorization.seasonCoinsAwarded)||0};
-  const outcome=draftMode?recordDraftMatch(submitted,reward):recordSeasonMatch(submitted,reward);
+  let outcome;
+  if(tournamentMode){
+    const tournamentId=Math.max(1,Number(authorization.tournament?.tournamentId||state.activeTournamentId)||1);
+    const progress=ensureTournamentProgressState()[tournamentId];
+    if(progress){
+      progress.round=Math.min(5,Number(authorization.tournament?.wins||0)+1);
+      progress.completed=['prize','claimed','lost'].includes(String(authorization.tournament?.status||''));
+      progress.won=['prize','claimed'].includes(String(authorization.tournament?.status||''));
+    }
+    state.singlePlayerSeason.activeMatch=null;
+    outcome={result:String(authorization.result||'LOSS'),coinsAwarded:reward.coinsAwarded,...scores};
+    saveState();
+  }else outcome=draftMode?recordDraftMatch(submitted,reward):recordSeasonMatch(submitted,reward);
   logger(`[mng-match] cloud finish accepted matchId=${Number(active.id)||0} result=${authorization.result||''} coins=${reward.coinsAwarded}`);
   return {_status:200,...matchEndDocument(submitted,outcome,!draftMode)};
 }
@@ -6121,7 +6161,7 @@ function tournamentUserDocument(tournamentId) {
   };
 }
 
-function updateTournamentUser(tournamentId,body) {
+async function updateTournamentUser(tournamentId,body) {
   const id=Math.max(1,Number(tournamentId)||1);
   const document=body&&typeof body==='object'?body:{};
   const payload={
@@ -6131,37 +6171,58 @@ function updateTournamentUser(tournamentId,body) {
     tournamentData:String(document.tournamentData||''),
     progressDataVersion:Math.max(1,Number(document.progressDataVersion)||1),
     progressData:String(document.progressData||''),
-    completed:Boolean(document.completed||document.isCompleted||Number(document.round)>4),
-    won:Boolean(document.won||document.champion||document.result==='WIN'||Number(document.round)>4)
+    completed:false,
+    won:false
   };
 
   const progress=ensureTournamentProgressState();
+  const previous=progress[id]||{};
+  let cloudRunToken=String(previous.cloudRunToken||'');
+  if(!cloudRunToken){
+    const clientRunId=Number(previous.clientRunId)||Date.now()*10+id;
+    const authorization=await authorizeCloudTournamentEntry(id,clientRunId);
+    if(!authorization.ok)return {_status:authorization.status||503,code:authorization.error||'TOURNAMENT_ENTRY_REJECTED'};
+    cloudRunToken=String(authorization.token||'');
+    payload.clientRunId=clientRunId;
+  }else payload.clientRunId=Number(previous.clientRunId)||0;
+  payload.cloudRunToken=cloudRunToken;
+  state.activeTournamentId=id;
+  const cloudStatus=await cloudTournamentStatus(cloudRunToken);
+  if(!cloudStatus.ok)return {_status:cloudStatus.status||503,code:cloudStatus.error||'TOURNAMENT_STATUS_FAILED'};
+  payload.round=Math.min(5,Number(cloudStatus.wins||0)+1);
+  payload.completed=['prize','claimed','lost'].includes(String(cloudStatus.status||''));
+  payload.won=['prize','claimed'].includes(String(cloudStatus.status||''));
 
   // First-round all-zero data is the retail pre-match bracket creation.
   // Echo it, but do not advertise it as a resumable "Underway" competition.
   if(tournamentProgressIsResumable(payload)){
-    const wasWon=Boolean(progress[id]?.won);
     progress[id]={...payload,updatedAt:Date.now()};
-    if(payload.won&&!wasWon){
-      state.tournamentTrophies[id]=Math.max(0,Number(state.tournamentTrophies[id])||0)+1;
+    if(cloudStatus.status==='prize'){
       const definition=OFFLINE_TOURNAMENT_DEFS.find(entry=>Number(entry.id)===id);
-      const prize=Math.max(0,Number(definition?.prize)||0);
-      state.coins+=prize;
-      state.history.unshift({time:new Date().toISOString(),type:'OFFLINE_TOURNAMENT_TITLE',tournamentId:id,coins:prize});
-      const rewardCard=catalogByResource.get(Number(definition?.rewardResourceId));
-      if(rewardCard){
+      const reward=await authorizeCloudTournamentReward(cloudRunToken);
+      if(!reward.ok)return {_status:reward.status||503,code:reward.error||'TOURNAMENT_REWARD_REJECTED'};
+      const transactionId=String(reward.rewards?.[0]?.transactionId||'');
+      const resourceIds=(reward.rewards||[]).flatMap(entry=>Array.isArray(entry.resourceIds)?entry.resourceIds.map(Number):[]);
+      const granted=[];
+      for(const resourceId of resourceIds){
+        if(state.items.some(item=>String(item.cloudTransactionId||'')===transactionId&&Number(item.resourceId)===resourceId))continue;
+        const rewardCard=catalogByResource.get(resourceId);
+        if(!rewardCard)continue;
         const rewardItem=makePlayerItem(rewardCard,state,PILE_PURCHASED,true);
-        state.items.push(rewardItem);
-        payload.itemData=[rewardItem];
-        payload.awards=[{awardType:2,value:Number(rewardCard.resourceId),halid:0,count:1,itemData:rewardItem}];
-        state.history[0].items=[Number(rewardCard.resourceId)];
+        rewardItem.cloudTransactionId=transactionId;
+        state.items.push(rewardItem);state.pending.push(Number(rewardItem.id));granted.push(rewardItem);
       }
+      state.tournamentTrophies[id]=Math.max(Number(state.tournamentTrophies[id])||0,Number(cloudStatus.trophies||0)+1);
+      state.history.unshift({time:new Date().toISOString(),type:'OFFLINE_TOURNAMENT_TITLE',tournamentId:id,coins:Number(reward.prizeCoins)||Number(definition?.prize)||0,items:resourceIds});
+      payload.itemData=granted;
+      payload.awards=granted.map(item=>({awardType:2,value:Number(item.resourceId),halid:0,count:1,itemData:item}));
+      progress[id].completed=true;progress[id].won=true;
     }
   }else{
     progress[id]={
       tournamentId:id,round:1,dataVersion:payload.dataVersion,
       tournamentData:'',progressDataVersion:payload.progressDataVersion,
-      progressData:'',updatedAt:Date.now()
+      progressData:'',cloudRunToken,clientRunId:payload.clientRunId,updatedAt:Date.now()
     };
   }
   saveState();
@@ -6575,10 +6636,10 @@ async function handle(req,res,urlPath,requestBody) {
   }
   if(match&&['POST','PUT'].includes(method)){
     writeTournamentDiag(`[REQ] ${method} ${req.url} ${JSON.stringify(body||{})}`);
-    const document=updateTournamentUser(Number(match[1]),body);
+    const document=await updateTournamentUser(Number(match[1]),body);
     logger(`[solo-cup] tournament ${match[1]} progress round=${document.round}`);
     writeTournamentDiag(`[RES] ${method} ${req.url} ${JSON.stringify(document)}`);
-    return send(200,document);
+    return send(document._status||200,document);
   }
   if(match&&method==='DELETE'){
     const document=resetTournamentUser(Number(match[1]));
