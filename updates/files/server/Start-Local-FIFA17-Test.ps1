@@ -9,7 +9,7 @@ if (-not $GameExe) {
 }
 if (-not $GameExe) {
     Write-Host 'Open LANCER MNG FUT.bat and choose your FIFA17.exe first.' -ForegroundColor Yellow
-    Read-Host 'Press Enter to close'
+    if($env:MNG_FUT_EMBEDDED -ne '1'){Read-Host 'Press Enter to close'}
     exit 1
 }
 
@@ -27,7 +27,7 @@ trap {
     Set-Content -LiteralPath $errorLog -Value $message -Encoding UTF8
     Write-Host $message -ForegroundColor Red
     Write-Host "`nThe error was saved here:`n$errorLog" -ForegroundColor Yellow
-    Read-Host 'Press Enter to close'
+    if($env:MNG_FUT_EMBEDDED -ne '1'){Read-Host 'Press Enter to close'}
     break
 }
 # Portable/friend preflight. Starting with an existing FIFA process is the most
@@ -432,5 +432,5 @@ if($archiveError){
 }else{
     Write-Host "Test complete. Send me this file:`n$zip" -ForegroundColor Green
 }
-Read-Host 'Press Enter to close'
+if($env:MNG_FUT_EMBEDDED -ne '1'){Read-Host 'Press Enter to close'}
 
