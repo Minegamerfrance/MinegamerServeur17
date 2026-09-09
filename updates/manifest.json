@@ -1,13 +1,13 @@
 {
-  "version": "1.7.1",
-  "notes": "Démarrage FIFA renforcé : si le module natif s'arrête avec le code -6 dans les trente premières secondes, le lanceur effectue automatiquement une seconde tentative propre. La sécurité cloud des consommables de packs reste active.",
+  "version": "1.7.2",
+  "notes": "Matchs renforcés : le cloud exige désormais onze titulaires possédés avec des contrats, refuse les scores impossibles, impose quatre minutes minimum avant une fin normale et conserve la protection contre les doubles récompenses.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "9cbd40ca0abab90485ad7d6adc167240715920fe15c70939d1936db8dff8fbab",
-      "size": 418688
+      "sha256": "6c9a18d23f613bd6387ac8059caa6252eaab6032d66a8e15309ee0074dadd4aa",
+      "size": 419144
     },
     {
       "scope": "server",

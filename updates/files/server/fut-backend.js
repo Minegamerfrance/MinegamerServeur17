@@ -3308,17 +3308,21 @@ async function startSecureMatch(body={}) {
     const tournamentId=Math.max(1,Number(body?.tournamentId||state.activeTournamentId)||1);
     const progress=ensureTournamentProgressState()[tournamentId];
     if(!progress?.cloudRunToken)return {_status:409,code:'TOURNAMENT_NOT_CLOUD_AUTHORIZED'};
+    if(!await forceMngCloudClubSync('before-tournament-match'))return {_status:503,code:'CLUB_SYNC_FAILED'};
     state.activeMode='tournament';state.activeTournamentId=tournamentId;
     const local=startSeasonMatch(body);
-    const authorization=await cloudMatchRequest('/api/matches/start',{mode:'tournament',clientMatchId:Number(local.matchId),round:Number(progress.round)||1,divisionId:10,tournamentRunToken:String(progress.cloudRunToken)});
+    const squadItemIds=(local.userSquad?.players||[]).slice(0,11).map(entry=>Number(entry?.itemData?.id)||0);
+    const authorization=await cloudMatchRequest('/api/matches/start',{mode:'tournament',clientMatchId:Number(local.matchId),round:Number(progress.round)||1,divisionId:10,tournamentRunToken:String(progress.cloudRunToken),squadItemIds});
     if(!authorization.ok){state.singlePlayerSeason.activeMatch=null;saveState();return {_status:authorization.status||503,code:authorization.error||'MATCH_AUTHORIZATION_FAILED'};}
     state.singlePlayerSeason.activeMatch.cloudToken=String(authorization.token||'');saveState();
     return {...local,cloudAuthorized:true,tournamentId};
   }
   await clearStaleDraftMatch();
   state.activeMode=Number(body?.tournamentId)>0?'tournament':'season';
+  if(!await forceMngCloudClubSync('before-season-match'))return {_status:503,code:'CLUB_SYNC_FAILED'};
   const local=startSeasonMatch(body);
-  const authorization=await cloudMatchRequest('/api/matches/start',{mode:'season',clientMatchId:Number(local.matchId),round:Number(local.round)||Number(state.singlePlayerSeason?.gamesPlayed||0)+1,divisionId:Number(state.singlePlayerSeason?.divisionId)||10});
+  const squadItemIds=(local.userSquad?.players||[]).slice(0,11).map(entry=>Number(entry?.itemData?.id)||0);
+  const authorization=await cloudMatchRequest('/api/matches/start',{mode:'season',clientMatchId:Number(local.matchId),round:Number(local.round)||Number(state.singlePlayerSeason?.gamesPlayed||0)+1,divisionId:Number(state.singlePlayerSeason?.divisionId)||10,squadItemIds});
   if(!authorization.ok){state.singlePlayerSeason.activeMatch=null;saveState();return {_status:authorization.status||503,code:authorization.error||'MATCH_AUTHORIZATION_FAILED'};}
   state.singlePlayerSeason.activeMatch.cloudToken=String(authorization.token||'');saveState();
   logger(`[mng-match] cloud season start authorized matchId=${local.matchId} token=${String(authorization.token||'').slice(0,8)}`);
