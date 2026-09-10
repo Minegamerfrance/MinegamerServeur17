@@ -1,13 +1,13 @@
 {
-  "version": "1.8.7",
-  "notes": "Marché mondial : téléchargement public corrigé et achat immédiat activé pour la route FIFA 17 /offer.",
+  "version": "1.8.8",
+  "notes": "Comptes séparés : chaque utilisateur possède désormais son propre club. Mise en vente corrigée depuis le club et les nouveaux éléments.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "6c9a18d23f613bd6387ac8059caa6252eaab6032d66a8e15309ee0074dadd4aa",
-      "size": 419144
+      "sha256": "d1f72f097415bb7b5543635315962971ffc376f4ff2fc8f7d4922c2181919518",
+      "size": 419720
     },
     {
       "scope": "server",
