@@ -1,13 +1,13 @@
 {
-  "version": "1.8.8",
-  "notes": "Comptes séparés : chaque utilisateur possède désormais son propre club. Mise en vente corrigée depuis le club et les nouveaux éléments.",
+  "version": "1.8.9",
+  "notes": "Sécurité marché : prix stricts par tranche de 50 et vérification du prix affiché avant chaque achat.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "d1f72f097415bb7b5543635315962971ffc376f4ff2fc8f7d4922c2181919518",
-      "size": 419720
+      "sha256": "165b611dc6ed8e8b0b26fe8cb2f5c4722ecea3710ca4d676cbf83fa785cad44d",
+      "size": 419805
     },
     {
       "scope": "server",
