@@ -1,5 +1,4 @@
 // MNG FUT V3.8 - ICON CLEANUP + ZIDANE FRANCE - 2026-09-04
-// RELEASE 2.0.2 - LEGENDES PACK 314: 5500 FP + 18 local rarity-12 Icons + cloud-wallet fallback
 'use strict';
 // MNG V24-FIX SBC SET IMAGE MAPPING
 
@@ -899,30 +898,6 @@ const MALDINI_ICON_CARD = {
 // offline market. Dani Alves OTW remains SBC-exclusive.
 // These cards are reward-only: never include them in market listings or pack pools.
 const SBC_EXCLUSIVE_RESOURCE_IDS = new Set([100785235,RIBERY_SBC_RESOURCE_ID,100862747,DANI_ALVES_OTW_RESOURCE_ID,AUBAMEYANG_CHAMPIONS_RESOURCE_ID,100990001,JOHN_TERRY_FLASHBACK_RESOURCE_ID]);
-// Release 2.0.2: canonical LEGENDES pack pool. These are the 18 rarity-12
-// Icons that survive the active V3.8 runtime cleanup. Alex Hunter (100990001)
-// stays excluded because he is an SBC-only reward.
-const MNG_LEGEND_PACK_RESOURCE_IDS = Object.freeze([
-  100664921, // Thierry Henry
-  100853345, // Eusebio
-  100911442, // Ian Wright
-  100910813, // John Barnes
-  16805347,  // Ronaldinho
-  16778613,  // Zinedine Zidane
-  16780863,  // Michael Ballack
-  16778116,  // Raymond Kopa
-  16778117,  // Fabien Barthez
-  16794113,  // Daniel Van Buyten
-  100663784, // Oliver Kahn
-  100853344, // Gerd Muller
-  17038809,  // Jurgen Kohler
-  16884931,  // Lucio
-  117575967, // Maicon
-  16788357,  // Miroslav Klose
-  100673831, // Xavi
-  16966578   // Hulk
-]);
-const MNG_LEGEND_PACK_RESOURCE_SET = new Set(MNG_LEGEND_PACK_RESOURCE_IDS);
 const WEEKLY_TOTW_PACK_ID = 312;
 const STARTER_TOTW_PACK_ID = 315;
 const STARTER_OTW_PACK_ID = 316;
@@ -948,19 +923,19 @@ const PACKS = {
   104: {id:104, name:'Premium Bronze Pack', tier:'bronze', count:12, players:9, rares:3, coins:750, points:15, premium:true, specialChance:0.005},
   203: {id:203, name:'Silver Pack', tier:'silver', count:12, players:9, rares:1, coins:2500, points:50, premium:false, specialChance:0.01},
   204: {id:204, name:'Premium Silver Pack', tier:'silver', count:12, players:9, rares:3, coins:3750, points:75, premium:true, specialChance:0.02},
-  303: {id:303, name:'Gold Pack', tier:'gold', count:12, players:9, rares:1, coins:5000, points:100, premium:false, specialChance:0.005},
-  304: {id:304, name:'Premium Gold Pack', tier:'gold', count:12, players:9, rares:3, coins:7500, points:150, premium:true, specialChance:0.012},
-  305: {id:305, name:'Jumbo Premium Gold Pack', tier:'gold', count:12, players:10, rares:5, coins:15000, points:300, premium:true, specialChance:0.025},
+  303: {id:303, name:'Gold Pack', tier:'gold', count:12, players:9, rares:1, coins:5000, points:100, premium:false, specialChance:0.05},
+  304: {id:304, name:'Premium Gold Pack', tier:'gold', count:12, players:9, rares:3, coins:7500, points:150, premium:true, specialChance:0.12},
+  305: {id:305, name:'Jumbo Premium Gold Pack', tier:'gold', count:12, players:10, rares:5, coins:15000, points:300, premium:true, specialChance:0.22},
 
   // Free diagnostic/club-building pack. It deliberately guarantees one of every
   // club/staff family so the local server can be tested without farming coins.
   306: {id:306, name:'Pack Club Complet - TEST', tier:'gold', count:12, players:0, rares:6, coins:0, points:0, premium:true, specialChance:0, clubEssentials:true},
 
-  308: {id:308, name:'Rare Gold Pack', tier:'gold', count:12, players:12, rares:12, coins:25000, points:500, premium:true, specialChance:0.05},
+  308: {id:308, name:'Rare Gold Pack', tier:'gold', count:12, players:12, rares:12, coins:25000, points:500, premium:true, specialChance:0.35},
   309: {id:309, name:'Special Player Pack', tier:'gold', count:12, players:12, rares:12, coins:50000, points:1000, premium:true, specialChance:1, guaranteedSpecials:1},
   310: {id:310, name:'Ultimate Special Pack', tier:'gold', count:12, players:12, rares:12, coins:125000, points:2500, premium:true, specialChance:1, guaranteedSpecials:3},
   311: {id:311, name:'Pack 5 Legendes FIFA 17', tier:'gold', count:5, players:5, rares:5, coins:150000, points:3000, premium:true, specialChance:1, guaranteedLegends:5},
-  314: {id:314, name:'LEGENDES', tier:'gold', count:1, players:1, rares:1, coins:500000, points:5500, premium:true, specialChance:1, guaranteedLegends:1, maxPurchases:0, displayGroup:'special'}
+  314: {id:314, name:'LEGENDES', tier:'gold', count:1, players:1, rares:1, coins:500000, points:5500, premium:true, specialChance:1, guaranteedLegends:1, maxPurchases:1, displayGroup:'special'}
 };
 
 const CONSUMABLES = [
@@ -2898,21 +2873,18 @@ function packCatalogue() {
 }
 
 // MNG PACK ODDS V2 ---------------------------------------------------------
-// The old selector had two issues that made packs far too generous:
-//  1) non-rare slots were allowed to draw rare cards;
-//  2) every rating band was selected with very large high-rating chances.
-// FIFA 17's local catalogue also marks gold 75-79 as non-rare and 80+ as rare,
-// so a Rare Gold Pack naturally contains 80+ players. We keep that catalogue
-// identity, but strongly weight rare slots toward 80/81 and make walkouts rare.
+// Standard store packs keep cloud-authoritative purchases and promo cards,
+// but normal base-player slots are re-rolled locally with a much flatter
+// FIFA-17-style rating curve. This prevents rows full of 82-86 rated players.
 const MNG_PACK_RATING_PROFILES = {
   goldNonRare: [
     {min:75,max:75,weight:35},{min:76,max:76,weight:28},{min:77,max:77,weight:20},
     {min:78,max:78,weight:12},{min:79,max:79,weight:5}
   ],
   goldRareStandard: [
-    {min:80,max:81,weight:84.5},{min:82,max:82,weight:8},{min:83,max:83,weight:4},
-    {min:84,max:84,weight:1},{min:85,max:85,weight:1},{min:86,max:86,weight:0.5},
-    {min:87,max:94,weight:1}
+    {min:80,max:81,weight:80.3},{min:82,max:82,weight:11},{min:83,max:83,weight:5},
+    {min:84,max:84,weight:2.3},{min:85,max:85,weight:0.9},{min:86,max:86,weight:0.4},
+    {min:87,max:88,weight:0.07},{min:89,max:90,weight:0.02},{min:91,max:94,weight:0.01}
   ],
   goldRarePremium: [
     {min:80,max:81,weight:78.35},{min:82,max:82,weight:12},{min:83,max:83,weight:5.5},
@@ -2960,7 +2932,7 @@ function mngWeightedBand(profile) {
 function mngRatingProfile(tier,rare,packId=0) {
   if(tier==='gold'){
     if(!rare)return MNG_PACK_RATING_PROFILES.goldNonRare;
-    if(Number(packId)===308||Number(packId)===309||Number(packId)===310)return MNG_PACK_RATING_PROFILES.goldRareAllRare;
+    if(Number(packId)===308)return MNG_PACK_RATING_PROFILES.goldRareAllRare;
     if(Number(packId)===305)return MNG_PACK_RATING_PROFILES.goldRareJumbo;
     if(Number(packId)===304)return MNG_PACK_RATING_PROFILES.goldRarePremium;
     return MNG_PACK_RATING_PROFILES.goldRareStandard;
@@ -2979,18 +2951,23 @@ function weightedBase(tier, rare, used, packId=0) {
   if(!candidates.length)return null;
 
   const profile=mngRatingProfile(tier,Boolean(rare),packId);
-  // Retry a few weighted bands if the exact range is absent in this catalogue.
   for(let attempt=0;attempt<8;attempt++){
     const span=mngWeightedBand(profile);
     const band=candidates.filter(card=>Number(card.rating)>=span.min&&Number(card.rating)<=span.max);
     if(band.length)return band[Math.floor(Math.random()*band.length)];
   }
 
-  // Final deterministic fallback: lowest available rating first. This prevents
-  // an empty rating band from silently turning into a high-rated jackpot.
   const minRating=Math.min(...candidates.map(card=>Number(card.rating)||0));
   const lowest=candidates.filter(card=>(Number(card.rating)||0)===minRating);
   return lowest[Math.floor(Math.random()*lowest.length)];
+}
+
+function mngIsBasePlayerCard(card) {
+  if(!card)return false;
+  const rareFlag=Number(card?.rareFlag??card?.rareflag??0);
+  const version=Number(card?.version)||0;
+  const type=String(card?.cardType||'').toLowerCase();
+  return version===0&&rareFlag<=1&&!['totw','otw','tots','toty','ultimate_scream','fut_birthday','futmas','icon','premium_sbc','sbc'].includes(type);
 }
 
 const PACK_CONTENT_DEFAULTS={base:true,legends:true,hall_of_fame:true,totw:true,otw:true,tots:true,toty:true,ultimate_scream:true,fut_birthday:true,futmas:true};
@@ -3088,23 +3065,6 @@ function randomSpecial(used, contents=PACK_CONTENT_DEFAULTS) {
   return pool.length?pool[Math.floor(Math.random()*pool.length)]:null;
 }
 
-function mngLegendPackPool() {
-  // Resolve by resourceId after catalog initialization so every card comes from
-  // the exact runtime definition currently exposed to FIFA 17.
-  return MNG_LEGEND_PACK_RESOURCE_IDS
-    .map(resourceId=>catalogByResource.get(Number(resourceId)))
-    .filter(Boolean)
-    .filter(card=>Number(card?.rareFlag??card?.rareflag)===12)
-    .filter(card=>!SBC_EXCLUSIVE_RESOURCE_IDS.has(Number(card.resourceId)));
-}
-
-function randomLegendPack314(used) {
-  const legends=mngLegendPackPool();
-  const available=legends.filter(card=>!used.has(Number(card.resourceId)));
-  const pool=available.length?available:legends;
-  return pool.length?pool[Math.floor(Math.random()*pool.length)]:null;
-}
-
 function randomLegend(used, contents=PACK_CONTENT_DEFAULTS) {
   if(contents.legends===false||loadPackAdminConfig().events.legends===false)return null;
   const legends=pools.legends.filter(card=>Number(card?.rareFlag??card?.rareflag)===12);
@@ -3168,19 +3128,18 @@ function openPack(packId, body={}, includeDisabled=false, reward=false) {
 
     const cloudCards=Array.isArray(body.cloudResourceIds)?body.cloudResourceIds.map(id=>catalogByResource.get(Number(id))).filter(Boolean):[];
     const cloudNonPlayers=Array.isArray(body.cloudNonPlayerResourceIds)?body.cloudNonPlayerResourceIds.map(id=>CONSUMABLES.find(definition=>Number(definition.definitionId)===Number(id))).filter(Boolean):[];
-    // MNG PACK ODDS V2: the cloud remains authoritative for payment/wallet,
-    // but the FIFA 17 server draws player cards locally with the balanced odds
-    // above. This prevents an over-generous cloud roll from filling a pack with
-    // 82-86 rated players. Non-player contents can still come from the cloud.
-    const useLocalPlayerOdds=body.localPlayerOdds===true;
-    if(body.cloudAuthorized===true&&!useLocalPlayerOdds&&cloudCards.length<pack.players)return {status:503,error:'CLOUD_PACK_CONTENT_INVALID',reason:'CLOUD_PACK_CONTENT_INVALID'};
+    const rebalanceCloudBaseCards=body.rebalanceCloudBaseCards===true;
+    if(body.cloudAuthorized===true&&cloudCards.length<pack.players)return {status:503,error:'CLOUD_PACK_CONTENT_INVALID',reason:'CLOUD_PACK_CONTENT_INVALID'};
     if(body.cloudAuthorized===true&&cloudNonPlayers.length<(pack.count-pack.players))return {status:503,error:'CLOUD_PACK_CONTENT_INVALID',reason:'CLOUD_PACK_CONTENT_INVALID'};
     for(let slot=0;slot<pack.count;slot++){
       const rare=slot<pack.rares;
       if(slot<pack.players){
         const specialOnly=!contents.base;
-        let card=useLocalPlayerOdds?null:cloudCards[slot];
-        if(!card&&slot<guaranteedLegends)card=Number(pack.id)===314?randomLegendPack314(used):randomLegend(used,contents);
+        let card=cloudCards[slot];
+        // Keep cloud-selected promo/special cards exactly as selected. Only a
+        // normal base card is replaced by the balanced local rating roll.
+        if(card&&rebalanceCloudBaseCards&&mngIsBasePlayerCard(card))card=weightedBase(pack.tier,rare,used,pack.id);
+        if(!card&&slot<guaranteedLegends)card=randomLegend(used,contents);
         else if(!card&&(slot<(guaranteedLegends+specialSlots)||specialOnly))card=randomSpecial(used,contents);
         if(!card&&contents.base)card=weightedBase(pack.tier,rare,used,pack.id);
         if(!card)card=randomLegend(used,{...contents,legends:true})||weightedBase(pack.tier,rare,used,pack.id);
@@ -3213,7 +3172,7 @@ function openPack(packId, body={}, includeDisabled=false, reward=false) {
     state.storePackPurchases[purchaseKey]=previousPurchases+1;
   }
   saveState();
-  logger(`[pack-club] opened pack=${pack.id} odds=MNG_V2 localPlayers=${body.localPlayerOdds===true?1:0} ratings=${drawn.filter(item=>item.itemType==='player').map(item=>item.rating).join(',')} types=${drawn.map(item=>item.itemType).join(',')}`);
+  logger(`[pack-club] opened pack=${pack.id} odds=MNG_V2 rebalanceCloudBase=${body.rebalanceCloudBaseCards===true?1:0} ratings=${drawn.filter(item=>item.itemType==='player').map(item=>item.rating).join(',')} types=${drawn.map(item=>item.itemType).join(',')}`);
 
   return {
     numberItems:drawn.length,purchasedPackId:pack.id,itemList:drawn,itemData:drawn,
@@ -3346,61 +3305,6 @@ async function authorizeCloudPackPurchase(packId,body={}) {
     return {ok:true,transactionId,profile:payload.profile,playerResourceIds:Array.isArray(payload.playerResourceIds)?payload.playerResourceIds.map(Number):[],nonPlayerResourceIds:Array.isArray(payload.nonPlayerResourceIds)?payload.nonPlayerResourceIds.map(Number):[]};
   }catch(error){
     logger(`[mng-cloud] pack purchase failed pack=${packId}: ${error.message}`);
-    return {ok:false,status:503,error:'CLOUD_UNAVAILABLE'};
-  }
-}
-
-// Release 2.0.2: pack 314 currently fails in the deployed cloud store with
-// PACK_POOL_EMPTY. Keep the cloud wallet authoritative, but debit the resolved
-// pack price through the existing revision-protected wallet endpoint and let the
-// local FIFA 17 catalog choose the guaranteed rarity-12 Icon.
-async function authorizeCloudLegendPack314(body={}) {
-  if(!MNG_CLOUD_PROFILE?.apiBaseUrl||!MNG_CLOUD_PROFILE?.token)return {ok:false,status:401,error:'MNG_CLOUD_LOGIN_REQUIRED'};
-  const basePack=getStorePackDefinitions().find(candidate=>Number(candidate.id)===314)||PACKS[314];
-  const pack=basePack?resolveStorePack(basePack):null;
-  if(!pack)return {ok:false,status:409,error:'PACK_DISABLED'};
-
-  const currency=String(body.currency||body.currencyType||body.useCurrency||'coins').toLowerCase();
-  const normalizedCurrency=currency.includes('point')||body.useFifaPoints===true?'points':'coins';
-  const usePoints=normalizedCurrency==='points';
-  const cost=Math.max(0,Math.floor(Number(usePoints?pack.points:pack.coins)||0));
-  const currentCoins=Math.max(0,Math.floor(Number(state.coins)||0));
-  const currentPoints=Math.max(0,Math.floor(Number(state.points)||0));
-  if((usePoints?currentPoints:currentCoins)<cost)return {ok:false,status:409,error:usePoints?'INSUFFICIENT_POINTS':'INSUFFICIENT_COINS'};
-
-  const nextCoins=usePoints?currentCoins:currentCoins-cost;
-  const nextPoints=usePoints?currentPoints-cost:currentPoints;
-  const transactionId=String(body.transactionId||body.idempotencyKey||crypto.randomUUID());
-
-  try{
-    const response=await fetch(`${MNG_CLOUD_PROFILE.apiBaseUrl}/api/wallet/sync`,{
-      method:'POST',
-      headers:{'content-type':'application/json','authorization':`Bearer ${MNG_CLOUD_PROFILE.token}`},
-      body:JSON.stringify({
-        coins:nextCoins,
-        fifaPoints:nextPoints,
-        expectedRevision:MNG_CLOUD_PROFILE.walletRevision,
-        source:'fifa17-local',
-        reason:'legend-pack-314-release-2.0.2'
-      })
-    });
-    const payload=await response.json().catch(()=>({}));
-    if(response.status===409&&payload?.error==='WALLET_CONFLICT')return {ok:false,status:409,error:'WALLET_CONFLICT'};
-    if(!response.ok||payload?.ok!==true)return {ok:false,status:response.status||503,error:String(payload?.error||'CLOUD_WALLET_DEBIT_FAILED')};
-
-    const profile=payload.profile&&typeof payload.profile==='object'?payload.profile:null;
-    if(!profile)return {ok:false,status:503,error:'CLOUD_WALLET_PROFILE_INVALID'};
-    const paidCoins=Math.max(0,Math.floor(Number(profile.coins)||0));
-    const paidPoints=Math.max(0,Math.floor(Number(profile.fifaPoints)||0));
-    if(paidCoins!==nextCoins||paidPoints!==nextPoints){
-      logger(`[legend-pack-314] cloud wallet mismatch expected=${nextCoins}/${nextPoints} got=${paidCoins}/${paidPoints}`);
-      return {ok:false,status:503,error:'CLOUD_WALLET_DEBIT_MISMATCH'};
-    }
-
-    logger(`[legend-pack-314] cloud wallet authorized currency=${normalizedCurrency} cost=${cost} transaction=${transactionId}`);
-    return {ok:true,transactionId,profile,playerResourceIds:[],nonPlayerResourceIds:[]};
-  }catch(error){
-    logger(`[legend-pack-314] wallet authorization failed: ${error.message}`);
     return {ok:false,status:503,error:'CLOUD_UNAVAILABLE'};
   }
 }
@@ -3637,7 +3541,7 @@ async function cloudHubDocument() {
   };
 }
 async function cloudRelistExpired() {const payload=await mngCloudMarketRequest('/api/market/relist',{method:'PUT',body:{}});if(!payload.ok)return {status:payload.status,error:payload.error,reason:payload.error,relisted:0,auctionInfo:[]};logger(`[mng-market] relisted expired auctions=${Number(payload.relisted)||0}`);return {status:200,success:true,relisted:Number(payload.relisted)||0,auctionInfo:payload.auctionInfo||[]};}
-async function cloudClearMarketListing(tradeId) {const payload=await mngCloudMarketRequest('/api/market/remove',{method:'DELETE',body:Number(tradeId)>0?{listingId:Number(tradeId)}:{allSold:true}});if(!payload.ok)return {status:payload.status,error:payload.error,reason:payload.error};if(payload.itemData&&!state.items.some(entry=>Number(entry.id)===Number(payload.itemData.id))){state.items.push(payload.itemData);MNG_CLOUD_CLUB_REVISION=Number(payload.revision)||MNG_CLOUD_CLUB_REVISION;MNG_CLOUD_LAST_CLUB_KEY=cloudClubKey();saveState();}return {status:200,success:true,removed:Number(payload.removed)||0,itemData:payload.itemData?[payload.itemData]:[]};}
+async function cloudClearMarketListing(tradeId) {const payload=await mngCloudMarketRequest('/api/market/remove',{method:'DELETE',body:Number(tradeId)>0?{listingId:Number(tradeId)}:{allSold:true}});if(!payload.ok)return {status:payload.status,error:payload.error,reason:payload.error};if(payload.itemData){const existing=state.items.find(entry=>Number(entry.id)===Number(payload.itemData.id));if(existing)Object.assign(existing,payload.itemData);else state.items.push(payload.itemData);state.pending=(state.pending||[]).filter(id=>Number(id)!==Number(payload.itemData.id));MNG_CLOUD_CLUB_REVISION=Number(payload.revision)||MNG_CLOUD_CLUB_REVISION;MNG_CLOUD_LAST_CLUB_KEY=cloudClubKey();saveState();}return {status:200,success:true,claimed:Boolean(payload.claimed),removed:Number(payload.removed)||0,itemData:payload.itemData?[payload.itemData]:[]};}
 
 async function openStorePack(body={}) {
   const requested=Number(body.packId||body.id||body.purchaseId||body.purchasedPackId||304);
@@ -3647,30 +3551,10 @@ async function openStorePack(body={}) {
     const pending=state.rewardPacks.find(entry=>Number(entry.packId)===requested);
     return pending?openRewardPack(pending.id):{status:404,error:'REWARD_PACK_NOT_FOUND'};
   }
-
-  if(requested===314){
-    const legendPool=mngLegendPackPool();
-    if(!legendPool.length)return {status:503,error:'LEGEND_PACK_LOCAL_POOL_EMPTY',reason:'LEGEND_PACK_LOCAL_POOL_EMPTY'};
-    if(legendPool.length!==MNG_LEGEND_PACK_RESOURCE_IDS.length){
-      logger(`[legend-pack-314] warning local rarity-12 pool=${legendPool.length}/${MNG_LEGEND_PACK_RESOURCE_IDS.length}`);
-    }else{
-      logger(`[legend-pack-314] local rarity-12 pool ready count=${legendPool.length}`);
-    }
-    const authorization=await authorizeCloudLegendPack314(body);
-    if(!authorization.ok)return {status:authorization.status,error:authorization.error,reason:authorization.error};
-    const result=openPack(requested,{...body,cloudAuthorized:true,localPlayerOdds:true,cloudProfile:authorization.profile,cloudResourceIds:[],cloudNonPlayerResourceIds:[],transactionId:authorization.transactionId});
-    const icon=result&&Array.isArray(result.itemData)?result.itemData.find(item=>item.itemType==='player'):null;
-    if(!icon||Number(icon.rareFlag??icon.rareflag)!==12||!MNG_LEGEND_PACK_RESOURCE_SET.has(Number(icon.resourceId))){
-      logger(`[legend-pack-314] invalid local result resourceId=${Number(icon?.resourceId)||0} rareFlag=${Number(icon?.rareFlag??icon?.rareflag)||0}`);
-      return {status:503,error:'LEGEND_PACK_LOCAL_RESULT_INVALID',reason:'LEGEND_PACK_LOCAL_RESULT_INVALID'};
-    }
-    logger(`[legend-pack-314] opened icon=${icon.name||icon.displayName||icon.resourceId} resourceId=${icon.resourceId} rareFlag=12`);
-    return result;
-  }
-
   const authorization=await authorizeCloudPackPurchase(requested,body);
   if(!authorization.ok)return {status:authorization.status,error:authorization.error,reason:authorization.error};
-  return openPack(requested,{...body,cloudAuthorized:true,localPlayerOdds:false,cloudProfile:authorization.profile,cloudResourceIds:authorization.playerResourceIds,cloudNonPlayerResourceIds:authorization.nonPlayerResourceIds,transactionId:authorization.transactionId});
+  const rebalanceCloudBaseCards=[103,104,203,204,303,304,305,308].includes(Number(requested));
+  return openPack(requested,{...body,cloudAuthorized:true,rebalanceCloudBaseCards,cloudProfile:authorization.profile,cloudResourceIds:authorization.playerResourceIds,cloudNonPlayerResourceIds:authorization.nonPlayerResourceIds,transactionId:authorization.transactionId});
 }
 
 async function openRewardPack(instanceId) {
