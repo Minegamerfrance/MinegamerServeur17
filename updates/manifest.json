@@ -1,13 +1,13 @@
 {
-  "version": "1.9.0",
-  "notes": "Marché : vraies offres entre joueurs, remboursement du précédent enchérisseur et prix Icônes limités entre 150 000 et 15 000 000.",
+  "version": "1.9.1",
+  "notes": "SBC rééquilibrés : Ribéry, Ben Yedder et Dani Alves proposent des exigences cohérentes et uniquement de petits packs pour les défis intermédiaires.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "050f6f228e216d52813175c073cbcfc266fa2daed82a296958c4980cd85cc3ca",
-      "size": 420476
+      "sha256": "7f9d63b4233c37cf3f471738af48efca405cdb3e7e843ae611e4a1231cf2f51f",
+      "size": 420071
     },
     {
       "scope": "server",

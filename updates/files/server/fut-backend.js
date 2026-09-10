@@ -775,17 +775,18 @@ const DANI_ALVES_OTW_RESOURCE_ID = 50478178;
 const COMMUNITY_SBC_DEFS = [
   // challengePackId = reward for completing the sub-challenge.
   // resourceId      = FINAL reward for completing the whole SBC set.
-  {setId:96009,challengeId:960091,assetId:146530,resourceId:DANI_ALVES_OTW_RESOURCE_ID,name:'Dani Alves',shortName:'Dani Alves',rating:85,requiredRating:84,challengePackId:308}
+  {setId:96009,challengeId:960091,assetId:146530,resourceId:DANI_ALVES_OTW_RESOURCE_ID,name:'Dani Alves',shortName:'Dani Alves',rating:85,requiredRating:83,challengePackId:303}
 ];
 
 // V15: single source of truth for Dani Alves SBC. FIFA 17 treats the
 // 10x "rare" rule as regular rare cards (rareFlag 1) and the TOTW rule
 // separately (rareFlag 3). A TOTW must therefore NOT also increment RARE_COUNT.
 const DANI_ALVES_SBC_REQUIREMENTS = [
-  {type:'GOLD_COUNT',scope:'SQUAD',count:11,min:11,value:3,exact:true,name:'QualitÃ© joueur : Exactement Or'},
-  {type:'RARE_COUNT',scope:'SQUAD',count:10,min:10,value:1,exact:true,name:'Joueurs - Rares : Exactement 10'},
-  {type:'SPECIAL_COUNT',scope:'SQUAD',cardType:'totw',count:1,min:1,value:3,exact:true,name:'Joueurs - Ã‰quipe de la semaine : Exactement 1'},
-  {type:'TEAM_CHEMISTRY',scope:'SQUAD',min:75,value:75,name:'Collectif : min. 75'},
+  {type:'NATION_COUNT',scope:'SQUAD',nationId:54,min:2,value:2,name:'Joueurs brÃ©siliens : minimum 2'},
+  {type:'LEAGUE_COUNT',scope:'SQUAD',leagueId:31,min:3,value:3,name:'Joueurs Serie A : minimum 3'},
+  {type:'SPECIAL_COUNT',scope:'SQUAD',cardType:'totw',min:1,value:1,name:'Joueurs TOTW : minimum 1'},
+  {type:'TEAM_RATING',scope:'SQUAD',min:83,value:83,name:'Note Ã©quipe : minimum 83'},
+  {type:'TEAM_CHEMISTRY',scope:'SQUAD',min:70,value:70,name:'Collectif : minimum 70'},
   {type:'PLAYER_COUNT',scope:'SQUAD',count:11,min:11,value:11,exact:true,name:"Nombre de joueurs dans l'Ã©quipe : 11"}
 ];
 
@@ -3424,7 +3425,6 @@ async function cloudListOwnedItem(body={}) {
   return {status:200,id:Number(payload.tradeId),tradeId:Number(payload.tradeId),tradeState:'active',buyNowPrice:Number(payload.buyNowPrice),startingBid:Number(payload.startingBid),currentBid:0,expires:Number(payload.expires)};
 }
 async function cloudBuyMarketListing(tradeId,body={}) {const transactionId=String(body.transactionId||body.idempotencyKey||crypto.randomUUID());const expectedPrice=Number(body.bid||body.buyNowPrice||body.buyNow||0);const payload=await mngCloudMarketRequest('/api/market/buy',{method:'POST',body:{listingId:Number(tradeId),transactionId,expectedPrice}});if(!payload.ok)return {status:payload.status,error:payload.error,reason:payload.error,auctionInfo:[]};const item=payload.itemData;if(item&&!state.items.some(entry=>Number(entry.id)===Number(item.id))){state.items.push(item);state.pending.push(Number(item.id));}MNG_CLOUD_CLUB_REVISION=Number(payload.revision)||MNG_CLOUD_CLUB_REVISION;if(payload.profile){state.coins=Number(payload.profile.coins)||0;state.points=Number(payload.profile.fifaPoints)||0;MNG_CLOUD_PROFILE.coins=state.coins;MNG_CLOUD_PROFILE.fifaPoints=state.points;MNG_CLOUD_PROFILE.walletRevision=Number(payload.profile.walletRevision)||MNG_CLOUD_PROFILE.walletRevision;persistMngCloudSessionWallet(payload.profile);MNG_CLOUD_LAST_WALLET_KEY=mngWalletKey();}MNG_CLOUD_LAST_CLUB_KEY=cloudClubKey();saveState();logger(`[mng-market] bought tradeId=${tradeId} resourceId=${item?.resourceId||0} paid=${item?.lastSalePrice||0}`);return {auctionInfo:payload.auctionInfo||[],itemData:item,items:item?[item]:[],duplicateItemIdList:item?duplicatePairs([item]):[],purchased:true,newItem:true,credits:state.coins,totalCredits:state.coins,coins:state.coins};}
-async function cloudSubmitMarketOffer(tradeId,body={}) {const amount=Number(body.bid||0);const transactionId=String(body.transactionId||body.idempotencyKey||crypto.randomUUID());const bid=await mngCloudMarketRequest('/api/market/bid',{method:'POST',body:{listingId:Number(tradeId),transactionId,amount}});if(bid.ok)return {status:200,auctionInfo:bid.auctionInfo||[],bidState:'highest',currentBid:Number(bid.currentBid)||amount,credits:state.coins,totalCredits:state.coins};if(bid.error!=='INVALID_BID_AMOUNT')return {status:bid.status,error:bid.error,reason:bid.error,auctionInfo:[]};return cloudBuyMarketListing(tradeId,{...body,transactionId});}
 async function cloudTradePile() {const payload=await mngCloudMarketRequest('/api/market/my');if(payload.ok){const restoredIds=new Set((payload.restoredItemIds||[]).map(Number));if(restoredIds.size){let repaired=false;for(const item of state.items)if(restoredIds.has(Number(item.id))&&Number(item.pile)===5){item.pile=PILE_CLUB;item.itemState='free';repaired=true;}const before=(state.listings||[]).length;state.listings=(state.listings||[]).filter(entry=>!(entry.tradeState===FIFA_TRADE_STATE_INACTIVE&&restoredIds.has(Number(entry.itemData?.id))));if(state.listings.length!==before)repaired=true;if(repaired)saveState();}}const localInactive=tradePileDocument().auctionInfo.filter(entry=>entry.tradeState===FIFA_TRADE_STATE_INACTIVE);if(!payload.ok)return {status:payload.status,error:payload.error,auctionInfo:localInactive,duplicateItemIdList:[],total:localInactive.length};const cloudAuctions=payload.auctionInfo||[];const cloudItemIds=new Set(cloudAuctions.map(entry=>Number(entry.itemData?.id)));const combined=[...cloudAuctions,...localInactive.filter(entry=>!cloudItemIds.has(Number(entry.itemData?.id)))];MNG_CLOUD_MARKET_COUNTS={active:Number(payload.active)||0,sold:Number(payload.sold)||0,expired:Number(payload.expired)||0,total:combined.length};return {auctionInfo:combined,duplicateItemIdList:[],total:combined.length,credits:state.coins,totalCredits:state.coins};}
 async function cloudTradePileCounts() {await cloudTradePile();const counts=MNG_CLOUD_MARKET_COUNTS;return {active:counts.active,sold:counts.sold,expired:counts.expired,tradePileCount:counts.total,auctionCount:counts.active,transferListCount:counts.total};}
 async function cloudTradeStatus(tradeIds=[]) {const ids=[...new Set(tradeIds.map(Number).filter(id=>Number.isSafeInteger(id)&&id>0))];const payload=await mngCloudMarketRequest('/api/market/status',{query:new URLSearchParams({ids:ids.join(',')})});if(!payload.ok)return {status:payload.status,error:payload.error,auctionInfo:[],duplicateItemIdList:[],total:0};return {auctionInfo:payload.auctionInfo||[],duplicateItemIdList:[],total:Number(payload.total)||0,credits:state.coins,totalCredits:state.coins};}
@@ -6934,27 +6934,27 @@ const lahmLoanSbcSquad={
     return send(200,{...nativeSbcSquadPayload(squad,lahmChallenge),valid:Boolean(validation.ok),reason:validation.ok?'':validation.reason});
   }
   const riberyChallengeDefs=[
-    {challengeId:960011,id:960011,setId:96001,name:'FC Bayern MÃ¼nchen',description:'Ã‰changez une Ã©quipe avec des joueurs du Bayern et au moins une carte TOTW.',formation:'f442',formationId:0,packId:304,requirements:[
+    {challengeId:960011,id:960011,setId:96001,name:'FC Bayern MÃ¼nchen',description:'Ã‰changez une Ã©quipe avec des joueurs du Bayern.',formation:'f442',formationId:0,packId:203,requirements:[
       {type:'PLAYER_COUNT',scope:'SQUAD',count:11,min:11,value:11,name:'Exactement 11 joueurs'},
-      {type:'TEAM_COUNT',scope:'SQUAD',teamId:21,min:2,value:2,name:'Joueurs du Bayern : minimum 2'},
-      {type:'SPECIAL_COUNT',scope:'SQUAD',cardType:'totw',min:1,value:1,name:'Joueurs TOTW : minimum 1'},
+      {type:'TEAM_COUNT',scope:'SQUAD',teamId:21,min:1,value:1,name:'Joueurs du Bayern : minimum 1'},
       {type:'TEAM_RATING',scope:'SQUAD',min:82,value:82,name:'Note Ã©quipe : minimum 82'},
       {type:'TEAM_CHEMISTRY',scope:'SQUAD',min:80,value:80,name:'Collectif : minimum 80'}]},
-    {challengeId:960012,id:960012,setId:96001,name:'Les Bleus',description:'Ã‰changez une Ã©quipe construite autour de joueurs franÃ§ais.',formation:'f433',formationId:0,packId:305,requirements:[
+    {challengeId:960012,id:960012,setId:96001,name:'Les Bleus',description:'Ã‰changez une Ã©quipe construite autour de joueurs franÃ§ais.',formation:'f433',formationId:0,packId:204,requirements:[
       {type:'PLAYER_COUNT',scope:'SQUAD',count:11,min:11,value:11,name:'Exactement 11 joueurs'},
-      {type:'NATION_COUNT',scope:'SQUAD',nationId:18,min:4,value:4,name:'Joueurs franÃ§ais : minimum 4'},
+      {type:'NATION_COUNT',scope:'SQUAD',nationId:18,min:2,value:2,name:'Joueurs franÃ§ais : minimum 2'},
       {type:'TEAM_RATING',scope:'SQUAD',min:83,value:83,name:'Note Ã©quipe : minimum 83'},
       {type:'TEAM_CHEMISTRY',scope:'SQUAD',min:85,value:85,name:'Collectif : minimum 85'}]},
-    {challengeId:960013,id:960013,setId:96001,name:'Bundesliga',description:'Ã‰changez une Ã©quipe de Bundesliga avec au moins une carte TOTW.',formation:'f4231',formationId:0,packId:305,requirements:[
+    {challengeId:960013,id:960013,setId:96001,name:'Bundesliga',description:'Ã‰changez une Ã©quipe de Bundesliga avec au moins une carte TOTW.',formation:'f4231',formationId:0,packId:303,requirements:[
       {type:'PLAYER_COUNT',scope:'SQUAD',count:11,min:11,value:11,name:'Exactement 11 joueurs'},
-      {type:'LEAGUE_COUNT',scope:'SQUAD',leagueId:19,min:7,value:7,name:'Joueurs Bundesliga : minimum 7'},
+      {type:'LEAGUE_COUNT',scope:'SQUAD',leagueId:19,min:4,value:4,name:'Joueurs Bundesliga : minimum 4'},
       {type:'SPECIAL_COUNT',scope:'SQUAD',cardType:'totw',min:1,value:1,name:'Joueurs TOTW : minimum 1'},
       {type:'TEAM_RATING',scope:'SQUAD',min:84,value:84,name:'Note Ã©quipe : minimum 84'},
-      {type:'TEAM_CHEMISTRY',scope:'SQUAD',min:90,value:90,name:'Collectif : minimum 90'}]},
-    {challengeId:960014,id:960014,setId:96001,name:'Ã‰quipe 85',description:'Ã‰changez une Ã©quipe trÃ¨s bien notÃ©e pour terminer le dÃ©fi RibÃ©ry.',formation:'f41212',formationId:0,packId:308,requirements:[
+      {type:'TEAM_CHEMISTRY',scope:'SQUAD',min:80,value:80,name:'Collectif : minimum 80'}]},
+    {challengeId:960014,id:960014,setId:96001,name:'Ã‰quipe 85',description:'Ã‰changez une Ã©quipe trÃ¨s bien notÃ©e avec un joueur TOTW pour terminer le dÃ©fi RibÃ©ry.',formation:'f41212',formationId:0,packId:304,requirements:[
       {type:'PLAYER_COUNT',scope:'SQUAD',count:11,min:11,value:11,name:'Exactement 11 joueurs'},
+      {type:'SPECIAL_COUNT',scope:'SQUAD',cardType:'totw',min:1,value:1,name:'Joueurs TOTW : minimum 1'},
       {type:'TEAM_RATING',scope:'SQUAD',min:85,value:85,name:'Note Ã©quipe : minimum 85'},
-      {type:'TEAM_CHEMISTRY',scope:'SQUAD',min:70,value:70,name:'Collectif : minimum 70'}]}
+      {type:'TEAM_CHEMISTRY',scope:'SQUAD',min:65,value:65,name:'Collectif : minimum 65'}]}
   ];
   const riberyChallenges=riberyChallengeDefs.map(def=>{
     const progress=riberyChallengeState(def.challengeId);
@@ -7198,7 +7198,7 @@ const lahmLoanSbcSquad={
     const nativeEligibilities=wireNativeSbcEligibilities(requirements);
     const challenge={
       challengeId:def.challengeId,id:def.challengeId,setId:def.setId,name:def.name,
-      description:'Onze joueurs Or, exactement 10 rares, exactement 1 joueur TOTW et collectif minimum 75.',
+      description:'Ã‰quipe 83 avec 2 BrÃ©siliens, 3 joueurs de Serie A, 1 joueur TOTW et collectif minimum 70.',
       formation:'f442',formationId:0,isCompleted:Boolean(progress.completed),completed:Boolean(progress.completed),repeatable:false,
       status:progress.completed?'COMPLETED':'ACTIVE',progress:progress.completed?1:0,
       completedChallenges:progress.completed?1:0,totalChallenges:1,
@@ -7307,12 +7307,14 @@ const lahmLoanSbcSquad={
 
   const benYedderChallenge={
     challengeId:960021,id:960021,setId:96002,name:'BEN YEDDER',
-    description:'Onze joueurs, note generale minimum 80 et collectif minimum 50.',
+    description:'Ã‰quipe 82 avec au moins 2 FranÃ§ais, 3 joueurs de Liga et collectif minimum 75.',
     formation:'f442',formationId:0,isCompleted:benYedderCompleted,completed:benYedderCompleted,status:benYedderCompleted?'COMPLETED':'ACTIVE',progress:benYedderCompleted?1:0,completedChallenges:benYedderCompleted?1:0,totalChallenges:1,repeatable:false,
     requirements:[
       {type:'PLAYER_COUNT',scope:'SQUAD',count:11,min:11,value:11,name:'Exactement 11 joueurs'},
-      {type:'TEAM_RATING',scope:'SQUAD',min:80,value:80,name:'Note equipe : minimum 80'},
-      {type:'TEAM_CHEMISTRY',scope:'SQUAD',min:50,value:50,name:'Collectif : minimum 50'}
+      {type:'NATION_COUNT',scope:'SQUAD',nationId:18,min:2,value:2,name:'Joueurs franÃ§ais : minimum 2'},
+      {type:'LEAGUE_COUNT',scope:'SQUAD',leagueId:53,min:3,value:3,name:'Joueurs de Liga : minimum 3'},
+      {type:'TEAM_RATING',scope:'SQUAD',min:82,value:82,name:'Note equipe : minimum 82'},
+      {type:'TEAM_CHEMISTRY',scope:'SQUAD',min:75,value:75,name:'Collectif : minimum 75'}
     ],awards:[benYedderAward]
   };
   applyNativeSbcChallengeFields(benYedderChallenge);
@@ -7456,6 +7458,6 @@ const lahmLoanSbcSquad={
   return false;
 }
 
-module.exports={init,handle,openStorePack,startSecureMatch,finishSecureMatch,cloudMarketSearch,cloudListOwnedItem,cloudBuyMarketListing,cloudSubmitMarketOffer,cloudTradePile,cloudTradePileCounts,cloudTradeStatus,cloudRelistExpired,cloudClearMarketListing,relistExpiredListings,clearFinishedListings,squadDocument,squadList,hubDocument,creditsDocument,homeWalletDocument,homeRecordDocument,settingsDocument,pileSizeDocument,seasonListDocument,seasonUserDocument,seasonHistoryDocument,
+module.exports={init,handle,openStorePack,startSecureMatch,finishSecureMatch,cloudMarketSearch,cloudListOwnedItem,cloudBuyMarketListing,cloudTradePile,cloudTradePileCounts,cloudTradeStatus,cloudRelistExpired,cloudClearMarketListing,relistExpiredListings,clearFinishedListings,squadDocument,squadList,hubDocument,creditsDocument,homeWalletDocument,homeRecordDocument,settingsDocument,pileSizeDocument,seasonListDocument,seasonUserDocument,seasonHistoryDocument,
   clubStats,packCatalogue,openPack,filteredClub,purchasedResponse,marketSearch,buyMarketListing,updateItems,storeDescriptionsXml,
   getState:()=>state,getCatalog:()=>catalog,getIdentity,setIdentity,getTotwIdentity,syncMngCloudWallet,queueMngCloudWalletSync,syncMngCloudClub,queueMngCloudClubSync,totwUserListDocument,totwPublicUserDocument,totwSquadDocument,totwSessionActive};
