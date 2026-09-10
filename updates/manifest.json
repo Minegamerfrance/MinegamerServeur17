@@ -1,20 +1,20 @@
 {
-  "version": "1.9.4",
-  "notes": "Distribution fiabilisée : tailles et empreintes de tous les fichiers recalculées, avec vérification automatique avant chaque publication.",
+  "version": "1.9.5",
+  "notes": "Marché dynamique : les compteurs du marché global, de la liste des transferts et des objectifs transferts sont recalculés automatiquement depuis le cloud.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "27683996c39ad5cc57ab416641d57249b35f0f41d91dc83339249d5b1289de5b",
-      "size": 421237
+      "sha256": "5845cfc8814a62ae207bf456130925770f8087d70ef94e1c67af8c5df2c1d56f",
+      "size": 422601
     },
     {
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "6c48f7c5628392cb5cafd19c30ecad8021211273c99e5b2b80b7981028b59441",
-      "size": 105525
+      "sha256": "c2108ca303030fba384898327a8b97f163c35ab538273ef226bde197006d6c04",
+      "size": 105986
     },
     {
       "scope": "server",

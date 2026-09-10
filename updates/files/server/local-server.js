@@ -1567,6 +1567,10 @@ function serviceHttpHandler(name,req,res){
         const wallet=futBackend.homeWalletDocument();
         json(res,200,{clubName:'',clubAbbr:'',established:0,creationTime:0,clubPlayers:0,clubPlayerCount:0,players:0,clubItems:0,squadCount:0,activeSquadId:0,auctionCount:0,tradePileCount:0,transferListCount:0,...wallet});
         log(`[first-run-trace] EMPTY_HUB served path=${urlPath}`);
+    } else if(isFut && req.method==='GET' && (urlPath==='/ut/game/fifa17/hub' || urlPath==='/ut/game/fifa17/user/hub')) {
+        const result=await futBackend.cloudHubDocument();
+        json(res,200,result);
+        log(`[${name}] FUT dynamic transfer hub market=${result.auctionCount||0} list=${result.tradePileCount||0} sold=${result.soldItemCount||0} targets=${result.watchListCount||0} won=${result.wonItemCount||0} outbid=${result.outbidItemCount||0}`);
     } else if(isFut && req.method==='POST' && (urlPath==='/ut/game/fifa17/purchased/items'||urlPath==='/ut/game/fifa17/store')) {
         const result=await futBackend.openStorePack(requestBody?JSON.parse(requestBody):{});
         json(res,result.status||200,result);
