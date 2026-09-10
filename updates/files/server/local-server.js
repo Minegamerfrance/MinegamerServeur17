@@ -1587,7 +1587,7 @@ function serviceHttpHandler(name,req,res){
     } else if(isFut && req.method==='POST' && ['/ut/game/fifa17/auctionhouse','/auctionhouse'].includes(urlPath)) {
         const result=await futBackend.cloudListOwnedItem(requestBody?JSON.parse(requestBody):{});json(res,result.status||200,result);log(`[${name}] FUT global market listing status=${result.status||200}`);
     } else if(isFut && ['POST','PUT'].includes(req.method) && /^\/(?:ut\/game\/fifa17\/)?trade\/\d+\/(?:bid|offer)$/.test(urlPath)) {
-        const tradeId=Number(urlPath.match(/\/trade\/(\d+)\/(?:bid|offer)$/)?.[1]);const result=await futBackend.cloudBuyMarketListing(tradeId,requestBody?JSON.parse(requestBody):{});json(res,result.status||200,result);log(`[${name}] FUT global market purchase tradeId=${tradeId} status=${result.status||200}`);
+        const tradeId=Number(urlPath.match(/\/trade\/(\d+)\/(?:bid|offer)$/)?.[1]);const result=await futBackend.cloudSubmitMarketOffer(tradeId,requestBody?JSON.parse(requestBody):{});json(res,result.status||200,result);log(`[${name}] FUT global market offer tradeId=${tradeId} status=${result.status||200}`);
     } else if(isFut && req.method==='GET' && ['/ut/game/fifa17/tradepile','/tradepile'].includes(urlPath)) {
         const result=await futBackend.cloudTradePile();json(res,result.status||200,result);log(`[${name}] FUT global trade pile total=${result.total||0}`);
     } else if(isFut && req.method==='PUT' && ['/ut/game/fifa17/auctionhouse/relist','/auctionhouse/relist'].includes(urlPath)) {
