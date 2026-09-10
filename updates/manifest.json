@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "notes": "Packs FUT : probabilites de notes reequilibrees. Les cartes de base elevees deviennent nettement plus rares, tout en conservant les cartes promo/speciales choisies par le serveur cloud. Correctifs marche 1.9.9 conserves.",
+  "notes": "Packs FUT : probabilites de notes reequilibrees. Les cartes de base elevees deviennent nettement plus rares, tout en conservant les cartes promo/speciales choisies par le serveur cloud. Correctifs marche 1.9.9 conserves. Signature de distribution renouvelee.",
   "files": [
     {
       "scope": "server",
