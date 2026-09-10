@@ -1604,6 +1604,11 @@ function serviceHttpHandler(name,req,res){
           const result=await futBackend.cloudClearMarketListing(tradeId);json(res,result.status||200,{...result,removed:Number(result.removed||0)+Number(localResult.removed||0)});log(`[${name}] FUT cloud trade removal target=${token} status=${result.status||200}`);
         }else if(await futBackend.handle(req,res,urlPath,requestBody))log(`[${name}] FUT persistent backend handled ${req.method} ${req.url}`);
         else json(res,404,{error:'LISTING_NOT_FOUND'});
+    } else if(isFut && req.method==='GET' && /^\/ut\/delete\/game\/fifa17\/trade\/\d+$/.test(urlPath)) {
+        const tradeId=Number(urlPath.match(/\/trade\/(\d+)$/)?.[1]);
+        const result=await futBackend.cloudClearMarketListing(tradeId);
+        json(res,result.status||200,result);
+        log(`[${name}] FUT legacy sold-item removal tradeId=${tradeId} status=${result.status||200}`);
     } else if(isFut && req.method==='GET' && urlPath==='/ut/game/fifa17/trade/status' && String(new URL(req.url,'http://localhost').searchParams.get('tradeIds')||'').split(',').map(Number).some(id=>id>0&&id<1000000000)) {
         const tradeIds=String(new URL(req.url,'http://localhost').searchParams.get('tradeIds')||'').split(',').map(Number).filter(Boolean);
         const result=await futBackend.cloudTradeStatus(tradeIds);json(res,result.status||200,result);log(`[${name}] FUT cloud trade status ids=${tradeIds.join(',')} total=${result.total||0}`);

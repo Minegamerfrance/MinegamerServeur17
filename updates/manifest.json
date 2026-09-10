@@ -1,20 +1,20 @@
 {
-  "version": "1.9.2",
-  "notes": "Marché : les offres restent dans Objectifs transferts avec le temps restant et leur état (meilleure offre ou surenchéri), sans attribuer le joueur avant la fin.",
+  "version": "1.9.3",
+  "notes": "Marché : les éléments vendus peuvent être retirés correctement et les crédits du vendeur sont actualisés immédiatement après la vente.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "78b81e842191b2e5e3fe8bf1adb74cd97844b475c2ce17b826ab49511b24f5e6",
-      "size": 420787
+      "sha256": "27683996c39ad5cc57ab416641d57249b35f0f41d91dc83339249d5b1289de5b",
+      "size": 421237
     },
     {
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "df0f7f265ad8e79d7e20127ade87224de3188571ea6c4664424fd1fdc7a4d190",
-      "size": 105131
+      "sha256": "6c48f7c5628392cb5cafd19c30ecad8021211273c99e5b2b80b7981028b59441",
+      "size": 105525
     },
     {
       "scope": "server",
