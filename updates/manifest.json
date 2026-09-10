@@ -1,20 +1,20 @@
 {
-  "version": "1.9.1",
-  "notes": "SBC rééquilibrés : Ribéry, Ben Yedder et Dani Alves proposent des exigences cohérentes et uniquement de petits packs pour les défis intermédiaires.",
+  "version": "1.9.2",
+  "notes": "Marché : les offres restent dans Objectifs transferts avec le temps restant et leur état (meilleure offre ou surenchéri), sans attribuer le joueur avant la fin.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "7f9d63b4233c37cf3f471738af48efca405cdb3e7e843ae611e4a1231cf2f51f",
-      "size": 420071
+      "sha256": "78b81e842191b2e5e3fe8bf1adb74cd97844b475c2ce17b826ab49511b24f5e6",
+      "size": 420787
     },
     {
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "9db40591377e3f9b32d5387b41fe1d18c94395b70b03fc245df22e841ddf9ad1",
-      "size": 104864
+      "sha256": "df0f7f265ad8e79d7e20127ade87224de3188571ea6c4664424fd1fdc7a4d190",
+      "size": 105131
     },
     {
       "scope": "server",

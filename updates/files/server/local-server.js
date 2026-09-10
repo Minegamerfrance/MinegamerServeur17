@@ -1587,7 +1587,7 @@ function serviceHttpHandler(name,req,res){
     } else if(isFut && req.method==='POST' && ['/ut/game/fifa17/auctionhouse','/auctionhouse'].includes(urlPath)) {
         const result=await futBackend.cloudListOwnedItem(requestBody?JSON.parse(requestBody):{});json(res,result.status||200,result);log(`[${name}] FUT global market listing status=${result.status||200}`);
     } else if(isFut && ['POST','PUT'].includes(req.method) && /^\/(?:ut\/game\/fifa17\/)?trade\/\d+\/(?:bid|offer)$/.test(urlPath)) {
-        const tradeId=Number(urlPath.match(/\/trade\/(\d+)\/(?:bid|offer)$/)?.[1]);const result=await futBackend.cloudSubmitMarketOffer(tradeId,requestBody?JSON.parse(requestBody):{});json(res,result.status||200,result);log(`[${name}] FUT global market offer tradeId=${tradeId} status=${result.status||200}`);
+        const tradeId=Number(urlPath.match(/\/trade\/(\d+)\/(?:bid|offer)$/)?.[1]);const result=await futBackend.cloudBuyMarketListing(tradeId,requestBody?JSON.parse(requestBody):{});json(res,result.status||200,result);log(`[${name}] FUT global market purchase tradeId=${tradeId} status=${result.status||200}`);
     } else if(isFut && req.method==='GET' && ['/ut/game/fifa17/tradepile','/tradepile'].includes(urlPath)) {
         const result=await futBackend.cloudTradePile();json(res,result.status||200,result);log(`[${name}] FUT global trade pile total=${result.total||0}`);
     } else if(isFut && req.method==='PUT' && ['/ut/game/fifa17/auctionhouse/relist','/auctionhouse/relist'].includes(urlPath)) {
@@ -1609,6 +1609,8 @@ function serviceHttpHandler(name,req,res){
         const result=await futBackend.cloudTradeStatus(tradeIds);json(res,result.status||200,result);log(`[${name}] FUT cloud trade status ids=${tradeIds.join(',')} total=${result.total||0}`);
     } else if(isFut && req.method==='GET' && urlPath.toLowerCase()==='/ut/game/fifa17/tradepile/counts') {
         const result=await futBackend.cloudTradePileCounts();json(res,200,result);log(`[${name}] FUT global trade pile counts active=${result.active||0} total=${result.tradePileCount||0}`);
+    } else if(isFut && req.method==='GET' && ['/ut/game/fifa17/watchlist','/watchlist'].includes(urlPath)) {
+        const result=await futBackend.cloudWatchList();json(res,result.status||200,result);log(`[${name}] FUT global watch list total=${result.total||0}`);
     } else if(isFut && ['POST','PUT'].includes(req.method) && ['/ut/game/fifa17/match/start','/ut/game/fifa17/match','/ut/game/fifa17/season/match/start'].includes(urlPath)) {
         const result=await futBackend.startSecureMatch(requestBody?JSON.parse(requestBody):{});json(res,result._status||result.status||200,result);log(`[${name}] FUT secure cloud match start status=${result._status||result.status||200}`);
     } else if(isFut && ['POST','PUT'].includes(req.method) && (urlPath==='/ut/game/fifa17/match/end'||/^\/ut\/game\/fifa17\/match\/\d+\/end$/.test(urlPath))) {
