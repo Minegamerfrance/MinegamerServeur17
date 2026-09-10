@@ -1,20 +1,20 @@
 {
-  "version": "1.8.9",
-  "notes": "Sécurité marché : prix stricts par tranche de 50 et vérification du prix affiché avant chaque achat.",
+  "version": "1.9.0",
+  "notes": "Marché : vraies offres entre joueurs, remboursement du précédent enchérisseur et prix Icônes limités entre 150 000 et 15 000 000.",
   "files": [
     {
       "scope": "server",
       "source": "files/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "165b611dc6ed8e8b0b26fe8cb2f5c4722ecea3710ca4d676cbf83fa785cad44d",
-      "size": 419805
+      "sha256": "050f6f228e216d52813175c073cbcfc266fa2daed82a296958c4980cd85cc3ca",
+      "size": 420476
     },
     {
       "scope": "server",
       "source": "files/server/local-server.js",
       "target": "local-server.js",
-      "sha256": "27ad24621f8862e47042e4fc58e9c8aee36d854e3c2cb31edde3944cd15b222b",
-      "size": 104866
+      "sha256": "9db40591377e3f9b32d5387b41fe1d18c94395b70b03fc245df22e841ddf9ad1",
+      "size": 104864
     },
     {
       "scope": "server",
