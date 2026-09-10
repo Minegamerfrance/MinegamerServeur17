@@ -1,6 +1,6 @@
 {
-  "version": "1.9.5",
-  "notes": "Marché dynamique : les compteurs du marché global, de la liste des transferts et des objectifs transferts sont recalculés automatiquement depuis le cloud.",
+  "version": "1.9.6",
+  "notes": "Distribution corrigée : republication binaire exacte de tous les fichiers historiques pour supprimer définitivement les erreurs Taille incorrecte.",
   "files": [
     {
       "scope": "server",
