@@ -1,66 +1,66 @@
 {
-  "version": "1.9.8",
-  "notes": "Packs de départ : tirage aléatoire équitable parmi tous les joueurs OTW ou TOTW admissibles, hors récompenses SBC. Pack Légendes ajusté à 5 500 Points FIFA.",
+  "version": "1.9.9",
+  "notes": "Marché des transferts : une enchère gagnée peut désormais être récupérée depuis les Objectifs transferts et le joueur est immédiatement placé dans le club.",
   "files": [
     {
       "scope": "server",
-      "source": "files/releases/1.9.8/server/fut-backend.js",
+      "source": "files/releases/1.9.9/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "b712c62c295b6795fae417c309a5a1a0a57648e328e1ac20367f837f87c690bd",
-      "size": 422601
+      "sha256": "3fc020042f6b62513d6af4df399ac0aac25777ab3dfcf5766cc82b94281de177",
+      "size": 422792
     },
     {
       "scope": "server",
-      "source": "files/releases/1.9.8/server/local-server.js",
+      "source": "files/releases/1.9.9/server/local-server.js",
       "target": "local-server.js",
       "sha256": "c2108ca303030fba384898327a8b97f163c35ab538273ef226bde197006d6c04",
       "size": 105986
     },
     {
       "scope": "server",
-      "source": "files/releases/1.9.8/server/mng-online-images.js",
+      "source": "files/releases/1.9.9/server/mng-online-images.js",
       "target": "mng-online-images.js",
       "sha256": "78ecc70f9a9e7befb0bfa9f713ff767c983dc5cfeb3abaed4fcbdfa8b6598f3d",
       "size": 8480
     },
     {
       "scope": "server",
-      "source": "files/releases/1.9.8/server/mng-sbc-set-images.js",
+      "source": "files/releases/1.9.9/server/mng-sbc-set-images.js",
       "target": "mng-sbc-set-images.js",
       "sha256": "2374082a17ec538c260ff7861bc1b43a2997cfc6251f40a76c79a8be89127e01",
       "size": 8776
     },
     {
       "scope": "server",
-      "source": "files/releases/1.9.8/server/Start-Local-FIFA17-Test.ps1",
+      "source": "files/releases/1.9.9/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
       "sha256": "1d77de8305ef0b77e89098ba791a6aa0c1db8af7f3dc01925bf004f5aaf84a06",
       "size": 24237
     },
     {
       "scope": "game",
-      "source": "files/releases/1.9.8/game/version.dll",
+      "source": "files/releases/1.9.9/game/version.dll",
       "target": "version.dll",
       "sha256": "c23cc6f50a47191cdc590f50138da91a29190f2ecffccae79f368421825adb43",
       "size": 226304
     },
     {
       "scope": "server",
-      "source": "files/releases/1.9.8/server/data/fifa17-card-catalog.json",
+      "source": "files/releases/1.9.9/server/data/fifa17-card-catalog.json",
       "target": "data/fifa17-card-catalog.json",
       "sha256": "55ec09781c47e8e22ad0ec4c69c2165395cd0c7757a5d95566c0e1685580ddca",
       "size": 4868676
     },
     {
       "scope": "server",
-      "source": "files/releases/1.9.8/server/data/fifa17-manager-catalog.json",
+      "source": "files/releases/1.9.9/server/data/fifa17-manager-catalog.json",
       "target": "data/fifa17-manager-catalog.json",
       "sha256": "154fbfebe85af310d471e15aa713c9d76e5ebe9474f3cd78a87816589539be13",
       "size": 316559
     },
     {
       "scope": "server",
-      "source": "files/releases/1.9.8/server/data/mng-pack-admin.json",
+      "source": "files/releases/1.9.9/server/data/mng-pack-admin.json",
       "target": "data/mng-pack-admin.json",
       "sha256": "09bfb15e1f76c96c217604f6354903753a0ec25e901f4f7628805b5641213e1e",
       "size": 18873
