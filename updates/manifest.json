@@ -1,6 +1,6 @@
 {
-  "version": "1.9.3",
-  "notes": "Marché : les éléments vendus peuvent être retirés correctement et les crédits du vendeur sont actualisés immédiatement après la vente.",
+  "version": "1.9.4",
+  "notes": "Distribution fiabilisée : tailles et empreintes de tous les fichiers recalculées, avec vérification automatique avant chaque publication.",
   "files": [
     {
       "scope": "server",
@@ -20,22 +20,22 @@
       "scope": "server",
       "source": "files/server/mng-online-images.js",
       "target": "mng-online-images.js",
-      "sha256": "a2ce1aea0eab3904c39cd3fd0f74c10e18f7d158e61799fd929c5fb901308ab4",
-      "size": 8225
+      "sha256": "78ecc70f9a9e7befb0bfa9f713ff767c983dc5cfeb3abaed4fcbdfa8b6598f3d",
+      "size": 8480
     },
     {
       "scope": "server",
       "source": "files/server/mng-sbc-set-images.js",
       "target": "mng-sbc-set-images.js",
-      "sha256": "a34a385532a2781ba239186ffe2fb5715b6c5176aaaef499675feec4171ede8c",
-      "size": 8604
+      "sha256": "2374082a17ec538c260ff7861bc1b43a2997cfc6251f40a76c79a8be89127e01",
+      "size": 8776
     },
     {
       "scope": "server",
       "source": "files/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
-      "sha256": "d773427150724a06b5210c7f5f913d2454060e7f7df4652da55f8beb1864b281",
-      "size": 23801
+      "sha256": "1d77de8305ef0b77e89098ba791a6aa0c1db8af7f3dc01925bf004f5aaf84a06",
+      "size": 24237
     },
     {
       "scope": "game",
@@ -55,15 +55,15 @@
       "scope": "server",
       "source": "files/server/data/fifa17-manager-catalog.json",
       "target": "data/fifa17-manager-catalog.json",
-      "sha256": "200013d0ae1ffc5775ed65d935bacb61ccae747f09659d56a841e57dd162bb70",
-      "size": 304454
+      "sha256": "154fbfebe85af310d471e15aa713c9d76e5ebe9474f3cd78a87816589539be13",
+      "size": 316559
     },
     {
       "scope": "server",
       "source": "files/server/data/mng-pack-admin.json",
       "target": "data/mng-pack-admin.json",
-      "sha256": "6d455e163c41b62621a0c2d723a6e3622b80e1ec38123f61d1c8723eecaa7511",
-      "size": 18548
+      "sha256": "09bfb15e1f76c96c217604f6354903753a0ec25e901f4f7628805b5641213e1e",
+      "size": 18873
     }
   ],
   "archives": [

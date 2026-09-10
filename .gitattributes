@@ -1,4 +1,3 @@
-# Auto detect text files and perform LF normalization
-* text=auto
-updates/manifest.json -text
-updates/manifest.json.sig -text
+updates/files/server/*.js binary
+updates/manifest.json binary
+updates/manifest.json.sig binary
