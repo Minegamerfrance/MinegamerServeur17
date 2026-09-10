@@ -13,8 +13,19 @@ const CATALOG_PATH = path.join(ROOT, 'data', 'fifa17-card-catalog.json');
 // Build marker: MNG-SBC-ATOMIC-AUDIT-V15
 const LEGENDS_PATH = path.join(ROOT, 'data', 'fifa17-legends.json');
 const MANAGER_CATALOG_PATH = path.join(ROOT, 'data', 'fifa17-manager-catalog.json');
-const STATE_PATH = process.env.FIFA17_FUT_STATE_PATH || path.join(ROOT, 'data', 'local-fut-state.json');
 const MNG_CLOUD_SESSION_PATH = process.env.MNG_CLOUD_SESSION_PATH || path.join(ROOT, 'data', 'mng-cloud-session.json');
+function activeCloudProfileKey() {
+  try {
+    const session=JSON.parse(fs.readFileSync(MNG_CLOUD_SESSION_PATH,'utf8').replace(/^\uFEFF/,''));
+    const profile=session&&session.profile;
+    const userId=Number(profile&&profile.id);
+    if(Number.isSafeInteger(userId)&&userId>0)return `user-${userId}`;
+    const personaId=Number(profile&&profile.personaId);
+    if(Number.isSafeInteger(personaId)&&personaId>0)return `persona-${personaId}`;
+  }catch(_){}
+  return 'local';
+}
+const STATE_PATH = process.env.FIFA17_FUT_STATE_PATH || path.join(ROOT, 'data', 'profiles', activeCloudProfileKey(), 'local-fut-state.json');
 const MNG_CLOUD_CLUB_PATH = process.env.MNG_CLOUD_CLUB_PATH || path.join(ROOT, 'data', 'mng-cloud-club.json');
 const SBC_DIAG_PATH = path.join(ROOT, 'logs', 'sbc-diagnostic.log');
 try {
@@ -3626,8 +3637,10 @@ function updateItems(body) {
       const previousPile=Number(item.pile);
       item.pile=normalizePile(change.pile);
       item.itemState=item.pile===PILE_PURCHASED?'new':'free';
+      if(item.pile!==PILE_PURCHASED){
+        state.pending=state.pending.filter(id=>Number(id)!==Number(item.id));
+      }
       if(item.pile===PILE_CLUB){
-        state.pending=state.pending.filter(id=>id!==item.id);
         // Returning an unlisted card from the Transfer List to the club removes
         // its inactive trade-pile shell. Active/expired auctions are preserved.
         state.listings=(state.listings||[]).filter(entry=>!(Number(entry.itemData?.id)===Number(item.id)&&entry.tradeState==='inactive'));
