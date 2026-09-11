@@ -1,66 +1,66 @@
 {
-  "version": "2.1.0",
-  "notes": "MNG FUT FULL CLOUD SAVE : sauvegarde complete par compte MNG. Le serveur synchronise maintenant l'integralite du club : joueurs/objets, non-attribues, equipes et equipe active, Coins et FIFA Points, SBC termines et submissions, packs/recompenses, liste des transferts locale, Draft, Saisons Solo, Solo Cup/tournois, trophees, nom/abreviation du club et historique. Au premier lancement sur un nouveau PC, la sauvegarde Cloud est restauree avant les premieres requetes FUT. Un systeme de revision bloque un ancien PC qui tenterait d'ecraser une sauvegarde Cloud plus recente. Les anciens endpoints wallet/club restent actifs pour compatibilite. Tous les correctifs 2.0.9 sont conserves.",
+  "version": "2.1.1",
+  "notes": "Correctif sessions de lancement de partie Solo / Solo Cup. Le diagnostic 20260911-171748 a montre que FIFA reenvoyait plusieurs POST /match identiques : l'ancien backend creait un nouvel ID a chaque tentative et, apres une defaite/DNF en Coupe, reutilisait un cloudRunToken termine, provoquant des 409 en boucle. La 2.1.1 rend le lancement idempotent pendant 120 s, reutilise le meme matchId/token pour les retries, renouvelle automatiquement une run Solo Cup terminee seulement quand le joueur relance un match, et protege aussi les Saisons Solo. En Saison sans coupe, un conflit 409 persistant bascule sur le moteur local au lieu d'ejecter FUT. Full Cloud Save 2.1.0 et tous les correctifs precedents sont conserves.",
   "files": [
     {
       "scope": "server",
-      "source": "files/releases/2.1.0/server/fut-backend.js",
+      "source": "files/releases/2.1.1/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "c6d4af848dc23adc20d2a14babdba366395f7d82d048a26be084acb69844d84a",
-      "size": 471190
+      "sha256": "9fc95c433793c6755a593cd2f3da2c44333714e7afe2870c6f10537d00c7a218",
+      "size": 479587
     },
     {
       "scope": "server",
-      "source": "files/releases/2.1.0/server/local-server.js",
+      "source": "files/releases/2.1.1/server/local-server.js",
       "target": "local-server.js",
       "sha256": "98925b81f84c3d5b59fbccde088b4f3632b5200da367c6919738231c22c62833",
       "size": 109204
     },
     {
       "scope": "server",
-      "source": "files/releases/2.1.0/server/mng-online-images.js",
+      "source": "files/releases/2.1.1/server/mng-online-images.js",
       "target": "mng-online-images.js",
       "sha256": "78ecc70f9a9e7befb0bfa9f713ff767c983dc5cfeb3abaed4fcbdfa8b6598f3d",
       "size": 8480
     },
     {
       "scope": "server",
-      "source": "files/releases/2.1.0/server/mng-sbc-set-images.js",
+      "source": "files/releases/2.1.1/server/mng-sbc-set-images.js",
       "target": "mng-sbc-set-images.js",
       "sha256": "2374082a17ec538c260ff7861bc1b43a2997cfc6251f40a76c79a8be89127e01",
       "size": 8776
     },
     {
       "scope": "server",
-      "source": "files/releases/2.1.0/server/Start-Local-FIFA17-Test.ps1",
+      "source": "files/releases/2.1.1/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
       "sha256": "04eaecf35aa9501563c30fc79bc3ea3e9c2411dd83c791905e99e53ce9f8fbf7",
       "size": 32226
     },
     {
       "scope": "game",
-      "source": "files/releases/2.1.0/game/version.dll",
+      "source": "files/releases/2.1.1/game/version.dll",
       "target": "version.dll",
       "sha256": "c23cc6f50a47191cdc590f50138da91a29190f2ecffccae79f368421825adb43",
       "size": 226304
     },
     {
       "scope": "server",
-      "source": "files/releases/2.1.0/server/data/fifa17-card-catalog.json",
+      "source": "files/releases/2.1.1/server/data/fifa17-card-catalog.json",
       "target": "data/fifa17-card-catalog.json",
       "sha256": "55ec09781c47e8e22ad0ec4c69c2165395cd0c7757a5d95566c0e1685580ddca",
       "size": 4868676
     },
     {
       "scope": "server",
-      "source": "files/releases/2.1.0/server/data/fifa17-manager-catalog.json",
+      "source": "files/releases/2.1.1/server/data/fifa17-manager-catalog.json",
       "target": "data/fifa17-manager-catalog.json",
       "sha256": "154fbfebe85af310d471e15aa713c9d76e5ebe9474f3cd78a87816589539be13",
       "size": 316559
     },
     {
       "scope": "server",
-      "source": "files/releases/2.1.0/server/data/mng-pack-admin.json",
+      "source": "files/releases/2.1.1/server/data/mng-pack-admin.json",
       "target": "data/mng-pack-admin.json",
       "sha256": "4e7e3405b64826d07b0c05b30bb41f27e9d538baa5cf54ff549294f48054b024",
       "size": 18873
