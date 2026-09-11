@@ -1,66 +1,66 @@
 {
-  "version": "2.0.4",
-  "notes": "Correctif reseau automatique : supprime toutes les entrees conflictuelles senorclutch.game (y compris une ancienne IP externe comme 3.125.178.170), force 127.0.0.1, vide le cache DNS et verifie la resolution avant FIFA. Le correctif Frosty/ModData 2.0.3 et le pack LEGENDES 314 a 5 500 FIFA Points avec 1 Icone/Legende rarete 12 garantie sont conserves.",
+  "version": "2.0.5",
+  "notes": "Correctif Marche + Vente rapide FIFA 17 : la mise en vente normalise maintenant les prix et la duree, resynchronise puis retente automatiquement les nouveaux objets de packs en cas de revision cloud, et renvoie la reponse native attendue par FIFA. La vente rapide simple et 'tout vendre' renvoient maintenant items[]/itemIds comme le client FUT l'attend, avec compatibilite des variantes de corps de requete et retry cloud. Le correctif hosts/DNS senorclutch.game de la 2.0.4, Frosty/ModData et le pack LEGENDES 314 restent conserves.",
   "files": [
     {
       "scope": "server",
-      "source": "files/releases/2.0.4/server/fut-backend.js",
+      "source": "files/releases/2.0.5/server/fut-backend.js",
       "target": "fut-backend.js",
-      "sha256": "c141cd16b4ce3876594f458fadc529460e5917691440d1bb194b6d6829733b55",
-      "size": 433744
+      "sha256": "4118695991e84593529f51df2f7e55ebe30f1f77e29414b2700f2db38ff6244d",
+      "size": 439583
     },
     {
       "scope": "server",
-      "source": "files/releases/2.0.4/server/local-server.js",
+      "source": "files/releases/2.0.5/server/local-server.js",
       "target": "local-server.js",
       "sha256": "c2108ca303030fba384898327a8b97f163c35ab538273ef226bde197006d6c04",
       "size": 105986
     },
     {
       "scope": "server",
-      "source": "files/releases/2.0.4/server/mng-online-images.js",
+      "source": "files/releases/2.0.5/server/mng-online-images.js",
       "target": "mng-online-images.js",
       "sha256": "78ecc70f9a9e7befb0bfa9f713ff767c983dc5cfeb3abaed4fcbdfa8b6598f3d",
       "size": 8480
     },
     {
       "scope": "server",
-      "source": "files/releases/2.0.4/server/mng-sbc-set-images.js",
+      "source": "files/releases/2.0.5/server/mng-sbc-set-images.js",
       "target": "mng-sbc-set-images.js",
       "sha256": "2374082a17ec538c260ff7861bc1b43a2997cfc6251f40a76c79a8be89127e01",
       "size": 8776
     },
     {
       "scope": "server",
-      "source": "files/releases/2.0.4/server/Start-Local-FIFA17-Test.ps1",
+      "source": "files/releases/2.0.5/server/Start-Local-FIFA17-Test.ps1",
       "target": "Start-Local-FIFA17-Test.ps1",
       "sha256": "04eaecf35aa9501563c30fc79bc3ea3e9c2411dd83c791905e99e53ce9f8fbf7",
       "size": 32226
     },
     {
       "scope": "game",
-      "source": "files/releases/2.0.4/game/version.dll",
+      "source": "files/releases/2.0.5/game/version.dll",
       "target": "version.dll",
       "sha256": "c23cc6f50a47191cdc590f50138da91a29190f2ecffccae79f368421825adb43",
       "size": 226304
     },
     {
       "scope": "server",
-      "source": "files/releases/2.0.4/server/data/fifa17-card-catalog.json",
+      "source": "files/releases/2.0.5/server/data/fifa17-card-catalog.json",
       "target": "data/fifa17-card-catalog.json",
       "sha256": "55ec09781c47e8e22ad0ec4c69c2165395cd0c7757a5d95566c0e1685580ddca",
       "size": 4868676
     },
     {
       "scope": "server",
-      "source": "files/releases/2.0.4/server/data/fifa17-manager-catalog.json",
+      "source": "files/releases/2.0.5/server/data/fifa17-manager-catalog.json",
       "target": "data/fifa17-manager-catalog.json",
       "sha256": "154fbfebe85af310d471e15aa713c9d76e5ebe9474f3cd78a87816589539be13",
       "size": 316559
     },
     {
       "scope": "server",
-      "source": "files/releases/2.0.4/server/data/mng-pack-admin.json",
+      "source": "files/releases/2.0.5/server/data/mng-pack-admin.json",
       "target": "data/mng-pack-admin.json",
       "sha256": "4e7e3405b64826d07b0c05b30bb41f27e9d538baa5cf54ff549294f48054b024",
       "size": 18873
