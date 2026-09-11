@@ -1,0 +1,61 @@
+MNG FUT FULL CLOUD SAVE WORKER 2.1.0
+=====================================
+
+BUT
+===
+Ce Worker Cloudflare est la partie CLOUD de la mise à jour 2.1.0.
+
+Il sauvegarde une sauvegarde complète par compte MNG :
+- tous les joueurs / objets du club
+- éléments non attribués
+- équipes + équipe active
+- Coins / FIFA Points (copie dans le full save ; le wallet MNG reste transactionnel)
+- SBC terminés, squads SBC, challenges
+- packs et récompenses
+- liste des transferts locale
+- Draft / historique Draft / tokens
+- Saisons Solo
+- Solo Cup / tournois / trophées
+- nom / abréviation du club
+- historique local
+
+ARCHITECTURE
+============
+Le Worker ne remplace PAS :
+  https://mng-fut-api.minegamerfrance.workers.dev
+
+Il utilise ce serveur uniquement pour vérifier le token MNG via /api/me.
+
+Le nouveau stockage est :
+  https://mng-fut-full-save.minegamerfrance.workers.dev
+
+Ainsi on peut déployer le Full Save sans toucher au code source du Worker
+de login/wallet actuel.
+
+DEPLOIEMENT
+===========
+1. Il faut Node.js installé.
+2. Double-clique DEPLOYER-CLOUDFLARE.bat.
+3. Si nécessaire, Wrangler ouvre la connexion Cloudflare.
+4. Le script crée la base D1, applique la migration, puis déploie le Worker.
+5. Vérifie :
+   https://mng-fut-full-save.minegamerfrance.workers.dev/health
+
+Le backend FIFA 2.1.0 est déjà configuré pour cette URL par défaut.
+
+SECURITE / CONFLITS
+===================
+Chaque sauvegarde a une revision.
+Le client envoie expectedRevision.
+
+Si un ancien PC tente d'écraser une sauvegarde plus récente :
+  HTTP 409 SAVE_CONFLICT
+
+Le backend arrête alors les uploads Full Save de cette session.
+Au prochain démarrage, le PC recharge la sauvegarde Cloud la plus récente.
+
+STOCKAGE
+========
+La sauvegarde JSON est découpée en chunks D1 pour supporter les gros clubs.
+Le Worker vérifie SHA-256 et taille lors de la lecture.
+Aucun mot de passe MNG n'est stocké dans cette base.

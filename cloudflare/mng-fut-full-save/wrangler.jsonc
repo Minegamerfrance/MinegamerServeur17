@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mng-fut-full-save",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-11",
+  "vars": {
+    "AUTH_API_BASE_URL": "https://mng-fut-api.minegamerfrance.workers.dev"
+  },
+  "d1_databases": [
+    {
+      "binding": "FULL_SAVE_DB",
+      "database_name": "mng-fut-full-save",
+      "database_id": "PASTE_D1_DATABASE_ID_HERE",
+      "migrations_dir": "migrations"
+    }
+  ]
+}
