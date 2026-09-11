@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "enabled": true,
+  "rawBaseUrl": "https://raw.githubusercontent.com/Minegamerfrance/MinegamerServeur17/main",
+  "databasePath": "database.json",
+  "refreshMinutes": 5,
+  "timeoutMs": 10000,
+  "sbcSetImagesEnabled": true,
+  "sbcSetImagesPath": "sbc-set-images",
+  "sbcSetImageIds": [
+    1170000,
+    1170001
+  ],
+  "sbcSetImagesRefreshMinutes": 5
+}
