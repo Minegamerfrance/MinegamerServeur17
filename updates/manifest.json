@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.22",
-    "notes":  "MNG FUT 2.1.22 One Click: le joueur lance uniquement MNG FUT Launcher.exe; Bridge et nettoyage sont automatiques.",
+    "version":  "2.1.23",
+    "notes":  "MNG FUT 2.1.23 One Click: correction de la portee Bridge. Le joueur lance uniquement MNG FUT Launcher.exe.",
     "files":  [
                   {
                       "scope":  "game",
@@ -10,21 +10,21 @@
                       "size":  226304
                   },
                   {
-                      "scope":  "server",
+                      "scope":  "bridge",
                       "source":  "files/bridge/MNGBridge.exe",
                       "target":  "MNGBridge.exe",
                       "sha256":  "44ae553be717f326c5df83ecc5ca0cfa5877e446cae607a5356a171745485747",
                       "size":  5822976
                   },
                   {
-                      "scope":  "server",
+                      "scope":  "bridge",
                       "source":  "files/bridge/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
                       "sha256":  "e78933add761719ae046671f94ce9b94d0f4d191f1c583cc7c9808fc91c60f0c",
                       "size":  7048
                   },
                   {
-                      "scope":  "server",
+                      "scope":  "bridge",
                       "source":  "files/bridge/bridge-config.json",
                       "target":  "bridge-config.json",
                       "sha256":  "eaf749499ff3a1f418d2e56d0c172f551beb6d1f3d2873b1dc73b3ed0817b2c5",

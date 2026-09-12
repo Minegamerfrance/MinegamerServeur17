@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.22",
-    "notes":  "MNG FUT 2.1.22 One Click: Secure Bridge TEMP, logs propres, nettoyage automatique; aucun serveur permanent.",
+    "version":  "2.1.23",
+    "notes":  "MNG FUT 2.1.23 One Click scope hotfix; serveur toujours execute uniquement en TEMP.",
     "files":  [
                   {
                       "scope":  "server",
