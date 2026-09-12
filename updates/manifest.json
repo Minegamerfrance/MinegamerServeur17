@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.21",
-    "notes":  "MNG FUT 2.1.21 Secure Bridge Final: signatures sur octets Git exacts, migration joueur renforcee, serveur uniquement en TEMP.",
+    "version":  "2.1.22",
+    "notes":  "MNG FUT 2.1.22 One Click: le joueur lance uniquement MNG FUT Launcher.exe; Bridge et nettoyage sont automatiques.",
     "files":  [
                   {
                       "scope":  "game",
@@ -13,15 +13,15 @@
                       "scope":  "server",
                       "source":  "files/bridge/MNGBridge.exe",
                       "target":  "MNGBridge.exe",
-                      "sha256":  "34bcd6ab2acb464258897f78caf62dae3878a9cf8462d19171163e435a135f0e",
+                      "sha256":  "44ae553be717f326c5df83ecc5ca0cfa5877e446cae607a5356a171745485747",
                       "size":  5822976
                   },
                   {
                       "scope":  "server",
                       "source":  "files/bridge/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "cfda57a6f7fed57f5343b482b8cf12bfd3be18968029f65438f62fafd1e76ca6",
-                      "size":  4103
+                      "sha256":  "e78933add761719ae046671f94ce9b94d0f4d191f1c583cc7c9808fc91c60f0c",
+                      "size":  7048
                   },
                   {
                       "scope":  "server",
