@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.15",
-    "notes":  "Runtime 2.0.6 : correction finale du visuel du pack OTW/Hummels. Backend conserve.",
+    "version":  "2.1.16",
+    "notes":  "Runtime 2.0.7 : ajout du visuel TOTW assetId 98. OTW conserve assetId 99.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.13/server/fut-backend.js",
+                      "source":  "files/releases/2.1.16/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "31660dcafc1f2733c420e5c15c400d6d21ca0cb66d58852050e182af5e894241",
-                      "size":  501369
+                      "sha256":  "15a11f335c59076418969a5af7f74b0d460eca37f64289046e0cad1cd40c5e77",
+                      "size":  507936
                   },
                   {
                       "scope":  "server",
@@ -76,10 +76,10 @@
     "archives":  [
                      {
                          "scope":  "game",
-                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.6/MNG-FIFA17-MOD-RUNTIME-2.0.6-COMPACT.zip",
+                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.7/MNG-FIFA17-MOD-RUNTIME-2.0.7-COMPACT.zip",
                          "target":  "ModData/MNGFUT",
-                         "sha256":  "0d6520ffc5d4021cf1a8596051c3e8753dc5a55ac3c159237ab08f7565e34d34",
-                         "size":  167459213,
+                         "sha256":  "70ed7deb90db16dcc8bc735cad37d5ff1b71c285653fd3b3332f15702b3db754",
+                         "size":  167630952,
                          "format":  "zip"
                      },
                      {
