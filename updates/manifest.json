@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.12",
-    "notes":  "Starter pack labels: OTW=\u0027Pack OTW Garanti\u0027, TOTW=\u0027Pack TOTW Garanti\u0027. Literal strings are used without custom localization keys so FIFA 17 can display the names directly.",
+    "version":  "2.1.13",
+    "notes":  "Runtime 2.0.4: nouveaux visuels de packs Frosty. Starter OTW packId 316 -\u003e assetId 99. Noms forces: Pack OTW Garanti / Pack TOTW Garanti.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.12/server/fut-backend.js",
+                      "source":  "files/releases/2.1.13/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "0e9c8630c29567f48c7abfd31fa9fe89fcd87a11724e7c0547be877e2535ee5d",
-                      "size":  498553
+                      "sha256":  "31660dcafc1f2733c420e5c15c400d6d21ca0cb66d58852050e182af5e894241",
+                      "size":  501369
                   },
                   {
                       "scope":  "server",
@@ -76,10 +76,10 @@
     "archives":  [
                      {
                          "scope":  "game",
-                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.3/MNG-FIFA17-MOD-RUNTIME-2.0.3-COMPACT.zip",
+                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.4/MNG-FIFA17-MOD-RUNTIME-2.0.4-COMPACT.zip",
                          "target":  "ModData/MNGFUT",
-                         "sha256":  "ea4ed9ab56eb06d63b2f9a51e2a3a63983752cf3b56298e2a99589e45034de5d",
-                         "size":  167001407,
+                         "sha256":  "fc98979555b99208a18864784ce8c31faeff1193e6b946e9f072bf8031e7d2ac",
+                         "size":  169513014,
                          "format":  "zip"
                      },
                      {
