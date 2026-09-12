@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.25",
-    "notes":  "MNG FUT 2.1.25 One Click: Replay direct sans reinstallation apres une partie + session MNG persistante entre les ouvertures du launcher. Le joueur lance uniquement MNG FUT Launcher.exe.",
+    "version":  "2.1.26",
+    "notes":  "MNG FUT 2.1.26 One Click: correctif CLR de la session persistante + Replay direct. Le joueur lance uniquement MNG FUT Launcher.exe; aucune reinstallation entre deux parties.",
     "files":  [
                   {
                       "scope":  "bridge",
