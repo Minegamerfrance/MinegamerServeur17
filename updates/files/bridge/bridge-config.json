@@ -1,0 +1,7 @@
+{
+  "serverManifestUrl": "https://raw.githubusercontent.com/Minegamerfrance/MinegamerServeur17/main/updates/bridge-server-manifest.json",
+  "serverManifestSigUrl": "https://raw.githubusercontent.com/Minegamerfrance/MinegamerServeur17/main/updates/bridge-server-manifest.json.sig",
+  "packageUrl": "",
+  "cloudApiBaseUrl": "https://mng-fut-api.minegamerfrance.workers.dev",
+  "cleanupJsAfterStart": true
+}
