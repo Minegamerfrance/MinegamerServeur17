@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.18",
-    "notes":  "MNG Online Pack 97 v0.1 : test direct GitHub des visuels de pack sans rebuild Frosty.",
+    "version":  "2.1.19",
+    "notes":  "MNG Online Pack 97 v0.1 : test direct GitHub des visuels de pack sans rebuild Frosty. | Runtime 2.0.9 : nouveau build Frosty compact. Pack97 et les fichiers serveur 2.1.18 sont conserves.",
     "files":  [
                   {
                       "scope":  "server",
@@ -118,10 +118,10 @@
     "archives":  [
                      {
                          "scope":  "game",
-                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.8/MNG-FIFA17-MOD-RUNTIME-2.0.8-COMPACT.zip",
+                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.9/MNG-FIFA17-MOD-RUNTIME-2.0.9-COMPACT.zip",
                          "target":  "ModData/MNGFUT",
-                         "sha256":  "b1d243d0de68a6e3e4c144b65ecd157f97fbef77d1a0377ec5a069ecdfe76f8d",
-                         "size":  167892560,
+                         "sha256":  "15ee50dcf966471fd12f861667d4c1000707997955c2da83e35badcaf2001417",
+                         "size":  179190469,
                          "format":  "zip"
                      },
                      {
