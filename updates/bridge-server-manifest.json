@@ -1,20 +1,20 @@
 {
-    "version":  "2.1.26",
-    "notes":  "MNG FUT 2.1.26 One Click: CLR session persistence fix; serveur toujours execute uniquement en TEMP.",
+    "version":  "2.1.27",
+    "notes":  "MNG FUT Server 2.1.27: Coins/FIFA Points synchronises depuis le Cloud avant les reponses FUT user/usermassinfo/hub/credits. Plus besoin d ouvrir Boutique ou Marche pour actualiser le solde.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.20/server/fut-backend.js",
+                      "source":  "files/releases/2.1.27/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "3f8e42ed518c73f0dc371fc33c054acbd2699337b8264f26d938a32883c8d5d6",
-                      "size":  510355
+                      "sha256":  "9eb5da959e9d27804bda8e064aa96e123039ea187cac1819c508f965404704ef",
+                      "size":  527670
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.18/server/local-server.js",
+                      "source":  "files/releases/2.1.27/server/local-server.js",
                       "target":  "local-server.js",
-                      "sha256":  "7f6b82440e553228370775ab7dbb991a9ee249b96444da9f95ec460c568587ee",
-                      "size":  110322
+                      "sha256":  "2e58ebb9f91757de9311f36b5cd200be19a0b33747471e81ac12558e259c7f9d",
+                      "size":  111067
                   },
                   {
                       "scope":  "server",
