@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.13",
-    "notes":  "Runtime 2.0.4: nouveaux visuels de packs Frosty. Starter OTW packId 316 -\u003e assetId 99. Noms forces: Pack OTW Garanti / Pack TOTW Garanti.",
+    "version":  "2.1.14",
+    "notes":  "Runtime 2.0.5 : correction visuelle du pack Frosty. Aucun changement du backend.",
     "files":  [
                   {
                       "scope":  "server",
@@ -76,10 +76,10 @@
     "archives":  [
                      {
                          "scope":  "game",
-                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.4/MNG-FIFA17-MOD-RUNTIME-2.0.4-COMPACT.zip",
+                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.5/MNG-FIFA17-MOD-RUNTIME-2.0.5-COMPACT.zip",
                          "target":  "ModData/MNGFUT",
-                         "sha256":  "fc98979555b99208a18864784ce8c31faeff1193e6b946e9f072bf8031e7d2ac",
-                         "size":  169513014,
+                         "sha256":  "384c8c1e4708ee6a92c2b6e0057e808ffefd2cbbb37d1ff60a06a1433cd3ed14",
+                         "size":  167248980,
                          "format":  "zip"
                      },
                      {
