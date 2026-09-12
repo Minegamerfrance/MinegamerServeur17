@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.11",
-    "notes":  "Starter pack artwork: OTW first-launch packId 316 uses Frosty visual assetId 99. TOTW packId 315 remains assetId 3.",
+    "version":  "2.1.12",
+    "notes":  "Starter pack labels: OTW=\u0027Pack OTW Garanti\u0027, TOTW=\u0027Pack TOTW Garanti\u0027. Literal strings are used without custom localization keys so FIFA 17 can display the names directly.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.11/server/fut-backend.js",
+                      "source":  "files/releases/2.1.12/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "58696c7f7fb3cda0d4db890e1cd4ddccad70ab0644338a650173a9a0cac9a9db",
-                      "size":  497012
+                      "sha256":  "0e9c8630c29567f48c7abfd31fa9fe89fcd87a11724e7c0547be877e2535ee5d",
+                      "size":  498553
                   },
                   {
                       "scope":  "server",
