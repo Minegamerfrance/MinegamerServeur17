@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.20",
-    "notes":  "MNG FUT Secure Bridge: distribution serveur temporaire signee, jamais installee de facon permanente.",
+    "version":  "2.1.21",
+    "notes":  "MNG FUT 2.1.21 Secure Bridge Final: serveur temporaire signe; chemin de session corrige; aucune source permanente.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.10/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.21/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "f09ae833533b451a3969b0974b89b19baeb8a9d6b17b01d50fbea226f9744e67",
-                      "size":  39942
+                      "sha256":  "294ec7eada36a656930e23912af5b20a8cfefee672feefbd5ad6acdc4e9a21d1",
+                      "size":  39920
                   },
                   {
                       "scope":  "server",

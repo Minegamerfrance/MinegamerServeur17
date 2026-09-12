@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.20",
-    "notes":  "MNG FUT 2.1.20 Secure Bridge: plus aucun serveur complet installe sur le PC. Le bridge reconstruit une session serveur temporaire signee puis la supprime.",
+    "version":  "2.1.21",
+    "notes":  "MNG FUT 2.1.21 Secure Bridge Final: signatures sur octets Git exacts, migration joueur renforcee, serveur uniquement en TEMP.",
     "files":  [
                   {
                       "scope":  "game",
@@ -20,8 +20,8 @@
                       "scope":  "server",
                       "source":  "files/bridge/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "a3ab7f3d980c7ebc4f834adf04413f247d28a49c9447881ad34ed14fe72f8b4e",
-                      "size":  3585
+                      "sha256":  "cfda57a6f7fed57f5343b482b8cf12bfd3be18968029f65438f62fafd1e76ca6",
+                      "size":  4103
                   },
                   {
                       "scope":  "server",
