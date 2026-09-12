@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "enabled": true,
+  "slot": 97,
+  "name": "MNG LIVE PACK 97",
+  "refreshSeconds": 120,
+  "background": {
+    "file": "background.png",
+    "sha256": "5eecd379a91a492dfabfb94c21b2bd2db4c2216c93fa8099ec0ebec97f62004d"
+  },
+  "players": [
+    {
+      "file": "player_00.png",
+      "sha256": "c3f09717be5ff65a529114bd6d3fe70092a287c32f0d18c8ff7359f89bc88151"
+    },
+    {
+      "file": "player_01.png",
+      "sha256": "1fa1ab3ed43d29b718098f643a7328420734aeb00825ef36254f61a9ef65d3ff"
+    },
+    {
+      "file": "player_02.png",
+      "sha256": "51c42c2633f48618cfe7318d7c320c5aaae0804f1b5f092f1b55836af1ae4158"
+    }
+  ],
+  "note": "Premier test MNG: visuels de pack servis depuis GitHub sans rebuild du runtime."
+}

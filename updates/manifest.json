@@ -1,20 +1,20 @@
 {
-    "version":  "2.1.17",
-    "notes":  "Runtime 2.0.8 : variantes visuelles TOTW 98000/98001/98002 ajoutees. TOTW reste assetId 98, OTW reste assetId 99.",
+    "version":  "2.1.18",
+    "notes":  "MNG Online Pack 97 v0.1 : test direct GitHub des visuels de pack sans rebuild Frosty.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.16/server/fut-backend.js",
+                      "source":  "files/releases/2.1.18/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "15a11f335c59076418969a5af7f74b0d460eca37f64289046e0cad1cd40c5e77",
-                      "size":  507936
+                      "sha256":  "d2f696933f8ede6f94fe520902aa7c70e7c44740193db5585cecc393a3f8f35b",
+                      "size":  510242
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.9/server/local-server.js",
+                      "source":  "files/releases/2.1.18/server/local-server.js",
                       "target":  "local-server.js",
-                      "sha256":  "4aaccc431fb5de812bb347b69030478ff8712905bff860751cc99a12f8a82d27",
-                      "size":  109719
+                      "sha256":  "7f6b82440e553228370775ab7dbb991a9ee249b96444da9f95ec460c568587ee",
+                      "size":  110322
                   },
                   {
                       "scope":  "server",
@@ -71,6 +71,48 @@
                       "target":  "data/online-images/config.json",
                       "sha256":  "785901e9516673bc6a2bb99cb3e4ac67aa1971a6c139f774c6359bbea37e9924",
                       "size":  368
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/mng-online-packs.js",
+                      "target":  "mng-online-packs.js",
+                      "sha256":  "2a15c272515423eed4e7891a687767893e65ac00c8263c10c242be0af47508ca",
+                      "size":  6698
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/data/online-packs/97/config.json",
+                      "target":  "data/online-packs/97/config.json",
+                      "sha256":  "d53217fb607e9b188f30388ffd000c3d64a9a0d3ed767e7d57835329f559bf1a",
+                      "size":  733
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/data/online-packs/97/background.png",
+                      "target":  "data/online-packs/97/background.png",
+                      "sha256":  "5eecd379a91a492dfabfb94c21b2bd2db4c2216c93fa8099ec0ebec97f62004d",
+                      "size":  137212
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/data/online-packs/97/player_00.png",
+                      "target":  "data/online-packs/97/player_00.png",
+                      "sha256":  "c3f09717be5ff65a529114bd6d3fe70092a287c32f0d18c8ff7359f89bc88151",
+                      "size":  87410
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/data/online-packs/97/player_01.png",
+                      "target":  "data/online-packs/97/player_01.png",
+                      "sha256":  "1fa1ab3ed43d29b718098f643a7328420734aeb00825ef36254f61a9ef65d3ff",
+                      "size":  64778
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/data/online-packs/97/player_02.png",
+                      "target":  "data/online-packs/97/player_02.png",
+                      "sha256":  "51c42c2633f48618cfe7318d7c320c5aaae0804f1b5f092f1b55836af1ae4158",
+                      "size":  77516
                   }
               ],
     "archives":  [
