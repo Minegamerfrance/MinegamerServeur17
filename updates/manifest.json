@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.23",
-    "notes":  "MNG FUT 2.1.23 One Click: correction de la portee Bridge. Le joueur lance uniquement MNG FUT Launcher.exe.",
+    "version":  "2.1.24",
+    "notes":  "MNG FUT 2.1.24 One Click: correction du dossier d installation Bridge automatique. Le joueur lance uniquement MNG FUT Launcher.exe.",
     "files":  [
                   {
                       "scope":  "game",
