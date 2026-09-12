@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.24",
-    "notes":  "MNG FUT 2.1.24 One Click install root hotfix; serveur toujours execute uniquement en TEMP.",
+    "version":  "2.1.25",
+    "notes":  "MNG FUT 2.1.25 One Click Replay + Persistent Session; serveur toujours execute uniquement en TEMP.",
     "files":  [
                   {
                       "scope":  "server",

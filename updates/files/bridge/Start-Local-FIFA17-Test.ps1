@@ -7,6 +7,32 @@ $bridgeExe=Join-Path $root 'MNGBridge.exe'
 $errorLog=Join-Path $root 'BRIDGE-ERROR.txt'
 $dataDir=Join-Path $root 'data'
 $marker=Join-Path $root '.mng-bridge-oneclick-v22'
+# MNG_2_1_25_PERSISTENT_CLOUD_STATE
+$persistentStateRoot=Join-Path $env:LOCALAPPDATA 'MNGFUTLauncher'
+$persistentCloudNames=@('mng-cloud-session.json','mng-cloud-club.json')
+function Sync-MngPersistentCloudStateToBridge {
+    New-Item -ItemType Directory -Path $persistentStateRoot -Force | Out-Null
+    New-Item -ItemType Directory -Path $dataDir -Force | Out-Null
+    foreach($name in $persistentCloudNames){
+        $persistent=Join-Path $persistentStateRoot $name
+        $bridgeCopy=Join-Path $dataDir $name
+        if(Test-Path -LiteralPath $persistent -PathType Leaf){
+            Copy-Item -LiteralPath $persistent -Destination $bridgeCopy -Force
+        }elseif(Test-Path -LiteralPath $bridgeCopy -PathType Leaf){
+            # Migration d'une ancienne installation : conserve la session existante.
+            Copy-Item -LiteralPath $bridgeCopy -Destination $persistent -Force
+        }
+    }
+}
+function Sync-MngPersistentCloudStateFromBridge {
+    New-Item -ItemType Directory -Path $persistentStateRoot -Force | Out-Null
+    foreach($name in $persistentCloudNames){
+        $bridgeCopy=Join-Path $dataDir $name
+        if(Test-Path -LiteralPath $bridgeCopy -PathType Leaf){
+            Copy-Item -LiteralPath $bridgeCopy -Destination (Join-Path $persistentStateRoot $name) -Force
+        }
+    }
+}
 
 function Info([string]$m){Write-Host "[INFO] $m" -ForegroundColor Cyan}
 function Ok([string]$m){Write-Host "[OK] $m" -ForegroundColor Green}
@@ -98,6 +124,7 @@ if(Test-Path -LiteralPath $dataDir){
         if(-not $keep){Remove-Item -LiteralPath $_.FullName -Recurse -Force -ErrorAction SilentlyContinue}
     }
 }
+Sync-MngPersistentCloudStateToBridge
 [IO.File]::WriteAllText($marker,(Get-Date -Format o),(New-Object Text.UTF8Encoding($false)))
 if(Test-Path -LiteralPath $errorLog){Remove-Item -LiteralPath $errorLog -Force -ErrorAction SilentlyContinue}
 
@@ -105,6 +132,7 @@ try{
     Info 'Starting MNG Secure Bridge...'
     & $bridgeExe '-game-exe' $GameExe
     $code=$LASTEXITCODE
+    Sync-MngPersistentCloudStateFromBridge
     if($code -ne 0){throw "MNGBridge.exe exited with code $code"}
 
     # Final automatic cleanup: no verification script required for players.

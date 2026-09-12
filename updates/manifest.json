@@ -1,14 +1,7 @@
 {
-    "version":  "2.1.24",
-    "notes":  "MNG FUT 2.1.24 One Click: correction du dossier d installation Bridge automatique. Le joueur lance uniquement MNG FUT Launcher.exe.",
+    "version":  "2.1.25",
+    "notes":  "MNG FUT 2.1.25 One Click: Replay direct sans reinstallation apres une partie + session MNG persistante entre les ouvertures du launcher. Le joueur lance uniquement MNG FUT Launcher.exe.",
     "files":  [
-                  {
-                      "scope":  "game",
-                      "source":  "files/releases/2.1.10/game/version.dll",
-                      "target":  "version.dll",
-                      "sha256":  "c23cc6f50a47191cdc590f50138da91a29190f2ecffccae79f368421825adb43",
-                      "size":  226304
-                  },
                   {
                       "scope":  "bridge",
                       "source":  "files/bridge/MNGBridge.exe",
@@ -20,8 +13,8 @@
                       "scope":  "bridge",
                       "source":  "files/bridge/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "e78933add761719ae046671f94ce9b94d0f4d191f1c583cc7c9808fc91c60f0c",
-                      "size":  7048
+                      "sha256":  "0d4d1b44c94fe5c5b8812006bb9c768fabfdd6e75961e1c4bc0f9fc81e66b325",
+                      "size":  8438
                   },
                   {
                       "scope":  "bridge",
