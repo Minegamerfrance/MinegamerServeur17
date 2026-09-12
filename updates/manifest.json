@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.14",
-    "notes":  "Runtime 2.0.5 : correction visuelle du pack Frosty. Aucun changement du backend.",
+    "version":  "2.1.15",
+    "notes":  "Runtime 2.0.6 : correction finale du visuel du pack OTW/Hummels. Backend conserve.",
     "files":  [
                   {
                       "scope":  "server",
@@ -76,10 +76,10 @@
     "archives":  [
                      {
                          "scope":  "game",
-                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.5/MNG-FIFA17-MOD-RUNTIME-2.0.5-COMPACT.zip",
+                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.6/MNG-FIFA17-MOD-RUNTIME-2.0.6-COMPACT.zip",
                          "target":  "ModData/MNGFUT",
-                         "sha256":  "384c8c1e4708ee6a92c2b6e0057e808ffefd2cbbb37d1ff60a06a1433cd3ed14",
-                         "size":  167248980,
+                         "sha256":  "0d6520ffc5d4021cf1a8596051c3e8753dc5a55ac3c159237ab08f7565e34d34",
+                         "size":  167459213,
                          "format":  "zip"
                      },
                      {
