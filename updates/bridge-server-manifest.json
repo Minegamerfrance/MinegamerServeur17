@@ -4,10 +4,10 @@
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.18/server/fut-backend.js",
+                      "source":  "files/releases/2.1.20/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "d2f696933f8ede6f94fe520902aa7c70e7c44740193db5585cecc393a3f8f35b",
-                      "size":  510242
+                      "sha256":  "3f8e42ed518c73f0dc371fc33c054acbd2699337b8264f26d938a32883c8d5d6",
+                      "size":  510355
                   },
                   {
                       "scope":  "server",
