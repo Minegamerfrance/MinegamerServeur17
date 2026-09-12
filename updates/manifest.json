@@ -1,28 +1,8 @@
 {
     "version":  "2.1.29",
-    "notes":  "MNG FUT 2.1.29 Stable State: tous les etats du launcher sont persistants dans LOCALAPPDATA\\\\MNGFUTLauncher. Version installee, FIFA17.exe, InstallationId, langue, session Cloud et Bridge ne dependent plus du dossier Telechargements. Replay 2.1.25, session Cloud, Bridge LOCALAPPDATA 2.1.28 et serveur 2.1.27 conserves.",
+    "notes":  "MNG FUT 2.1.29 FINAL: Bridge fourni directement dans le dossier du launcher. Etat installation + compte sauvegardes dans LOCALAPPDATA. Le manifest GitHub ne remplace plus MNGBridge.exe, donc aucun conflit de fichier verrouille et aucune reinstallation entre les parties.",
     "files":  [
-                  {
-                      "scope":  "bridge",
-                      "source":  "files/bridge/MNGBridge.exe",
-                      "target":  "MNGBridge.exe",
-                      "sha256":  "44ae553be717f326c5df83ecc5ca0cfa5877e446cae607a5356a171745485747",
-                      "size":  5822976
-                  },
-                  {
-                      "scope":  "bridge",
-                      "source":  "files/bridge/Start-Local-FIFA17-Test.ps1",
-                      "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "0d4d1b44c94fe5c5b8812006bb9c768fabfdd6e75961e1c4bc0f9fc81e66b325",
-                      "size":  8438
-                  },
-                  {
-                      "scope":  "bridge",
-                      "source":  "files/bridge/bridge-config.json",
-                      "target":  "bridge-config.json",
-                      "sha256":  "eaf749499ff3a1f418d2e56d0c172f551beb6d1f3d2873b1dc73b3ed0817b2c5",
-                      "size":  405
-                  }
+
               ],
     "archives":  [
                      {
