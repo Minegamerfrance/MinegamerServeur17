@@ -1,4 +1,4 @@
-﻿param([string]$GameExe = '')
+param([string]$GameExe = '')
 # MNG FUT compact runtime + senorclutch hosts/DNS self-heal V54 - 2026-09-11
 
 if (-not $GameExe) {
@@ -23,7 +23,7 @@ $ErrorActionPreference='Stop'
 
 # MNG_PATH_FIX_2_1_10
 # Aucun chemin ne doit dependre d'une lettre de disque fixe.
-$MNGCanonicalServerRoot = Join-Path $env:LOCALAPPDATA 'MNGFUTLauncher\server'
+$MNGCanonicalServerRoot = $PSScriptRoot
 $MNGSelectedGameExe = [IO.Path]::GetFullPath($GameExe)
 $MNGSelectedGameDir = Split-Path -Parent $MNGSelectedGameExe
 $MNGSelectedModRoot = Join-Path $MNGSelectedGameDir 'ModData\MNGFUT'
@@ -32,7 +32,7 @@ if (-not $env:LOCALAPPDATA) {
     throw 'LOCALAPPDATA est introuvable. Impossible de determiner le dossier serveur MNG FUT.'
 }
 
-Write-Host ("MNG FUT PATH FIX: server -> {0}" -f $MNGCanonicalServerRoot)
+Write-Host ("MNG FUT SESSION: server -> {0}" -f $MNGCanonicalServerRoot) -ForegroundColor Cyan
 Write-Host ("MNG FUT PATH FIX: game   -> {0}" -f $MNGSelectedGameExe)
 Write-Host ("MNG FUT PATH FIX: mod    -> {0}" -f $MNGSelectedModRoot)
 

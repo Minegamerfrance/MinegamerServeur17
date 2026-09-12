@@ -4950,9 +4950,10 @@ async function openStorePack(body={}) {
     }else{
       logger(`[legend-pack-314] local rarity-12 pool ready count=${legendPool.length}`);
     }
-    const authorization=await authorizeCloudLegendPack314(body);
+    // MNG_PACK314_CLOUD_STORE_HOTFIX_V1
+    const authorization=await authorizeCloudPackPurchase(requested,body);
     if(!authorization.ok)return {status:authorization.status,error:authorization.error,reason:authorization.error};
-    const result=openPack(requested,{...body,cloudAuthorized:true,localPlayerOdds:true,cloudProfile:authorization.profile,cloudResourceIds:[],cloudNonPlayerResourceIds:[],transactionId:authorization.transactionId});
+    const result=openPack(requested,{...body,cloudAuthorized:true,localPlayerOdds:false,cloudProfile:authorization.profile,cloudResourceIds:authorization.playerResourceIds,cloudNonPlayerResourceIds:authorization.nonPlayerResourceIds,transactionId:authorization.transactionId});
     const icon=result&&Array.isArray(result.itemData)?result.itemData.find(item=>item.itemType==='player'):null;
     if(!icon||Number(icon.rareFlag??icon.rareflag)!==12||!MNG_LEGEND_PACK_RESOURCE_SET.has(Number(icon.resourceId))){
       logger(`[legend-pack-314] invalid local result resourceId=${Number(icon?.resourceId)||0} rareFlag=${Number(icon?.rareFlag??icon?.rareflag)||0}`);

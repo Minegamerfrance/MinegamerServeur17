@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.26",
-    "notes":  "MNG FUT 2.1.26 One Click: correctif CLR de la session persistante + Replay direct. Le joueur lance uniquement MNG FUT Launcher.exe; aucune reinstallation entre deux parties.",
+    "version":  "2.1.28",
+    "notes":  "MNG FUT 2.1.28 One Click: Bridge deplace hors du dossier du launcher. MNGBridge.exe, bridge-config.json et Start-Local-FIFA17-Test.ps1 sont maintenant installes dans LOCALAPPDATA\\MNGFUTLauncher. Plus aucun dossier bridge cree dans Telechargements a cote du EXE.",
     "files":  [
                   {
                       "scope":  "bridge",

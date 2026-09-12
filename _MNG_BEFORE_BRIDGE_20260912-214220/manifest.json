@@ -1,0 +1,136 @@
+{
+    "version":  "2.1.19",
+    "notes":  "MNG Online Pack 97 v0.1 : test direct GitHub des visuels de pack sans rebuild Frosty. | Runtime 2.0.9 : nouveau build Frosty compact. Pack97 et les fichiers serveur 2.1.18 sont conserves.",
+    "files":  [
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/fut-backend.js",
+                      "target":  "fut-backend.js",
+                      "sha256":  "d2f696933f8ede6f94fe520902aa7c70e7c44740193db5585cecc393a3f8f35b",
+                      "size":  510242
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/local-server.js",
+                      "target":  "local-server.js",
+                      "sha256":  "7f6b82440e553228370775ab7dbb991a9ee249b96444da9f95ec460c568587ee",
+                      "size":  110322
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.9/server/mng-online-images.js",
+                      "target":  "mng-online-images.js",
+                      "sha256":  "432aa2dc1c1be466a54f5db8ff15c5241e77479a2209173c2841094a33b8a86e",
+                      "size":  10311
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.9/server/mng-sbc-set-images.js",
+                      "target":  "mng-sbc-set-images.js",
+                      "sha256":  "d8215bd2c6153874bca9b258fad4d7be3f58222fc8fd4a18a0d72bf2712f77a6",
+                      "size":  9340
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.10/server/Start-Local-FIFA17-Test.ps1",
+                      "target":  "Start-Local-FIFA17-Test.ps1",
+                      "sha256":  "f09ae833533b451a3969b0974b89b19baeb8a9d6b17b01d50fbea226f9744e67",
+                      "size":  39942
+                  },
+                  {
+                      "scope":  "game",
+                      "source":  "files/releases/2.1.10/game/version.dll",
+                      "target":  "version.dll",
+                      "sha256":  "c23cc6f50a47191cdc590f50138da91a29190f2ecffccae79f368421825adb43",
+                      "size":  226304
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.9/server/data/fifa17-card-catalog.json",
+                      "target":  "data/fifa17-card-catalog.json",
+                      "sha256":  "55ec09781c47e8e22ad0ec4c69c2165395cd0c7757a5d95566c0e1685580ddca",
+                      "size":  4868676
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.9/server/data/fifa17-manager-catalog.json",
+                      "target":  "data/fifa17-manager-catalog.json",
+                      "sha256":  "154fbfebe85af310d471e15aa713c9d76e5ebe9474f3cd78a87816589539be13",
+                      "size":  316559
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.9/server/data/mng-pack-admin.json",
+                      "target":  "data/mng-pack-admin.json",
+                      "sha256":  "4e7e3405b64826d07b0c05b30bb41f27e9d538baa5cf54ff549294f48054b024",
+                      "size":  18873
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.9/server/data/online-images/config.json",
+                      "target":  "data/online-images/config.json",
+                      "sha256":  "785901e9516673bc6a2bb99cb3e4ac67aa1971a6c139f774c6359bbea37e9924",
+                      "size":  368
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/mng-online-packs.js",
+                      "target":  "mng-online-packs.js",
+                      "sha256":  "2a15c272515423eed4e7891a687767893e65ac00c8263c10c242be0af47508ca",
+                      "size":  6698
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/data/online-packs/97/config.json",
+                      "target":  "data/online-packs/97/config.json",
+                      "sha256":  "d53217fb607e9b188f30388ffd000c3d64a9a0d3ed767e7d57835329f559bf1a",
+                      "size":  733
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/data/online-packs/97/background.png",
+                      "target":  "data/online-packs/97/background.png",
+                      "sha256":  "5eecd379a91a492dfabfb94c21b2bd2db4c2216c93fa8099ec0ebec97f62004d",
+                      "size":  137212
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/data/online-packs/97/player_00.png",
+                      "target":  "data/online-packs/97/player_00.png",
+                      "sha256":  "c3f09717be5ff65a529114bd6d3fe70092a287c32f0d18c8ff7359f89bc88151",
+                      "size":  87410
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/data/online-packs/97/player_01.png",
+                      "target":  "data/online-packs/97/player_01.png",
+                      "sha256":  "1fa1ab3ed43d29b718098f643a7328420734aeb00825ef36254f61a9ef65d3ff",
+                      "size":  64778
+                  },
+                  {
+                      "scope":  "server",
+                      "source":  "files/releases/2.1.18/server/data/online-packs/97/player_02.png",
+                      "target":  "data/online-packs/97/player_02.png",
+                      "sha256":  "51c42c2633f48618cfe7318d7c320c5aaae0804f1b5f092f1b55836af1ae4158",
+                      "size":  77516
+                  }
+              ],
+    "archives":  [
+                     {
+                         "scope":  "game",
+                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.9/MNG-FIFA17-MOD-RUNTIME-2.0.9-COMPACT.zip",
+                         "target":  "ModData/MNGFUT",
+                         "sha256":  "15ee50dcf966471fd12f861667d4c1000707997955c2da83e35badcaf2001417",
+                         "size":  179190469,
+                         "format":  "zip"
+                     },
+                     {
+                         "scope":  "server",
+                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/server-runtime-1.0.0/MNG-FUT-SERVER-RUNTIME-1.0.0.zip",
+                         "target":  ".",
+                         "sha256":  "90d1d9bac3ec506b81242edf6add2dacb0c3d093ac71f0fde181e0fc5623907c",
+                         "size":  35874792,
+                         "format":  "zip"
+                     }
+                 ]
+}
