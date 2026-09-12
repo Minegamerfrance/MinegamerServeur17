@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.9",
-    "notes":  "Nouveau runtime MNG FUT sans Frosty chez les joueurs. Le launcher telecharge le runtime compact 2.0.3 (environ 159 Mo) dans ModData/MNGFUT. Au lancement, Start-Local-FIFA17-Test.ps1 reconstruit localement Data et les fichiers FIFA 17 inchanges via jonction/hardlinks, puis demarre FIFA17.exe avec GAME_DATA_DIR. Frosty Editor et Frosty Mod Manager ne sont plus necessaires sur le PC des joueurs. Le vieux ModData/Editor n est plus utilise. Tous les correctifs serveur, packs, SBC, marche et images de la 2.1.8 sont conserves.",
+    "version":  "2.1.10",
+    "notes":  "PATH FIX: suppression definitive de toute dependance a une lettre de disque fixe. Serveur dans LOCALAPPDATA et ModData/MNGFUT derive du FIFA17.exe choisi.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,14 +32,14 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.9/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.10/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "d234eb16413aac93a850472f81a1c49cd89118fde93c5a0fa9f801aed5efe4dd",
-                      "size":  39089
+                      "sha256":  "f09ae833533b451a3969b0974b89b19baeb8a9d6b17b01d50fbea226f9744e67",
+                      "size":  39942
                   },
                   {
                       "scope":  "game",
-                      "source":  "files/releases/2.1.9/game/version.dll",
+                      "source":  "files/releases/2.1.10/game/version.dll",
                       "target":  "version.dll",
                       "sha256":  "c23cc6f50a47191cdc590f50138da91a29190f2ecffccae79f368421825adb43",
                       "size":  226304
