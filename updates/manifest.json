@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.16",
-    "notes":  "Runtime 2.0.7 : ajout du visuel TOTW assetId 98. OTW conserve assetId 99.",
+    "version":  "2.1.17",
+    "notes":  "Runtime 2.0.8 : variantes visuelles TOTW 98000/98001/98002 ajoutees. TOTW reste assetId 98, OTW reste assetId 99.",
     "files":  [
                   {
                       "scope":  "server",
@@ -76,10 +76,10 @@
     "archives":  [
                      {
                          "scope":  "game",
-                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.7/MNG-FIFA17-MOD-RUNTIME-2.0.7-COMPACT.zip",
+                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.8/MNG-FIFA17-MOD-RUNTIME-2.0.8-COMPACT.zip",
                          "target":  "ModData/MNGFUT",
-                         "sha256":  "70ed7deb90db16dcc8bc735cad37d5ff1b71c285653fd3b3332f15702b3db754",
-                         "size":  167630952,
+                         "sha256":  "b1d243d0de68a6e3e4c144b65ecd157f97fbef77d1a0377ec5a069ecdfe76f8d",
+                         "size":  167892560,
                          "format":  "zip"
                      },
                      {
