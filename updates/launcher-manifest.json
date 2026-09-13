@@ -1,0 +1,8 @@
+{
+    "version":  "3.0.16",
+    "build":  "3.0.16-update-center-fix1",
+    "source":  "files/launcher/3.0.16/MNG-FUT-PUBLIC-LAUNCHER-3.0.16-UPDATE-CENTER-FIX1.zip",
+    "sha256":  "2e1e110756487839d3a569920258e15ee20030e9e1ee7af427f5839530fdbd9d",
+    "size":  5261185,
+    "notes":  "MNG FUT Launcher 3.0.16 FIX1: centre de mises a jour separe lanceur/serveur + auto-update corrige."
+}
