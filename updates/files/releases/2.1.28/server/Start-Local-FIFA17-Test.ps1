@@ -298,6 +298,7 @@ if($env:MNG_FUT_NO_MODDATA -ne '1'){
     $useModData=$true
 }
 Add-Content -LiteralPath $friendPreflight -Value "ModDataMNGFUT=$modDataRoot enabled=$useModData requestedOff=$($env:MNG_FUT_NO_MODDATA -eq '1')"
+Add-Content -LiteralPath $friendPreflight -Value "PHYSICAL_RUNTIME_ROOT=$modDataRoot"
 $ini=Join-Path $gameDir 'senorclutch.ini'
 $dll=Join-Path $gameDir 'version.dll'
 $payloadDll=Join-Path $root 'payload\version.dll'
@@ -700,7 +701,12 @@ blaze_port=44321
             $launchMode='DATAPATH_RELATIVE'
             Write-Host 'MNG FUT: seconde tentative runtime via -dataPath "ModData\MNGFUT"...' -ForegroundColor Yellow
             if([IO.Path]::GetFullPath($modDataRoot).StartsWith([IO.Path]::GetFullPath($gameDir),[StringComparison]::OrdinalIgnoreCase)){
+                if([IO.Path]::GetFullPath($modDataRoot).StartsWith([IO.Path]::GetFullPath($gameDir),[StringComparison]::OrdinalIgnoreCase)){
                 $gameArgs=@('-dataPath','"ModData\MNGFUT"')
+            }else{
+                Write-Host "MNG FUT: -dataPath LOCALAPPDATA -> $modDataRoot" -ForegroundColor Yellow
+                $gameArgs=@('-dataPath',"`"$modDataRoot`"")
+            }
             }else{
                 Write-Host "MNG FUT: -dataPath LOCALAPPDATA -> $modDataRoot" -ForegroundColor Yellow
                 $gameArgs=@('-dataPath',"`"$modDataRoot`"")

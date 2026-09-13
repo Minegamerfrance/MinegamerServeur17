@@ -1,6 +1,6 @@
 {
     "version":  "2.1.28",
-    "notes":  "MNG FUT Server 2.1.28: runtime physique dans LOCALAPPDATA pour eviter les echecs ModData/Program Files. Compatibilite anciens launchers conservee.",
+    "notes":  "MNG FUT Server 2.1.28: Launcher 3.0.9 runtime physique LOCALAPPDATA, compatibilite anciens launchers conservee.",
     "files":  [
                   {
                       "scope":  "server",
@@ -34,8 +34,8 @@
                       "scope":  "server",
                       "source":  "files/releases/2.1.28/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "a25ce8af36fb8f12982dfb42e9a229e98aedf6f2e919defaf578391a08dca000",
-                      "size":  41006
+                      "sha256":  "6142bcbb8a30048965f277f19af2c6bf71eddd4d933de3d360d26af513cf3156",
+                      "size":  41427
                   },
                   {
                       "scope":  "server",
