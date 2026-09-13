@@ -1,8 +1,8 @@
 {
-    "version":  "3.0.31",
-    "build":  "3.0.31-server-2.1.35-channel",
-    "source":  "files/launcher/3.0.31/MNG-FUT-PUBLIC-LAUNCHER-3.0.31-SERVER-2.1.35-CHANNEL.zip",
-    "sha256":  "e277462d4549480424ffc543280cd6775ea4b79dc017c9358be8192bd294eb36",
-    "size":  5262428,
-    "notes":  "MNG FUT Launcher 3.0.31: comportement de lancement 3.0.30 conserve; canal Bridge fixe sur le serveur 2.1.35."
+    "version":  "4.0.1",
+    "build":  "4.0.1-signed-server-channel",
+    "source":  "files/launcher/4.0.1/MNG-FUT-PUBLIC-LAUNCHER-4.0.1-SIGNED-SERVER-CHANNEL.zip",
+    "sha256":  "dfe7c86ae6a6ab4ddc80f89c40f538fe9d64525e8c818aec6efb0321b9375ef2",
+    "size":  4458251,
+    "notes":  "MNG FUT Launcher 4.0.1: interface simple et canal serveur 2.1.35 signé."
 }
