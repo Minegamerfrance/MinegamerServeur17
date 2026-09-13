@@ -1,16 +1,16 @@
 {
-    "version":  "2.1.29",
-    "notes":  "MNG FUT 2.1.29 FINAL: Bridge fourni directement dans le dossier du launcher. Etat installation + compte sauvegardes dans LOCALAPPDATA. Le manifest GitHub ne remplace plus MNGBridge.exe, donc aucun conflit de fichier verrouille et aucune reinstallation entre les parties.",
+    "version":  "2.1.30",
+    "notes":  "MNG FUT 2.1.30 : runtime Frosty FULL-UPDATE avec les 83 fichiers update embarqués physiquement. Aucun fichier update n'est repris depuis l'installation FIFA du joueur.",
     "files":  [
 
               ],
     "archives":  [
                      {
                          "scope":  "game",
-                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.0.9/MNG-FIFA17-MOD-RUNTIME-2.0.9-COMPACT.zip",
+                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.1.30/MNG-FIFA17-MOD-RUNTIME-2.1.30-FULL-UPDATE.zip",
                          "target":  "ModData/MNGFUT",
-                         "sha256":  "15ee50dcf966471fd12f861667d4c1000707997955c2da83e35badcaf2001417",
-                         "size":  179190469,
+                         "sha256":  "5e5c46801c1f392517efe76187140510f1f120451335d6e76a75b3784a3801c4",
+                         "size":  1075725209,
                          "format":  "zip"
                      }
                  ]
