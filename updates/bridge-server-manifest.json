@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.33",
-    "notes":  "MNG FUT Server 2.1.33: lancement direct de FIFA par le Bridge par défaut; ancien handoff désactivé pour supprimer la boucle de démarrage.",
+    "version":  "2.1.34",
+    "notes":  "MNG FUT Server 2.1.34: ancien handoff définitivement neutralisé; le Bridge et le serveur lancent toujours FIFA directement.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.33/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.34/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "5c1d5e422aeaf1f8dd36f0b077fa8ce7407842848ccadc84c751c2d460679243",
-                      "size":  43849
+                      "sha256":  "21e8b6ef897ab6dbf048dcdbc0d0d2427370fb1fc2cb37fc920ac07693c1958a",
+                      "size":  43824
                   },
                   {
                       "scope":  "server",
