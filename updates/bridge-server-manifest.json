@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.32",
-    "notes":  "MNG FUT Server 2.1.32: le Bridge lance directement le FIFA17.exe sélectionné quand le launcher lui délègue explicitement la session.",
+    "version":  "2.1.33",
+    "notes":  "MNG FUT Server 2.1.33: lancement direct de FIFA par le Bridge par défaut; ancien handoff désactivé pour supprimer la boucle de démarrage.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.32/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.33/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "b39ad7c8657a6720dbe7afd3ca936802f0d78d3db96052a2e2cea21247bdc133",
-                      "size":  43896
+                      "sha256":  "5c1d5e422aeaf1f8dd36f0b077fa8ce7407842848ccadc84c751c2d460679243",
+                      "size":  43849
                   },
                   {
                       "scope":  "server",
