@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.34",
-    "notes":  "MNG FUT Server 2.1.34: ancien handoff définitivement neutralisé; le Bridge et le serveur lancent toujours FIFA directement.",
+    "version":  "2.1.35",
+    "notes":  "MNG FUT Server 2.1.35: ajout de Juninho Icon 88 MOC (ID 30) au marché et au pack Légendes.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.27/server/fut-backend.js",
+                      "source":  "files/releases/2.1.35/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "9eb5da959e9d27804bda8e064aa96e123039ea187cac1819c508f965404704ef",
-                      "size":  527670
+                      "sha256":  "6f4f8dc50e6920dc94a65cdaf8dc2279720989f683ab5da4451038b8919eb68f",
+                      "size":  529479
                   },
                   {
                       "scope":  "server",
