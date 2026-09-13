@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.30",
-    "notes":  "MNG FUT Server 2.1.30: handoff explicite serveur -\u003e launcher. Le serveur prepare les ports 8000/5139 puis le launcher demarre exactement le FIFA17.exe choisi.",
+    "version":  "2.1.31",
+    "notes":  "MNG FUT Server 2.1.31: HANDOFF immediat au point exact ou le script lance historiquement FIFA17.exe. Suppression du port gate 8000/5139 avant HANDOFF.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.30/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.31/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "ac88e69b36c7e6b11e33b2bd294e99c6fe1bfa70575dcc73037a70c10b0f7609",
-                      "size":  43942
+                      "sha256":  "0b714506668f927e262bf113a093158045cd7edcc997bd076c692224876382b6",
+                      "size":  43855
                   },
                   {
                       "scope":  "server",
