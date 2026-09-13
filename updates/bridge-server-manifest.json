@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.29",
-    "notes":  "MNG FUT Server 2.1.29: runtime physique LOCALAPPDATA + junction ModData\\MNGFUT dans le dossier FIFA. Corrige le lancement Frostbite avec FIFA installe dans Program Files ou ailleurs.",
+    "version":  "2.1.30",
+    "notes":  "MNG FUT Server 2.1.30: handoff explicite serveur -\u003e launcher. Le serveur prepare les ports 8000/5139 puis le launcher demarre exactement le FIFA17.exe choisi.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.29/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.30/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "0383543e459302fcd599f8c8b6774ed283e430c9a4afec862a54b1a29308c044",
-                      "size":  41575
+                      "sha256":  "ac88e69b36c7e6b11e33b2bd294e99c6fe1bfa70575dcc73037a70c10b0f7609",
+                      "size":  43942
                   },
                   {
                       "scope":  "server",
