@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.28",
-    "notes":  "MNG FUT Server 2.1.28: Launcher 3.0.9 runtime physique LOCALAPPDATA, compatibilite anciens launchers conservee.",
+    "version":  "2.1.29",
+    "notes":  "MNG FUT Server 2.1.29: runtime physique LOCALAPPDATA + junction ModData\\MNGFUT dans le dossier FIFA. Corrige le lancement Frostbite avec FIFA installe dans Program Files ou ailleurs.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.28/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.29/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "6142bcbb8a30048965f277f19af2c6bf71eddd4d933de3d360d26af513cf3156",
-                      "size":  41427
+                      "sha256":  "0383543e459302fcd599f8c8b6774ed283e430c9a4afec862a54b1a29308c044",
+                      "size":  41575
                   },
                   {
                       "scope":  "server",
