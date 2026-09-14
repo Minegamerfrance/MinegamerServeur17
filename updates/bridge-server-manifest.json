@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.42",
-    "notes":  "MNG FUT Server 2.1.42: correction de l'achat du pack Icônes 314 et fourniture de vraies données ONLINE pour les Saisons en ligne.",
+    "version":  "2.1.43",
+    "notes":  "MNG FUT Server 2.1.43: suppression du pack 314 et création du nouveau pack ICONES 318 contenant exactement un joueur rareté 12 pour 5500 points FIFA.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.42/server/fut-backend.js",
+                      "source":  "files/releases/2.1.43/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "bfde600a22be7c3f4daf055164a1f1d3e8527ef2347c4e38994d7ac3ebd1a97d",
-                      "size":  531050
+                      "sha256":  "4702c9e4277fd4d5dc2e914738bdee697a1e9dc940b870fcfd91f25208664113",
+                      "size":  530989
                   },
                   {
                       "scope":  "server",
@@ -53,10 +53,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.9/server/data/mng-pack-admin.json",
+                      "source":  "files/releases/2.1.43/server/data/mng-pack-admin.json",
                       "target":  "data/mng-pack-admin.json",
-                      "sha256":  "4e7e3405b64826d07b0c05b30bb41f27e9d538baa5cf54ff549294f48054b024",
-                      "size":  18873
+                      "sha256":  "72fdbbb91b526f4afa52c70b1303df8653ac3ebfd32e7bf32bb1394f5d2bec4a",
+                      "size":  18869
                   },
                   {
                       "scope":  "server",
