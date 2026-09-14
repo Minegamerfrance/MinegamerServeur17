@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.38",
-    "notes":  "MNG FUT Server 2.1.38: sauvegarde persistante du club, des joueurs, des équipes et des objets entre les changements de launcher.",
+    "version":  "2.1.39",
+    "notes":  "MNG FUT Server 2.1.39 experimental: première réponse GameManager valide pour la recherche Saison en ligne, sans modifier le lancement stable.",
     "files":  [
                   {
                       "scope":  "server",
@@ -11,10 +11,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.27/server/local-server.js",
+                      "source":  "files/releases/2.1.39/server/local-server.js",
                       "target":  "local-server.js",
-                      "sha256":  "2e58ebb9f91757de9311f36b5cd200be19a0b33747471e81ac12558e259c7f9d",
-                      "size":  111067
+                      "sha256":  "a716565b85c34442bfede9988242391fcd629d1ed580307efc575ed10d98c2d0",
+                      "size":  112215
                   },
                   {
                       "scope":  "server",
