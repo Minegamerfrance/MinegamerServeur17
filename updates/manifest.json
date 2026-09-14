@@ -1,10 +1,10 @@
 {
-    "version":  "5.0.0",
-    "notes":  "Installation légère MNG FUT : version.dll uniquement. Aucun runtime ModData.",
+    "version":  "5.0.2",
+    "notes":  "Installation vérifiée du version.dll FIFA 17 fonctionnel à côté du FIFA17.exe sélectionné.",
     "files":  [
                   {
                       "scope":  "game",
-                      "source":  "files/game/version.dll",
+                      "source":  "files/releases/5.0.2/game/version.dll",
                       "target":  "version.dll",
                       "sha256":  "c23cc6f50a47191cdc590f50138da91a29190f2ecffccae79f368421825adb43",
                       "size":  226304

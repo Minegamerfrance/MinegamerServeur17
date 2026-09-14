@@ -1,8 +1,8 @@
 {
-    "version":  "5.0.1",
-    "build":  "5.0.1-first-run-game-selection",
-    "source":  "files/launcher/5.0.1/MNG-FUT-LAUNCHER-5.0.1-FIRST-RUN-FIFA-SELECTION.zip",
-    "sha256":  "15d951b3dac8329e403a7e2d198735cda93918037fd5f291bbfe3f6a99bcc33b",
-    "size":  4486528,
-    "notes":  "Première ouverture : demande automatique du chemin de FIFA17.exe avant installation."
+    "version":  "5.0.2",
+    "build":  "5.0.2-verified-version-dll-install",
+    "source":  "files/launcher/5.0.2/MNG-FUT-LAUNCHER-5.0.2-VERIFIED-VERSION-DLL.zip",
+    "sha256":  "71df5755552a35b50a0ef2a2a77c880bb332ef21151194898b5cb9c8f867b0f7",
+    "size":  4486790,
+    "notes":  "Installation réellement validée uniquement après copie et vérification de version.dll à côté de FIFA17.exe."
 }
