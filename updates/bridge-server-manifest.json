@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.41",
-    "notes":  "MNG FUT Server 2.1.41: club complet stocké directement dans AppData pour conserver joueurs, équipes et objets après déconnexion ou changement de launcher.",
+    "version":  "2.1.42",
+    "notes":  "MNG FUT Server 2.1.42: correction de l'achat du pack Icônes 314 et fourniture de vraies données ONLINE pour les Saisons en ligne.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.41/server/fut-backend.js",
+                      "source":  "files/releases/2.1.42/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "8437a5f085daf27243a3374b914310ab1bbab496b868c6b4ff77f56e6a13bf0c",
-                      "size":  529888
+                      "sha256":  "bfde600a22be7c3f4daf055164a1f1d3e8527ef2347c4e38994d7ac3ebd1a97d",
+                      "size":  531050
                   },
                   {
                       "scope":  "server",
