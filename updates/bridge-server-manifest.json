@@ -34,8 +34,8 @@
                       "scope":  "server",
                       "source":  "files/releases/2.1.36/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "25b97120d138cd4cd65174204f6f4e78f1a1cad00c45faf3720eaf1e3c150bb4",
-                      "size":  44164
+                      "sha256":  "84a5e9c0edb06d0172da83d68a2b32ea5ed0f28a148d5063bb99f9529658c293",
+                      "size":  44161
                   },
                   {
                       "scope":  "server",
