@@ -1,8 +1,8 @@
 {
-    "version":  "5.0.3",
-    "build":  "5.0.3-spanish-update-test",
-    "source":  "files/launcher/5.0.3/MNG-FUT-LAUNCHER-5.0.3-SPANISH-UPDATE-TEST.zip",
-    "sha256":  "9786709cac941bdcdb0cd9b93174d08b5099906e56c3ae395b9ca987d09b4222",
-    "size":  4487277,
-    "notes":  "Ajout de la langue espagnole pour valider la mise à jour automatique de l’application."
+    "version":  "5.0.4",
+    "build":  "5.0.4-self-update-fixed",
+    "source":  "files/launcher/5.0.4/MNG-FUT-LAUNCHER-5.0.4-SELF-UPDATE-FIXED.zip",
+    "sha256":  "818ad0e4cf5fcdd4e90585acd969825ba070a526c310d0c39d7d8725b74be1a9",
+    "size":  4487576,
+    "notes":  "Correction complète de l’auto-mise à jour et conservation des langues EN, FR et ES."
 }
