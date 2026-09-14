@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.44",
-    "notes":  "MNG FUT Server 2.1.44: correction des identifiants et seuils de division Saison en ligne, ajout des classements locaux et gestion de l'annulation du matchmaking.",
+    "version":  "2.1.45",
+    "notes":  "MNG FUT Server 2.1.45: le pack ICONES 318 utilise un débit local fiable lorsque le cloud renvoie un solde inchangé, puis délivre exactement un joueur rareté 12.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.44/server/fut-backend.js",
+                      "source":  "files/releases/2.1.45/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "9b270547278122bea4158617853b0870f642f74db0372596e3ed5e617e249300",
-                      "size":  531915
+                      "sha256":  "2055ba79fd8e91103727deb6baab00d4f0e429bd63b5478d26d8924035c1664b",
+                      "size":  532191
                   },
                   {
                       "scope":  "server",
