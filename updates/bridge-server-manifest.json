@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.37",
-    "notes":  "MNG FUT Server 2.1.37: serveur seul, lancement FIFA séparé et ModData définitivement désactivé.",
+    "version":  "2.1.38",
+    "notes":  "MNG FUT Server 2.1.38: sauvegarde persistante du club, des joueurs, des équipes et des objets entre les changements de launcher.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.35/server/fut-backend.js",
+                      "source":  "files/releases/2.1.38/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "6f4f8dc50e6920dc94a65cdaf8dc2279720989f683ab5da4451038b8919eb68f",
-                      "size":  529479
+                      "sha256":  "2f5f249ca256483723aa30a0323314067d4d7f0fb005c19d3f56acc947b52bdc",
+                      "size":  529481
                   },
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.37/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.38/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "33c9b70cf061df9d1a4526851dfe31121e805553e9ba4e5e8cb37b5fbc8a29ff",
-                      "size":  44233
+                      "sha256":  "ea0ed0596bd6c1497fa8762c0503f7ef0271e28d44a97f051859d8656e3277ae",
+                      "size":  46218
                   },
                   {
                       "scope":  "server",
