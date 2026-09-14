@@ -1,8 +1,8 @@
 {
-    "version":  "5.0.2",
-    "build":  "5.0.2-verified-version-dll-install",
-    "source":  "files/launcher/5.0.2/MNG-FUT-LAUNCHER-5.0.2-VERIFIED-VERSION-DLL.zip",
-    "sha256":  "71df5755552a35b50a0ef2a2a77c880bb332ef21151194898b5cb9c8f867b0f7",
-    "size":  4486790,
-    "notes":  "Installation réellement validée uniquement après copie et vérification de version.dll à côté de FIFA17.exe."
+    "version":  "5.0.3",
+    "build":  "5.0.3-spanish-update-test",
+    "source":  "files/launcher/5.0.3/MNG-FUT-LAUNCHER-5.0.3-SPANISH-UPDATE-TEST.zip",
+    "sha256":  "9786709cac941bdcdb0cd9b93174d08b5099906e56c3ae395b9ca987d09b4222",
+    "size":  4487277,
+    "notes":  "Ajout de la langue espagnole pour valider la mise à jour automatique de l’application."
 }
