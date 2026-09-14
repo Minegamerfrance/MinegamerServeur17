@@ -1,2 +1,0 @@
-MNG FUT Launcher - mise a jour distante validee.
-Version: 1.0.1
