@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.40",
-    "notes":  "MNG FUT Server 2.1.40 experimental: journal réseau 1v1 conservé automatiquement dans AppData pour diagnostiquer Saison en ligne.",
+    "version":  "2.1.41",
+    "notes":  "MNG FUT Server 2.1.41: club complet stocké directement dans AppData pour conserver joueurs, équipes et objets après déconnexion ou changement de launcher.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.38/server/fut-backend.js",
+                      "source":  "files/releases/2.1.41/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "2f5f249ca256483723aa30a0323314067d4d7f0fb005c19d3f56acc947b52bdc",
-                      "size":  529481
+                      "sha256":  "8437a5f085daf27243a3374b914310ab1bbab496b868c6b4ff77f56e6a13bf0c",
+                      "size":  529888
                   },
                   {
                       "scope":  "server",
