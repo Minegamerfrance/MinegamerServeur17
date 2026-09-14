@@ -1,17 +1,14 @@
 {
-    "version":  "2.1.31",
-    "notes":  "MNG FUT 2.1.31 : nouveau runtime Frosty testé avec 83 fichiers update physiques. Le lien Data du jeu original n'est pas inclus dans l'archive.",
+    "version":  "5.0.0",
+    "notes":  "Installation légère MNG FUT : version.dll uniquement. Aucun runtime ModData.",
     "files":  [
-
+                  {
+                      "scope":  "game",
+                      "source":  "files/game/version.dll",
+                      "target":  "version.dll",
+                      "sha256":  "c23cc6f50a47191cdc590f50138da91a29190f2ecffccae79f368421825adb43",
+                      "size":  226304
+                  }
               ],
-    "archives":  [
-                     {
-                         "scope":  "game",
-                         "source":  "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/mng-runtime-2.1.31/MNG-FIFA17-MOD-RUNTIME-2.1.31-FULL-UPDATE.zip",
-                         "target":  "ModData/MNGFUT",
-                         "sha256":  "ad31d13b245d0ee382f790a7514e98ff98b0c2d988442825ae25d90dca1ac986",
-                         "size":  1083709847,
-                         "format":  "zip"
-                     }
-                 ]
+    "archives":  []
 }

@@ -1,8 +1,8 @@
 {
-    "version":  "4.0.1",
-    "build":  "4.0.1-signed-server-channel",
-    "source":  "files/launcher/4.0.1/MNG-FUT-PUBLIC-LAUNCHER-4.0.1-SIGNED-SERVER-CHANNEL.zip",
-    "sha256":  "dfe7c86ae6a6ab4ddc80f89c40f538fe9d64525e8c818aec6efb0321b9375ef2",
-    "size":  4458251,
-    "notes":  "MNG FUT Launcher 4.0.1: interface simple et canal serveur 2.1.35 signé."
+    "version":  "5.0.0",
+    "build":  "5.0.0-clean-server-only",
+    "source":  "files/launcher/5.0.0/MNG-FUT-LAUNCHER-5.0.0-CLEAN-SERVER-ONLY.zip",
+    "sha256":  "6b991feafd4b86067e12fd80eb8148f5960e83cfa1ff344dd8bdf0451365d363",
+    "size":  4486243,
+    "notes":  "Nouveau lanceur propre : serveur séparé de FIFA, installation version.dll uniquement, aucun ModData."
 }

@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.36",
-    "notes":  "MNG FUT Server 2.1.36: mode serveur seul pour lancer FIFA manuellement depuis Frosty Mod Manager.",
+    "version":  "2.1.37",
+    "notes":  "MNG FUT Server 2.1.37: serveur seul, lancement FIFA séparé et ModData définitivement désactivé.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.36/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.37/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "84a5e9c0edb06d0172da83d68a2b32ea5ed0f28a148d5063bb99f9529658c293",
-                      "size":  44161
+                      "sha256":  "33c9b70cf061df9d1a4526851dfe31121e805553e9ba4e5e8cb37b5fbc8a29ff",
+                      "size":  44233
                   },
                   {
                       "scope":  "server",
