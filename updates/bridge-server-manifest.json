@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.47",
-    "notes":  "MNG FUT Server 2.1.47: les Icônes gagnées dans le pack 318 sont désormais autorisées et sauvegardées dans le club; le paiement en crédits ou Points FIFA reste débité après redémarrage.",
+    "version":  "2.1.48",
+    "notes":  "MNG FUT Server 2.1.48: le joueur affiché à l'ouverture est exactement celui reçu et sauvegardé; le pack ICÔNES fonctionne à nouveau; les autres packs ont entre 2 % et 6 % de chance de contenir une rareté 12.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.47/server/fut-backend.js",
+                      "source":  "files/releases/2.1.48/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "70e616853fddb490e73e893c0bf5e17cc2f529d251277048b97b0edec451eaf1",
-                      "size":  529117
+                      "sha256":  "028248e9ea6e4de2d5f91d6b1542c9df64339425329e69f28202c9bb6256a79b",
+                      "size":  529411
                   },
                   {
                       "scope":  "server",
