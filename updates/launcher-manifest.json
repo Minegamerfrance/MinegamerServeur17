@@ -1,8 +1,8 @@
 {
-  "version": "1.0.8",
-  "build": "MNG-FUT-V1-manifest-retry",
-  "source": "files/launcher/1.0.8/MNG-FUT-V1-1.0.8-lite.zip",
-  "sha256": "f45120f7cc53d9914ee00cc9eff8198b1c9acc09141dea8cdaf8449e34d58305",
-  "size": 8084829,
-  "notes": "La vérification du manifeste réessaie automatiquement en cas de délai temporaire entre le manifeste GitHub et sa signature."
+  "version": "1.0.9",
+  "build": "MNG-FUT-V1-no-cache-manifest-fetch",
+  "source": "files/launcher/1.0.9/MNG-FUT-V1-1.0.9-lite.zip",
+  "sha256": "3ef7d8f0b0dd74c9b7231de2616ed7f952c85fd75a0818a57afa9932e33c3c18",
+  "size": 8084906,
+  "notes": "Corrige la récupération du manifeste de mise à jour en empêchant Windows de mélanger une ancienne version en cache avec une nouvelle signature."
 }
