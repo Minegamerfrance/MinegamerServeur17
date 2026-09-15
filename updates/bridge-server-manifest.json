@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.46",
-    "notes":  "MNG FUT Server 2.1.46: Thierry Henry Icône utilise Arsenal et la Premier League pour afficher le bon maillot pendant l'animation du pack; les autres Icônes restent inchangées.",
+    "version":  "2.1.47",
+    "notes":  "MNG FUT Server 2.1.47: les Icônes gagnées dans le pack 318 sont désormais autorisées et sauvegardées dans le club; le paiement en crédits ou Points FIFA reste débité après redémarrage.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.46/server/fut-backend.js",
+                      "source":  "files/releases/2.1.47/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "0420e07f9b5f96bcbe08a68c2cb328e443cb665c9680215614138603180e396b",
-                      "size":  532179
+                      "sha256":  "70e616853fddb490e73e893c0bf5e17cc2f529d251277048b97b0edec451eaf1",
+                      "size":  529117
                   },
                   {
                       "scope":  "server",
