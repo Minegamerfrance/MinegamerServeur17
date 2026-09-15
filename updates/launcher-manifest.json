@@ -1,8 +1,8 @@
 {
-    "version":  "1.0.1",
-    "build":  "MNG-FUT-V1-signed-manifest-fix",
-    "source":  "files/launcher/1.0.1/MNG-FUT-V1-1.0.1.zip",
-    "sha256":  "50d03cdd04cc7e1a73cc8682c81dd094e721cfd1f9cc2610e625c3dc12da949d",
-    "size":  2698593,
-    "notes":  "Correction de la verification binaire des manifestes pour installation, reparation et mises a jour integrees."
+    "version":  "1.0.2",
+    "build":  "MNG-FUT-V1-branding",
+    "source":  "files/launcher/1.0.2/MNG-FUT-V1-1.0.2.zip",
+    "sha256":  "2f0d253c0e22aa6e120209404c4823d0146187148fa36b9c4dc516061de2856a",
+    "size":  6501929,
+    "notes":  "Ajout du logo MNG FUT dans le lanceur et la barre des taches, avec le nouveau visuel FIFA 17."
 }
