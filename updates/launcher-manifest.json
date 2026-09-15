@@ -1,8 +1,8 @@
 {
-  "version": "1.0.7",
-  "build": "MNG-FUT-V1-executable-root-fix",
-  "source": "files/launcher/1.0.7/MNG-FUT-V1-1.0.7-lite.zip",
-  "sha256": "746a77e7e33be59637f5df5fd07fafdbc26fccc37b2f7164fcac5ba5c3232cf5",
-  "size": 8084737,
-  "notes": "Corrige le démarrage de MNG FUT.exe : le dossier du lanceur est maintenant détecté correctement une fois l application compilée."
+  "version": "1.0.8",
+  "build": "MNG-FUT-V1-manifest-retry",
+  "source": "files/launcher/1.0.8/MNG-FUT-V1-1.0.8-lite.zip",
+  "sha256": "f45120f7cc53d9914ee00cc9eff8198b1c9acc09141dea8cdaf8449e34d58305",
+  "size": 8084829,
+  "notes": "La vérification du manifeste réessaie automatiquement en cas de délai temporaire entre le manifeste GitHub et sa signature."
 }
