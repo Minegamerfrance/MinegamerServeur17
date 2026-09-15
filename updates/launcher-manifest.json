@@ -1,8 +1,8 @@
 {
-  "version": "1.0.10",
-  "build": "MNG-FUT-V1-github-api-manifest",
-  "source": "files/launcher/1.0.10/MNG-FUT-V1-1.0.10-lite.zip",
-  "sha256": "25e7f6775c1d002989b816cc471e87cadccd088f80c76976d202105333c1e62b",
-  "size": 8085101,
-  "notes": "La mise à jour du lanceur vérifie désormais le manifeste et la signature via l API GitHub, ce qui évite les erreurs causées par le cache raw."
+  "version": "1.0.11",
+  "build": "MNG-FUT-V1-keep-server-running",
+  "source": "files/launcher/1.0.11/MNG-FUT-V1-1.0.11-lite.zip",
+  "sha256": "c45e7204bda5bc9f7d58e5434ccaaa05be2164690cb01640f9794d1cba716fbf",
+  "size": 8085096,
+  "notes": "Le serveur local reste actif lorsque le lanceur est fermé, afin que FIFA puisse se connecter après le démarrage du bridge."
 }
