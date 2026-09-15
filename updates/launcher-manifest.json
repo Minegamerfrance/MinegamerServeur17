@@ -1,8 +1,8 @@
 {
-  "version": "1.0.9",
-  "build": "MNG-FUT-V1-no-cache-manifest-fetch",
-  "source": "files/launcher/1.0.9/MNG-FUT-V1-1.0.9-lite.zip",
-  "sha256": "3ef7d8f0b0dd74c9b7231de2616ed7f952c85fd75a0818a57afa9932e33c3c18",
-  "size": 8084906,
-  "notes": "Corrige la récupération du manifeste de mise à jour en empêchant Windows de mélanger une ancienne version en cache avec une nouvelle signature."
+  "version": "1.0.10",
+  "build": "MNG-FUT-V1-github-api-manifest",
+  "source": "files/launcher/1.0.10/MNG-FUT-V1-1.0.10-lite.zip",
+  "sha256": "25e7f6775c1d002989b816cc471e87cadccd088f80c76976d202105333c1e62b",
+  "size": 8085101,
+  "notes": "La mise à jour du lanceur vérifie désormais le manifeste et la signature via l API GitHub, ce qui évite les erreurs causées par le cache raw."
 }
