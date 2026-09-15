@@ -1,8 +1,8 @@
 {
-    "version":  "5.0.4",
-    "build":  "5.0.4-self-update-fixed",
-    "source":  "files/launcher/5.0.4/MNG-FUT-LAUNCHER-5.0.4-SELF-UPDATE-FIXED.zip",
-    "sha256":  "818ad0e4cf5fcdd4e90585acd969825ba070a526c310d0c39d7d8725b74be1a9",
-    "size":  4487576,
-    "notes":  "Correction complète de l’auto-mise à jour et conservation des langues EN, FR et ES."
+    "version":  "1.0.0",
+    "build":  "MNG-FUT-V1-unified",
+    "source":  "files/launcher/1.0.0/MNG-FUT-V1-1.0.0.zip",
+    "sha256":  "2fbc7e14066cf863f7e1bba637dcee8fd9b9d04c1690124fb47b0a6f9cc77ea4",
+    "size":  2698576,
+    "notes":  "MNG FUT V1 unifie : serveur, installation, reparation, mises a jour, Frosty, comptes, amis, langues et logs integres."
 }
