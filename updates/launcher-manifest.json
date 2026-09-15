@@ -1,8 +1,8 @@
 {
-  "version": "1.0.6",
-  "build": "MNG-FUT-V1-updater-path-fix",
-  "source": "files/launcher/1.0.6/MNG-FUT-V1-1.0.6-lite.zip",
-  "sha256": "317f23446beada96458d59a072a93b62c631574bda279d477c96b3bf0648a712",
-  "size": 8084637,
-  "notes": "Corrige la mise à jour automatique lorsque le chemin du lanceur contient des espaces et ajoute un journal de diagnostic."
+  "version": "1.0.7",
+  "build": "MNG-FUT-V1-executable-root-fix",
+  "source": "files/launcher/1.0.7/MNG-FUT-V1-1.0.7-lite.zip",
+  "sha256": "746a77e7e33be59637f5df5fd07fafdbc26fccc37b2f7164fcac5ba5c3232cf5",
+  "size": 8084737,
+  "notes": "Corrige le démarrage de MNG FUT.exe : le dossier du lanceur est maintenant détecté correctement une fois l application compilée."
 }
