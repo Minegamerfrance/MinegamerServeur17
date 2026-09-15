@@ -1,8 +1,8 @@
 {
-  "version": "1.0.12",
-  "build": "MNG-FUT-V1-port-cleanup",
-  "source": "files/launcher/1.0.12/MNG-FUT-V1-1.0.12-lite.zip",
-  "sha256": "324ace719dcc50a6ffbf369a568880c189f3cf44e71760a80968ed8f88671abc",
-  "size": 8085543,
-  "notes": "Avant chaque démarrage, le lanceur ferme automatiquement les anciens serveurs qui occupent les ports FIFA locaux."
+  "version": "1.0.13",
+  "build": "MNG-FUT-V1-multi-fifa",
+  "source": "files/launcher/1.0.13/MNG-FUT-V1-1.0.13-lite.zip",
+  "sha256": "609a4466f70879b55bd9b24dea5d16cd30e7b234b227705691f8497eef0cff4a",
+  "size": 12178370,
+  "notes": "Ajoute FIFA 14, FIFA 15 et FIFA 20 dans le lanceur. FIFA 14 et FIFA 15 démarrent leur serveur local puis proposent le bouton Jouer."
 }
