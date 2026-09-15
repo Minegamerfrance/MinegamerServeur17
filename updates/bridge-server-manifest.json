@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.45",
-    "notes":  "MNG FUT Server 2.1.45: le pack ICONES 318 utilise un débit local fiable lorsque le cloud renvoie un solde inchangé, puis délivre exactement un joueur rareté 12.",
+    "version":  "2.1.46",
+    "notes":  "MNG FUT Server 2.1.46: Thierry Henry Icône utilise Arsenal et la Premier League pour afficher le bon maillot pendant l'animation du pack; les autres Icônes restent inchangées.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.45/server/fut-backend.js",
+                      "source":  "files/releases/2.1.46/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "2055ba79fd8e91103727deb6baab00d4f0e429bd63b5478d26d8924035c1664b",
-                      "size":  532191
+                      "sha256":  "0420e07f9b5f96bcbe08a68c2cb328e443cb665c9680215614138603180e396b",
+                      "size":  532179
                   },
                   {
                       "scope":  "server",
