@@ -1,8 +1,8 @@
 {
-  "version": "1.0.13",
-  "build": "MNG-FUT-V1-multi-fifa",
-  "source": "files/launcher/1.0.13/MNG-FUT-V1-1.0.13-lite.zip",
-  "sha256": "609a4466f70879b55bd9b24dea5d16cd30e7b234b227705691f8497eef0cff4a",
-  "size": 12178370,
-  "notes": "Ajoute FIFA 14, FIFA 15 et FIFA 20 dans le lanceur. FIFA 14 et FIFA 15 démarrent leur serveur local puis proposent le bouton Jouer."
+  "version": "1.0.14",
+  "build": "MNG-FUT-V1-multi-fifa-process-cleanup",
+  "source": "files/launcher/1.0.14/MNG-FUT-V1-1.0.14-lite.zip",
+  "sha256": "706891d7bf2efa5f1bc322b5d0708b87dec8326dedf68335e9189b213acd6a68",
+  "size": 12178369,
+  "notes": "Ajoute FIFA 14, FIFA 15 et FIFA 20 dans le lanceur. Chaque nouveau démarrage ferme aussi les processus enfants des anciennes sessions locales."
 }
