@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.48",
-    "notes":  "MNG FUT Server 2.1.48: le joueur affiché à l'ouverture est exactement celui reçu et sauvegardé; le pack ICÔNES fonctionne à nouveau; les autres packs ont entre 2 % et 6 % de chance de contenir une rareté 12.",
+    "version":  "2.1.49",
+    "notes":  "MNG FUT Server 2.1.49: correction fiable de la redirection locale senorclutch.game pour les installations FIFA dans Program Files.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.38/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.49/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "ea0ed0596bd6c1497fa8762c0503f7ef0271e28d44a97f051859d8656e3277ae",
-                      "size":  46218
+                      "sha256":  "7a0d92f81b1642fe7bebcf0a20d28dcc2603827049961f81e84d682a580b1067",
+                      "size":  47462
                   },
                   {
                       "scope":  "server",
