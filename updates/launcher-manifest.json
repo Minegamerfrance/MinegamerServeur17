@@ -1,8 +1,8 @@
 {
-    "version":  "1.0.5",
-    "build":  "MNG-FUT-V1-trilingual-fifa14-branding",
-    "source":  "files/launcher/1.0.5/MNG-FUT-V1-1.0.5-lite.zip",
-    "sha256":  "fc6bb10be4494cb937871a6ce707acd266217582e5fb9d2cf2ed3a65a94e2428",
-    "size":  8084445,
-    "notes":  "Interface entièrement traduite en français, anglais et espagnol; FIFA 14 ajouté au-dessus de FIFA 17; anciens jeux retirés; logo MNG FUT utilisé dans la fenêtre et la barre des tâches."
+  "version": "1.0.6",
+  "build": "MNG-FUT-V1-updater-path-fix",
+  "source": "files/launcher/1.0.6/MNG-FUT-V1-1.0.6-lite.zip",
+  "sha256": "317f23446beada96458d59a072a93b62c631574bda279d477c96b3bf0648a712",
+  "size": 8084637,
+  "notes": "Corrige la mise à jour automatique lorsque le chemin du lanceur contient des espaces et ajoute un journal de diagnostic."
 }
