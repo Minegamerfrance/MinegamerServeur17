@@ -1,8 +1,8 @@
 {
-    "version":  "1.0.4",
-    "build":  "MNG-FUT-V1-frosty-installer",
-    "source":  "files/launcher/1.0.4/MNG-FUT-V1-1.0.4.zip",
-    "sha256":  "e48f9e8711b22b49e568c87b13db0c1555bc68e50671205f0768f9b7989243c7",
-    "size":  6502633,
-    "notes":  "Le bouton Frosty télécharge, vérifie et installe automatiquement Frosty Mod Manager lorsqu'il est absent."
+    "version":  "1.0.5",
+    "build":  "MNG-FUT-V1-trilingual-fifa14-branding",
+    "source":  "files/launcher/1.0.5/MNG-FUT-V1-1.0.5-lite.zip",
+    "sha256":  "fc6bb10be4494cb937871a6ce707acd266217582e5fb9d2cf2ed3a65a94e2428",
+    "size":  8084445,
+    "notes":  "Interface entièrement traduite en français, anglais et espagnol; FIFA 14 ajouté au-dessus de FIFA 17; anciens jeux retirés; logo MNG FUT utilisé dans la fenêtre et la barre des tâches."
 }
