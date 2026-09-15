@@ -1,8 +1,8 @@
 {
-    "version":  "1.0.3",
-    "build":  "MNG-FUT-V1-social",
-    "source":  "files/launcher/1.0.3/MNG-FUT-V1-1.0.3.zip",
-    "sha256":  "e938a07f4887c380bed9493035352c1d4e91ede81728a97ca977f55844ea0ad8",
-    "size":  6501958,
-    "notes":  "Activation des amis MNG FUT, présence en ligne et diagnostic détaillé du serveur social."
+    "version":  "1.0.4",
+    "build":  "MNG-FUT-V1-frosty-installer",
+    "source":  "files/launcher/1.0.4/MNG-FUT-V1-1.0.4.zip",
+    "sha256":  "e48f9e8711b22b49e568c87b13db0c1555bc68e50671205f0768f9b7989243c7",
+    "size":  6502633,
+    "notes":  "Le bouton Frosty télécharge, vérifie et installe automatiquement Frosty Mod Manager lorsqu'il est absent."
 }
