@@ -1,8 +1,8 @@
 {
-  "version": "1.0.11",
-  "build": "MNG-FUT-V1-keep-server-running",
-  "source": "files/launcher/1.0.11/MNG-FUT-V1-1.0.11-lite.zip",
-  "sha256": "c45e7204bda5bc9f7d58e5434ccaaa05be2164690cb01640f9794d1cba716fbf",
-  "size": 8085096,
-  "notes": "Le serveur local reste actif lorsque le lanceur est fermé, afin que FIFA puisse se connecter après le démarrage du bridge."
+  "version": "1.0.12",
+  "build": "MNG-FUT-V1-port-cleanup",
+  "source": "files/launcher/1.0.12/MNG-FUT-V1-1.0.12-lite.zip",
+  "sha256": "324ace719dcc50a6ffbf369a568880c189f3cf44e71760a80968ed8f88671abc",
+  "size": 8085543,
+  "notes": "Avant chaque démarrage, le lanceur ferme automatiquement les anciens serveurs qui occupent les ports FIFA locaux."
 }
