@@ -1,8 +1,8 @@
 {
-    "version":  "1.0.2",
-    "build":  "MNG-FUT-V1-branding",
-    "source":  "files/launcher/1.0.2/MNG-FUT-V1-1.0.2.zip",
-    "sha256":  "2f0d253c0e22aa6e120209404c4823d0146187148fa36b9c4dc516061de2856a",
-    "size":  6501929,
-    "notes":  "Ajout du logo MNG FUT dans le lanceur et la barre des taches, avec le nouveau visuel FIFA 17."
+    "version":  "1.0.3",
+    "build":  "MNG-FUT-V1-social",
+    "source":  "files/launcher/1.0.3/MNG-FUT-V1-1.0.3.zip",
+    "sha256":  "e938a07f4887c380bed9493035352c1d4e91ede81728a97ca977f55844ea0ad8",
+    "size":  6501958,
+    "notes":  "Activation des amis MNG FUT, présence en ligne et diagnostic détaillé du serveur social."
 }

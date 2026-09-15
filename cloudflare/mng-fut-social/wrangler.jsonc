@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mng-fut-social",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-15",
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "SOCIAL_DB",
+      "database_name": "mng-fut-social",
+      "database_id": "d6326c32-eb03-409d-ae44-37c0f84174bc",
+      "migrations_dir": "migrations"
+    },
+    {
+      "binding": "AUTH_DB",
+      "database_name": "mng-fut-db",
+      "database_id": "fc959f65-8368-440a-8764-8d9ef4aa3ded"
+    }
+  ]
+}

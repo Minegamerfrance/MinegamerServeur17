@@ -1,0 +1,14 @@
+{
+  "name": "mng-fut-social",
+  "version": "1.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "migrate": "wrangler d1 migrations apply mng-fut-social --remote"
+  },
+  "devDependencies": {
+    "wrangler": "^4.131.2"
+  }
+}
