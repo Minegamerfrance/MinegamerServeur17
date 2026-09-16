@@ -1,8 +1,8 @@
 {
-  "version": "1.0.25",
-  "build": "MNG-FUT-V1-restore-classic-layout",
-  "source": "files/launcher/1.0.25/MNG-FUT-V1-1.0.25.zip",
-  "sha256": "57920b5a39ef6b60c49987ec220ae2bcfeb04b05b853b88dde5662e2b66174aa",
-  "size": 12286092,
-  "notes": "Restaure la disposition classique du lanceur sans étirer ni écarter les éléments de l interface."
+  "version": "1.0.26",
+  "build": "MNG-FUT-PUBLIC-multi-server",
+  "source": "files/launcher/1.0.26/MNG-FUT-V1-1.0.26-public-update.zip",
+  "sha256": "cbbd0d1b9e29d2609f622d75eebfdf34639b394778532bd91a4292c68094262f",
+  "size": 16595416,
+  "notes": "Version publique avec chemins portables, serveurs FIFA 14, 15, 17 et 20 intégrés et canal de futures mises à jour GitHub."
 }
