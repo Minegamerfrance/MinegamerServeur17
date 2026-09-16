@@ -1,8 +1,8 @@
 {
-  "version": "1.0.14",
-  "build": "MNG-FUT-V1-multi-fifa-process-cleanup",
-  "source": "files/launcher/1.0.14/MNG-FUT-V1-1.0.14-lite.zip",
-  "sha256": "706891d7bf2efa5f1bc322b5d0708b87dec8326dedf68335e9189b213acd6a68",
-  "size": 12178369,
-  "notes": "Ajoute FIFA 14, FIFA 15 et FIFA 20 dans le lanceur. Chaque nouveau démarrage ferme aussi les processus enfants des anciennes sessions locales."
+  "version": "1.0.15",
+  "build": "MNG-FUT-V1-responsive-layout",
+  "source": "files/launcher/1.0.15/MNG-FUT-V1-1.0.15-lite.zip",
+  "sha256": "2f6d648a02b2d10b46c1d5e8729f80df042d59757f4378a59a2ef1d55c7174b4",
+  "size": 12178414,
+  "notes": "Le lanceur est désormais redimensionnable et affiche des barres de défilement lorsque la fenêtre est réduite."
 }
