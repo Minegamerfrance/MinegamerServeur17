@@ -1,8 +1,8 @@
 {
-  "version": "1.0.23",
-  "build": "MNG-FUT-V1-fifa20-secure-play-stop-ui",
-  "source": "files/launcher/1.0.23/MNG-FUT-V1-1.0.23.zip",
-  "sha256": "e4061b5ea670f811bae33304d830a81fb083b2a5972ab469badcfece1264befa",
-  "size": 12286094,
-  "notes": "Fenêtre 1920x1080, logs sans masquer le visuel, arrêt complet des serveurs et lancement sécurisé de FIFA 20 avec pont de connexion."
+  "version": "1.0.24",
+  "build": "MNG-FUT-V1-responsive-uniform-scaling",
+  "source": "files/launcher/1.0.24/MNG-FUT-V1-1.0.24.zip",
+  "sha256": "941a39447fcffbfbbc04f8a1da76d1a98c3fa6bc899110198a8e953c1cc712a9",
+  "size": 12286085,
+  "notes": "L interface complète se redimensionne proportionnellement avec la fenêtre sans couper la page ni afficher de barres de défilement."
 }
