@@ -1,8 +1,8 @@
 {
-  "version": "1.0.22",
-  "build": "MNG-FUT-V1-fifa20-ready-and-logs",
-  "source": "files/launcher/1.0.22/MNG-FUT-V1-1.0.22.zip",
-  "sha256": "09121241920d1ca733f4e2a40b88e997a5b47848459012dad367cefa4c502f33",
-  "size": 12285783,
-  "notes": "Affiche les logs du FIFA sélectionné et active Jouer uniquement quand le serveur FIFA 20 est réellement prêt."
+  "version": "1.0.23",
+  "build": "MNG-FUT-V1-fifa20-secure-play-stop-ui",
+  "source": "files/launcher/1.0.23/MNG-FUT-V1-1.0.23.zip",
+  "sha256": "e4061b5ea670f811bae33304d830a81fb083b2a5972ab469badcfece1264befa",
+  "size": 12286094,
+  "notes": "Fenêtre 1920x1080, logs sans masquer le visuel, arrêt complet des serveurs et lancement sécurisé de FIFA 20 avec pont de connexion."
 }
