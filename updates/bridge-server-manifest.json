@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.49",
-    "notes":  "MNG FUT Server 2.1.49: correction fiable de la redirection locale senorclutch.game pour les installations FIFA dans Program Files.",
+    "version":  "2.1.50",
+    "notes":  "MNG FUT Server 2.1.50: le lancement attend désormais que le service DNS Windows résolve réellement senorclutch.game vers 127.0.0.1 avant d ouvrir FIFA.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.49/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.50/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "7a0d92f81b1642fe7bebcf0a20d28dcc2603827049961f81e84d682a580b1067",
-                      "size":  47462
+                      "sha256":  "1ed770c75e93b1ac53c62034729802be6cb3deb76f8b6902d7e8e975fc89e963",
+                      "size":  47847
                   },
                   {
                       "scope":  "server",
