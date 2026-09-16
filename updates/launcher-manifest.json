@@ -1,8 +1,8 @@
 {
-  "version": "1.0.28",
-  "build": "MNG-FUT-PUBLIC-auto-close-fifa17",
-  "source": "files/launcher/1.0.28/MNG-FUT-V1-1.0.28-public-update.zip",
-  "sha256": "2e9b8097410e571da5c867e7e66fc4f65aca9935b048be5fd2aa1b9cb7f20ba4",
-  "size": 16595292,
-  "notes": "Ferme automatiquement une ancienne instance de FIFA 17 avant de lancer son serveur et conserve une interface réactive pendant l opération."
+  "version": "1.0.29",
+  "build": "MNG-FUT-PUBLIC-built-in-zip-extraction",
+  "source": "files/launcher/1.0.29/MNG-FUT-V1-1.0.29-public-update.zip",
+  "sha256": "cac3da2d4056243a4261ec0420133ff67ae72921bcf265171e9c0d0b3a225dd7",
+  "size": 16595350,
+  "notes": "Remplace Expand-Archive par une extraction ZIP intégrée compatible avec les installations PowerShell où Microsoft.PowerShell.Archive est absent ou endommagé."
 }
