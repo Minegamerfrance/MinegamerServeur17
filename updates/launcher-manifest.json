@@ -1,8 +1,8 @@
 {
-  "version": "1.0.21",
-  "build": "MNG-FUT-V1-fifa20-process-race-fix",
-  "source": "files/launcher/1.0.21/MNG-FUT-V1-1.0.21.zip",
-  "sha256": "3f6bacc96817179a0b091fed1c2e69a5fb2a9a8fb5bb6ec5b48bc45859cd51b1",
-  "size": 12284982,
-  "notes": "Supprime l erreur processus introuvable au lancement FIFA 20 et exclut les anciens PID temporaires du paquet."
+  "version": "1.0.22",
+  "build": "MNG-FUT-V1-fifa20-ready-and-logs",
+  "source": "files/launcher/1.0.22/MNG-FUT-V1-1.0.22.zip",
+  "sha256": "09121241920d1ca733f4e2a40b88e997a5b47848459012dad367cefa4c502f33",
+  "size": 12285783,
+  "notes": "Affiche les logs du FIFA sélectionné et active Jouer uniquement quand le serveur FIFA 20 est réellement prêt."
 }
