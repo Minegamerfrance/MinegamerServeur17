@@ -1,8 +1,8 @@
 {
-  "version": "1.0.16",
-  "build": "MNG-FUT-V1-visible-resize-grip",
-  "source": "files/launcher/1.0.16/MNG-FUT-V1-1.0.16-lite.zip",
-  "sha256": "a223fbbf51e09c4c0c68f2a48085952632f282c7be05e84c67cc21ec1cd65868",
-  "size": 12178519,
-  "notes": "Ajoute une poignée visible en bas à droite pour agrandir ou rétrécir facilement la fenêtre du lanceur."
+  "version": "1.0.17",
+  "build": "MNG-FUT-V1-window-maximize-button",
+  "source": "files/launcher/1.0.17/MNG-FUT-V1-1.0.17-lite.zip",
+  "sha256": "17cacab9b3ef93287297ab912550ce7426cdc95269289e0707a772e4bd0f7d27",
+  "size": 12178569,
+  "notes": "Ajoute le bouton agrandir/réduire entre réduire et fermer dans la barre supérieure du lanceur."
 }
