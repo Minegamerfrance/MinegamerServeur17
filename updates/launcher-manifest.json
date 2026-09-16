@@ -1,8 +1,8 @@
 {
-  "version": "1.0.24",
-  "build": "MNG-FUT-V1-responsive-uniform-scaling",
-  "source": "files/launcher/1.0.24/MNG-FUT-V1-1.0.24.zip",
-  "sha256": "941a39447fcffbfbbc04f8a1da76d1a98c3fa6bc899110198a8e953c1cc712a9",
-  "size": 12286085,
-  "notes": "L interface complète se redimensionne proportionnellement avec la fenêtre sans couper la page ni afficher de barres de défilement."
+  "version": "1.0.25",
+  "build": "MNG-FUT-V1-restore-classic-layout",
+  "source": "files/launcher/1.0.25/MNG-FUT-V1-1.0.25.zip",
+  "sha256": "57920b5a39ef6b60c49987ec220ae2bcfeb04b05b853b88dde5662e2b66174aa",
+  "size": 12286092,
+  "notes": "Restaure la disposition classique du lanceur sans étirer ni écarter les éléments de l interface."
 }
