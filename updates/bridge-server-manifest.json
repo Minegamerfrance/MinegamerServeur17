@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.51",
-    "notes":  "MNG FUT Server 2.1.51: ferme automatiquement toute ancienne instance FIFA 17 avant de démarrer le serveur, au lieu de bloquer le lancement.",
+    "version":  "2.1.52",
+    "notes":  "MNG FUT Server 2.1.52: accepte la redirection locale valide du fichier hosts même si le cache DNS .NET de Windows conserve temporairement une ancienne erreur.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.51/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.52/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "d89a622318cff6470a54ec16c2b39bf67906a551ae758a2f602b21e9b875fd42",
-                      "size":  48508
+                      "sha256":  "8cadd8d13d1a5ebd37aaa86ce441c3a1e15aec5722dfbd140989efe6ecca720e",
+                      "size":  48738
                   },
                   {
                       "scope":  "server",
