@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.50",
-    "notes":  "MNG FUT Server 2.1.50: le lancement attend désormais que le service DNS Windows résolve réellement senorclutch.game vers 127.0.0.1 avant d ouvrir FIFA.",
+    "version":  "2.1.51",
+    "notes":  "MNG FUT Server 2.1.51: ferme automatiquement toute ancienne instance FIFA 17 avant de démarrer le serveur, au lieu de bloquer le lancement.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.50/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.51/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "1ed770c75e93b1ac53c62034729802be6cb3deb76f8b6902d7e8e975fc89e963",
-                      "size":  47847
+                      "sha256":  "b8d2a0c1ac459d0cfa94064512f2aa3c3e131aa76e7c5ff8c0a622bedbe223c5",
+                      "size":  48511
                   },
                   {
                       "scope":  "server",
