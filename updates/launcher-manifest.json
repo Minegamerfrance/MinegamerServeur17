@@ -1,8 +1,8 @@
 {
-  "version": "1.0.20",
-  "build": "MNG-FUT-V1-per-game-server-state",
-  "source": "files/launcher/1.0.20/MNG-FUT-V1-1.0.20.zip",
-  "sha256": "4e4c85965294a9ba972a38f08648166c258f499ea134b6806b58e0f33cc93e3a",
-  "size": 13151940,
-  "notes": "Corrige l affichage par jeu : le bouton et l état du serveur suivent uniquement le FIFA sélectionné."
+  "version": "1.0.21",
+  "build": "MNG-FUT-V1-fifa20-process-race-fix",
+  "source": "files/launcher/1.0.21/MNG-FUT-V1-1.0.21.zip",
+  "sha256": "3f6bacc96817179a0b091fed1c2e69a5fb2a9a8fb5bb6ec5b48bc45859cd51b1",
+  "size": 12284982,
+  "notes": "Supprime l erreur processus introuvable au lancement FIFA 20 et exclut les anciens PID temporaires du paquet."
 }
