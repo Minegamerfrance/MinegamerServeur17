@@ -1,8 +1,8 @@
 {
-  "version": "1.0.19",
-  "build": "MNG-FUT-V1-fifa20-service-monitor",
-  "source": "files/launcher/1.0.19/MNG-FUT-V1-1.0.19.zip",
-  "sha256": "eec1c739f353f4556046b99e0c1b38b5762f2cbfa32f00a61275cbd8384dd807",
-  "size": 13151815,
-  "notes": "Corrige le lancement FIFA 20 : le lanceur surveille les services locaux au lieu du script de démarrage terminé normalement."
+  "version": "1.0.20",
+  "build": "MNG-FUT-V1-per-game-server-state",
+  "source": "files/launcher/1.0.20/MNG-FUT-V1-1.0.20.zip",
+  "sha256": "4e4c85965294a9ba972a38f08648166c258f499ea134b6806b58e0f33cc93e3a",
+  "size": 13151940,
+  "notes": "Corrige l affichage par jeu : le bouton et l état du serveur suivent uniquement le FIFA sélectionné."
 }
