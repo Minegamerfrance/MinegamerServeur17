@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.54",
-    "notes":  "MNG FUT Server 2.1.54: conserve en permanence les journaux FIFA 17, la sortie serveur, les ports et le fichier hosts dans LOCALAPPDATA pour faciliter le diagnostic public.",
+    "version":  "2.1.55",
+    "notes":  "MNG FUT Server 2.1.55: configure directement 127.0.0.1 dans senorclutch.ini afin de contourner définitivement les erreurs WinINet 12007 de résolution DNS.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.54/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.55/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "bf8b686d762b3ba96d36b0b5c4b3743beb750ddda93edda29553233e85ecd58f",
-                      "size":  49737
+                      "sha256":  "20c630f1a1bae908d714bd99a67bb3942c7c8af462afa2e71bffa1e82d6853b1",
+                      "size":  49883
                   },
                   {
                       "scope":  "server",
