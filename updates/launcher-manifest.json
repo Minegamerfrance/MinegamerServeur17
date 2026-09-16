@@ -1,8 +1,8 @@
 {
-  "version": "1.0.26",
-  "build": "MNG-FUT-PUBLIC-multi-server",
-  "source": "files/launcher/1.0.26/MNG-FUT-V1-1.0.26-public-update.zip",
-  "sha256": "cbbd0d1b9e29d2609f622d75eebfdf34639b394778532bd91a4292c68094262f",
-  "size": 16595416,
-  "notes": "Version publique avec chemins portables, serveurs FIFA 14, 15, 17 et 20 intégrés et canal de futures mises à jour GitHub."
+  "version": "1.0.27",
+  "build": "MNG-FUT-PUBLIC-responsive-server-actions",
+  "source": "files/launcher/1.0.27/MNG-FUT-V1-1.0.27-public-update.zip",
+  "sha256": "5f793e3f1e56a8743504ab0842f0439fcad0abc44104b0eb9ef29f579efda342",
+  "size": 16595430,
+  "notes": "Évite les blocages visuels pendant le démarrage et l arrêt des serveurs, avec état immédiat et protection contre les doubles clics."
 }
