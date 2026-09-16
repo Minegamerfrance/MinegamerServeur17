@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.52",
-    "notes":  "MNG FUT Server 2.1.52: accepte la redirection locale valide du fichier hosts même si le cache DNS .NET de Windows conserve temporairement une ancienne erreur.",
+    "version":  "2.1.53",
+    "notes":  "MNG FUT Server 2.1.53: retire entièrement le contrôle DNS .NET non fiable et valide directement la redirection locale dans le fichier hosts.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.52/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.53/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "8cadd8d13d1a5ebd37aaa86ce441c3a1e15aec5722dfbd140989efe6ecca720e",
-                      "size":  48738
+                      "sha256":  "5845f86bc8cf7b6a1958c9c1e790452992d91c2aa8a4ee148cf5e64c1bed5dd9",
+                      "size":  47576
                   },
                   {
                       "scope":  "server",
