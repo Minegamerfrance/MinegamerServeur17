@@ -1,8 +1,8 @@
 {
-  "version": "1.0.17",
-  "build": "MNG-FUT-V1-window-maximize-button",
-  "source": "files/launcher/1.0.17/MNG-FUT-V1-1.0.17-lite.zip",
-  "sha256": "17cacab9b3ef93287297ab912550ce7426cdc95269289e0707a772e4bd0f7d27",
-  "size": 12178569,
-  "notes": "Ajoute le bouton agrandir/réduire entre réduire et fermer dans la barre supérieure du lanceur."
+  "version": "1.0.18",
+  "build": "MNG-FUT-V1-all-server-port-cleanup-fifa20",
+  "source": "files/launcher/1.0.18/MNG-FUT-V1-1.0.18.zip",
+  "sha256": "65cac53a47e4ec075d68ad6d0fded204a97943f17c8c93477f566d4491ced2c0",
+  "size": 13151767,
+  "notes": "Ferme les anciens serveurs FIFA avant chaque lancement, vérifie la libération des ports et ajoute FIFA 20 avec son serveur intégré."
 }
