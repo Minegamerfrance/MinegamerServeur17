@@ -1,8 +1,8 @@
 {
-  "version": "1.0.27",
-  "build": "MNG-FUT-PUBLIC-responsive-server-actions",
-  "source": "files/launcher/1.0.27/MNG-FUT-V1-1.0.27-public-update.zip",
-  "sha256": "5f793e3f1e56a8743504ab0842f0439fcad0abc44104b0eb9ef29f579efda342",
-  "size": 16595430,
-  "notes": "Évite les blocages visuels pendant le démarrage et l arrêt des serveurs, avec état immédiat et protection contre les doubles clics."
+  "version": "1.0.28",
+  "build": "MNG-FUT-PUBLIC-auto-close-fifa17",
+  "source": "files/launcher/1.0.28/MNG-FUT-V1-1.0.28-public-update.zip",
+  "sha256": "2e9b8097410e571da5c867e7e66fc4f65aca9935b048be5fd2aa1b9cb7f20ba4",
+  "size": 16595292,
+  "notes": "Ferme automatiquement une ancienne instance de FIFA 17 avant de lancer son serveur et conserve une interface réactive pendant l opération."
 }
