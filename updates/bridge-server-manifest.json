@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.59",
-    "notes":  "MNG FUT Server 2.1.59: retablit la finalisation securisee des SBC quand la synchronisation locale complete est refusee par l anticheat cloud.",
+    "version":  "2.1.60",
+    "notes":  "MNG FUT Server 2.1.60: finalise localement les SBC valides lorsque le club cloud ancien ne connait pas encore les cartes locales autorisees.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.59/server/fut-backend.js",
+                      "source":  "files/releases/2.1.60/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "a4a131a0da65149ae5887e820274370e076d4f3e9d906278c6c46fa77fe063b8",
-                      "size":  530479
+                      "sha256":  "060d8b630cdf9f57a429eadb7787800f5af4b0406c9ef53585b8eeeeb4c7b037",
+                      "size":  531273
                   },
                   {
                       "scope":  "server",
