@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.55",
-    "notes":  "MNG FUT Server 2.1.55: configure directement 127.0.0.1 dans senorclutch.ini afin de contourner définitivement les erreurs WinINet 12007 de résolution DNS.",
+    "version":  "2.1.56",
+    "notes":  "MNG FUT Server 2.1.56: choisit automatiquement senorclutch.game quand la résolution locale fonctionne et utilise 127.0.0.1 uniquement sur les PC touchés par l erreur WinINet 12007.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.55/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.56/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "20c630f1a1bae908d714bd99a67bb3942c7c8af462afa2e71bffa1e82d6853b1",
-                      "size":  49883
+                      "sha256":  "6e98b13d26cec5e169765c2d224a24b25700555bcd197dd6fd9148e0db007208",
+                      "size":  50254
                   },
                   {
                       "scope":  "server",
