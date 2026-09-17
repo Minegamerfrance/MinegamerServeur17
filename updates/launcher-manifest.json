@@ -1,8 +1,8 @@
 {
-  "version": "1.1.1",
-  "build": "MNG-FUT-PUBLIC-auto-relaunch-fix",
-  "source": "files/launcher/1.1.1/MNG-FUT-V1-1.1.1-public-update.zip",
-  "sha256": "5b5ffd11ae6d9e679d41fefd5d6af5b13131dbde644c48e4e207fec1f8391297",
-  "size": 16595912,
-  "notes": "Correction urgente : le lanceur se rouvre automatiquement apres avoir applique une mise a jour."
+  "version": "1.1.2",
+  "build": "MNG-FUT-PUBLIC-fixed-logs-overlay",
+  "source": "files/launcher/1.1.2/MNG-FUT-V1-1.1.2-public-update.zip",
+  "sha256": "fa776decac65faaf1a5e23664d854902c222301fc73035030d03b83f2a307d9b",
+  "size": 16595920,
+  "notes": "Correction de l affichage des logs : le panneau reste fixe dans la partie droite sans deplacer ni elargir l interface."
 }
