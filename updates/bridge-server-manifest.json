@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.63",
-    "notes":  "MNG FUT Server 2.1.63: corrige les caracteres illisibles dans les textes, conditions et recompenses des SBC Ben Yedder, Dani Alves et John Terry.",
+    "version":  "2.1.64",
+    "notes":  "MNG FUT Server 2.1.64: active les equipes concept et affiche le catalogue complet des joueurs FIFA 17, cartes speciales et legendes incluses, sans modifier le vrai club.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.63/server/fut-backend.js",
+                      "source":  "files/releases/2.1.64/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "c4fd3b8ebb0d13afebd468240d104913ad503ffb6843ca20cc20d822ca03e363",
-                      "size":  534929
+                      "sha256":  "b6c8d30a80599568ee3e4bc912ce6703afd9ed04f7ec88eb8545ae8d68140cfb",
+                      "size":  538838
                   },
                   {
                       "scope":  "server",
