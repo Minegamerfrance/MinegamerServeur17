@@ -2,6 +2,17 @@
   "version": 1,
   "notifications": [
     {
+      "id": "fifa17-legendes-team-1",
+      "enabled": true,
+      "title": "FIFA 17: Legends Team 1",
+      "title_fr": "FIFA 17 : Équipe 1 des Légendes",
+      "title_es": "FIFA 17: Equipo 1 de Leyendas",
+      "description": "Discover the first Legends team available in the game.",
+      "description_fr": "Découvrez la première équipe des Légendes disponible dans le jeu.",
+      "description_es": "Descubre el primer equipo de Leyendas disponible en el juego.",
+      "imageUrl": "https://raw.githubusercontent.com/Minegamerfrance/MinegamerServeur17/main/updates/notifications/Legende_team1.png"
+    },
+    {
       "id": "fifa17-hall-of-fame-team-1",
       "enabled": true,
       "title": "FIFA 17: HALL OF FAME Team 1",
