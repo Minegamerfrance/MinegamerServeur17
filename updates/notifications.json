@@ -2,15 +2,26 @@
   "version": 1,
   "notifications": [
     {
-      "id": "fifa17-pack-97-2026-09",
+      "id": "fifa17-hall-of-fame-team-1",
       "enabled": true,
-      "title": "FIFA 17: Pack 97",
-      "title_fr": "FIFA 17 : Pack 97",
-      "title_es": "FIFA 17: Pack 97",
-      "description": "Discover the latest featured content available in MNG FUT.",
-      "description_fr": "Découvrez le dernier contenu mis en avant dans MNG FUT.",
-      "description_es": "Descubre el contenido destacado más reciente de MNG FUT.",
-      "imageUrl": "https://raw.githubusercontent.com/Minegamerfrance/MinegamerServeur17/main/online-packs/97/background.png"
+      "title": "FIFA 17: HALL OF FAME Team 1",
+      "title_fr": "FIFA 17 : HALL OF FAME Team 1",
+      "title_es": "FIFA 17: HALL OF FAME Equipo 1",
+      "description": "Discover the first HALL OF FAME team.",
+      "description_fr": "Découvrez la première équipe HALL OF FAME.",
+      "description_es": "Descubre el primer equipo HALL OF FAME.",
+      "imageUrl": "https://raw.githubusercontent.com/Minegamerfrance/MinegamerServeur17/main/updates/notifications/HOF_team1.png"
+    },
+    {
+      "id": "fifa17-hall-of-fame-team-2",
+      "enabled": true,
+      "title": "FIFA 17: HALL OF FAME Team 2",
+      "title_fr": "FIFA 17 : HALL OF FAME Team 2",
+      "title_es": "FIFA 17: HALL OF FAME Equipo 2",
+      "description": "Discover the second HALL OF FAME team.",
+      "description_fr": "Découvrez la deuxième équipe HALL OF FAME.",
+      "description_es": "Descubre el segundo equipo HALL OF FAME.",
+      "imageUrl": "https://raw.githubusercontent.com/Minegamerfrance/MinegamerServeur17/main/updates/notifications/HOF_team2.png"
     }
   ]
 }
