@@ -1,8 +1,8 @@
 {
-  "version": "1.1.0",
-  "build": "MNG-FUT-PUBLIC-social-themes",
-  "source": "files/launcher/1.1.0/MNG-FUT-V1-1.1.0-public-update.zip",
-  "sha256": "405f3dfa4d652a11146922cd63c09108577a20a795e95d268dc8b46bcb5c0f39",
-  "size": 16595963,
-  "notes": "Grosse mise a jour sociale et visuelle : demandes acceptees synchronisees, presence et notifications, themes rouge fonce FIFA 14, jaune FIFA 15/17 et rose-rouge FIFA 20."
+  "version": "1.1.1",
+  "build": "MNG-FUT-PUBLIC-auto-relaunch-fix",
+  "source": "files/launcher/1.1.1/MNG-FUT-V1-1.1.1-public-update.zip",
+  "sha256": "5b5ffd11ae6d9e679d41fefd5d6af5b13131dbde644c48e4e207fec1f8391297",
+  "size": 16595912,
+  "notes": "Correction urgente : le lanceur se rouvre automatiquement apres avoir applique une mise a jour."
 }
