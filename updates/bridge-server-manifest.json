@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.58",
-    "notes":  "MNG FUT Server 2.1.58: corrige les textes SBC Ribery et Lahm sans modifier la connexion FIFA 17.",
+    "version":  "2.1.59",
+    "notes":  "MNG FUT Server 2.1.59: retablit la finalisation securisee des SBC quand la synchronisation locale complete est refusee par l anticheat cloud.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.58/server/fut-backend.js",
+                      "source":  "files/releases/2.1.59/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "cdb91dc6719f71545978d59f7d219cfe167dc5a4459d2390e6a318267fba7b0f",
-                      "size":  530343
+                      "sha256":  "a4a131a0da65149ae5887e820274370e076d4f3e9d906278c6c46fa77fe063b8",
+                      "size":  530479
                   },
                   {
                       "scope":  "server",
