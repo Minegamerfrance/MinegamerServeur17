@@ -1,8 +1,8 @@
 {
-  "version": "1.3.2",
-  "build": "MNG-FUT-PUBLIC-FIFA20-stop-and-server-update-fix",
-  "source": "files/launcher/1.3.2/MNG-FUT-V1-1.3.2-public-update.zip",
-  "sha256": "e4ef3d515522beb9914d4ed942a9241733dd476ca0834135c3e8c791a5a1f5a2",
-  "size": 12137875,
-  "notes": "Corrige l'arrêt complet du serveur FIFA 20 et libère ses processus et ports. Le bouton de mise à jour FIFA 20 vérifie et installe désormais la version du serveur FIFA 20 au lieu de rechercher une mise à jour du lanceur."
+  "version": "1.3.3",
+  "build": "MNG-FUT-PUBLIC-FIFA20-hidden-console-integrated-logs",
+  "source": "files/launcher/1.3.3/MNG-FUT-V1-1.3.3-public-update.zip",
+  "sha256": "425e2a02b832fa10298e97d52fec76a02ac2abba6a4485605da846516d6c927f",
+  "size": 12137997,
+  "notes": "Le lanceur demande les droits administrateur une seule fois au démarrage. FIFA 20 se lance sans fenêtre PowerShell visible et les messages de démarrage sont affichés dans le panneau Afficher les logs."
 }
