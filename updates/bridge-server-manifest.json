@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.62",
-    "notes":  "MNG FUT Server 2.1.62: protege le club contre toute sauvegarde tronquee lors d une reconnexion ou d un conflit cloud et empeche la reinitialisation apres un transfert.",
+    "version":  "2.1.63",
+    "notes":  "MNG FUT Server 2.1.63: corrige les caracteres illisibles dans les textes, conditions et recompenses des SBC Ben Yedder, Dani Alves et John Terry.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.62/server/fut-backend.js",
+                      "source":  "files/releases/2.1.63/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "b4979f49d7fa94702a932fb5e47ab312da772024847ad37caab090953e74ae78",
-                      "size":  532859
+                      "sha256":  "c4fd3b8ebb0d13afebd468240d104913ad503ffb6843ca20cc20d822ca03e363",
+                      "size":  534929
                   },
                   {
                       "scope":  "server",
