@@ -13,6 +13,17 @@
       "imageUrl": "https://raw.githubusercontent.com/Minegamerfrance/MinegamerServeur17/main/updates/notifications/Legende_team1.png"
     },
     {
+      "id": "fifa17-legendes-team-2",
+      "enabled": true,
+      "title": "FIFA 17: Legends Team 2",
+      "title_fr": "FIFA 17 : Équipe 2 des Légendes",
+      "title_es": "FIFA 17: Equipo 2 de Leyendas",
+      "description": "Discover the second Legends team available in the game.",
+      "description_fr": "Découvrez la deuxième équipe des Légendes disponible dans le jeu.",
+      "description_es": "Descubre el segundo equipo de Leyendas disponible en el juego.",
+      "imageUrl": "https://raw.githubusercontent.com/Minegamerfrance/MinegamerServeur17/main/updates/notifications/Legende_team2.png"
+    },
+    {
       "id": "fifa17-hall-of-fame-team-1",
       "enabled": true,
       "title": "FIFA 17: HALL OF FAME Team 1",
