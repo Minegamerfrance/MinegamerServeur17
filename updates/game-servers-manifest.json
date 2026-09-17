@@ -1,0 +1,26 @@
+{
+  "version": "1",
+  "packages": [
+    {
+      "gameId": "14",
+      "version": "1",
+      "source": "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/launcher-server-packages-v1/mng-fifa14-server-v1.zip",
+      "sha256": "cb82b606d918edc794e1b9346fc95ec8a13aa69de33a693c4dbac6834e96667f",
+      "size": 1392717
+    },
+    {
+      "gameId": "15",
+      "version": "1",
+      "source": "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/launcher-server-packages-v1/mng-fifa15-server-v1.zip",
+      "sha256": "d452d0b9820f4362bde689cb0345c403a23a36f3d9e725511382b2f8acd1ce06",
+      "size": 265265529
+    },
+    {
+      "gameId": "20",
+      "version": "1",
+      "source": "https://github.com/Minegamerfrance/MinegamerServeur17/releases/download/launcher-server-packages-v1/mng-fifa20-server-v1.zip",
+      "sha256": "eb6e9b8c021f7af9f23cda100a3bf5e06c625640f095bae49c6aa8a8e5623cd4",
+      "size": 89486
+    }
+  ]
+}
