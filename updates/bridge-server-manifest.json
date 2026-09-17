@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.67",
-    "notes":  "MNG FUT Server 2.1.67: empeche les saisons et coupes solo de se bloquer si le cloud coupe; lancement, progression et fin de match continuent automatiquement en local.",
+    "version":  "2.1.68",
+    "notes":  "MNG FUT Server 2.1.68: conserve la progression d'une coupe solo lorsqu'on quitte puis revient dans le menu, sans devoir redemarrer le jeu.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.67/server/fut-backend.js",
+                      "source":  "files/releases/2.1.68/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "04a825e7c89eeb26215de266597ab28912fabdfab82f755e15059deb7d9ae6ab",
-                      "size":  541779
+                      "sha256":  "3395ca9ca0728d6155c8ca8cfa815c1ef3efd384de5410b14e880e0bbbfbf7e2",
+                      "size":  542642
                   },
                   {
                       "scope":  "server",
