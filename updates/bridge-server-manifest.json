@@ -1,6 +1,6 @@
 {
-    "version":  "2.1.56",
-    "notes":  "MNG FUT Server 2.1.56: choisit automatiquement senorclutch.game quand la résolution locale fonctionne et utilise 127.0.0.1 uniquement sur les PC touchés par l erreur WinINet 12007.",
+    "version":  "2.1.57",
+    "notes":  "MNG FUT Server 2.1.57: conserve senorclutch.game sur les PC fonctionnels et utilise localhost comme repli DNS/TLS compatible pour les PC touchés par l erreur WinINet 12007.",
     "files":  [
                   {
                       "scope":  "server",
@@ -32,10 +32,10 @@
                   },
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.56/server/Start-Local-FIFA17-Test.ps1",
+                      "source":  "files/releases/2.1.57/server/Start-Local-FIFA17-Test.ps1",
                       "target":  "Start-Local-FIFA17-Test.ps1",
-                      "sha256":  "6e98b13d26cec5e169765c2d224a24b25700555bcd197dd6fd9148e0db007208",
-                      "size":  50254
+                      "sha256":  "9eb815811c0192e5988f778b916d5ee353eb95bf2a909fd019e2c0e631387d99",
+                      "size":  50269
                   },
                   {
                       "scope":  "server",
