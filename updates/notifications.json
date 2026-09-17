@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "notifications": [
+    {
+      "id": "fifa17-pack-97-2026-09",
+      "enabled": true,
+      "title": "FIFA 17: Pack 97",
+      "title_fr": "FIFA 17 : Pack 97",
+      "title_es": "FIFA 17: Pack 97",
+      "description": "Discover the latest featured content available in MNG FUT.",
+      "description_fr": "Découvrez le dernier contenu mis en avant dans MNG FUT.",
+      "description_es": "Descubre el contenido destacado más reciente de MNG FUT.",
+      "imageUrl": "https://raw.githubusercontent.com/Minegamerfrance/MinegamerServeur17/main/online-packs/97/background.png"
+    }
+  ]
+}

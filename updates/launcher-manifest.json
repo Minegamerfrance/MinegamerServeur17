@@ -1,8 +1,8 @@
 {
-  "version": "1.1.2",
-  "build": "MNG-FUT-PUBLIC-fixed-logs-overlay",
-  "source": "files/launcher/1.1.2/MNG-FUT-V1-1.1.2-public-update.zip",
-  "sha256": "fa776decac65faaf1a5e23664d854902c222301fc73035030d03b83f2a307d9b",
-  "size": 16595920,
-  "notes": "Correction de l affichage des logs : le panneau reste fixe dans la partie droite sans deplacer ni elargir l interface."
+  "version": "1.2.0",
+  "build": "MNG-FUT-PUBLIC-notification-center",
+  "source": "files/launcher/1.2.0/MNG-FUT-V1-1.2.0-public-update.zip",
+  "sha256": "4bf990bfa3fe6fd2e566f0e4a72adc749761d457815e1f7687d3362f5816dd04",
+  "size": 16597409,
+  "notes": "Nouvelle interface compacte et centre de notifications GitHub avec compteur 1-9+, apercu et images ouvrables en grand."
 }
