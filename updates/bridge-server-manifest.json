@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.60",
-    "notes":  "MNG FUT Server 2.1.60: finalise localement les SBC valides lorsque le club cloud ancien ne connait pas encore les cartes locales autorisees.",
+    "version":  "2.1.61",
+    "notes":  "MNG FUT Server 2.1.61: ouvre correctement les packs de recompense SBC dont l identifiant depasse la limite FIFA 17 et arrive comme 65535.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.60/server/fut-backend.js",
+                      "source":  "files/releases/2.1.61/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "060d8b630cdf9f57a429eadb7787800f5af4b0406c9ef53585b8eeeeb4c7b037",
-                      "size":  531273
+                      "sha256":  "5f705b163e3da4cba13d12b378ee4ab9e5b3c44db7643e0d017ea7682c71e39d",
+                      "size":  531634
                   },
                   {
                       "scope":  "server",
