@@ -17,10 +17,10 @@
     },
     {
       "gameId": "20",
-      "version": "1.6.6",
-      "source": "https://raw.githubusercontent.com/Minegamerfrance/MinegamerServeur17/main/updates/files/game-servers/20/1.6.6/mng-fifa20-server-1.6.6.zip",
-      "sha256": "5c91bd7377a9b141c61e744713d353338010fbe99f2242eb5ae5c8e98f42de7d",
-      "size": 6089457
+      "version": "1.6.7",
+      "source": "https://raw.githubusercontent.com/Minegamerfrance/MinegamerServeur17/main/updates/files/game-servers/20/1.6.7/mng-fifa20-server-1.6.7.zip",
+      "sha256": "c0bbf3d0ee8191093a715b5f595ec991dd4319713011d6850853e3f73cb58b61",
+      "size": 6090018
     }
   ]
 }
