@@ -1,8 +1,8 @@
 {
-  "version": "1.0.30",
-  "build": "MNG-FUT-PUBLIC-smart-frosty-button",
-  "source": "files/launcher/1.0.30/MNG-FUT-V1-1.0.30-public-update.zip",
-  "sha256": "b3b96c8dd76a557da392bc3bda1cf936b031b95f3f2a0aa220c6dfbe1db244fa",
-  "size": 16595326,
-  "notes": "Pour FIFA 17, le bouton installe Frosty Mod Manager lorsqu il est absent puis devient automatiquement Lancer FIFA 17 une fois Frosty disponible."
+  "version": "1.1.0",
+  "build": "MNG-FUT-PUBLIC-social-themes",
+  "source": "files/launcher/1.1.0/MNG-FUT-V1-1.1.0-public-update.zip",
+  "sha256": "405f3dfa4d652a11146922cd63c09108577a20a795e95d268dc8b46bcb5c0f39",
+  "size": 16595963,
+  "notes": "Grosse mise a jour sociale et visuelle : demandes acceptees synchronisees, presence et notifications, themes rouge fonce FIFA 14, jaune FIFA 15/17 et rose-rouge FIFA 20."
 }

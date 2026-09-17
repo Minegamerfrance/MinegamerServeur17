@@ -191,6 +191,7 @@ async function sendFriendRequest(request, env, me) {
     const ts = nowMs();
     await env.SOCIAL_DB.batch([
       env.SOCIAL_DB.prepare("UPDATE friend_requests SET status='accepted', responded_at=? WHERE id=? AND status='pending'").bind(ts, Number(reverse.id)),
+      env.SOCIAL_DB.prepare("UPDATE friend_requests SET status='cancelled', responded_at=? WHERE status='pending' AND id<>? AND ((sender_id=? AND receiver_id=?) OR (sender_id=? AND receiver_id=?))").bind(ts, Number(reverse.id), me.id, targetId, targetId, me.id),
       env.SOCIAL_DB.prepare('INSERT OR IGNORE INTO friendships(user_id,friend_id,created_at) VALUES(?,?,?)').bind(me.id, targetId, ts),
       env.SOCIAL_DB.prepare('INSERT OR IGNORE INTO friendships(user_id,friend_id,created_at) VALUES(?,?,?)').bind(targetId, me.id, ts)
     ]);
@@ -234,6 +235,7 @@ async function resolveRequest(request, env, me, accept) {
   }
   await env.SOCIAL_DB.batch([
     env.SOCIAL_DB.prepare("UPDATE friend_requests SET status='accepted', responded_at=? WHERE id=?").bind(ts, requestId),
+    env.SOCIAL_DB.prepare("UPDATE friend_requests SET status='cancelled', responded_at=? WHERE status='pending' AND id<>? AND ((sender_id=? AND receiver_id=?) OR (sender_id=? AND receiver_id=?))").bind(ts, requestId, me.id, senderId, senderId, me.id),
     env.SOCIAL_DB.prepare('INSERT OR IGNORE INTO friendships(user_id,friend_id,created_at) VALUES(?,?,?)').bind(me.id, senderId, ts),
     env.SOCIAL_DB.prepare('INSERT OR IGNORE INTO friendships(user_id,friend_id,created_at) VALUES(?,?,?)').bind(senderId, me.id, ts)
   ]);
@@ -257,7 +259,7 @@ export default {
     const url = new URL(request.url);
     try {
       if (url.pathname === '/health' && request.method === 'GET') {
-        return reply(request, { ok: true, service: 'mng-fut-social', version: '1.0.1', time: nowMs() });
+        return reply(request, { ok: true, service: 'mng-fut-social', version: '1.0.2', time: nowMs() });
       }
       const { profile: me } = await authenticate(request, env);
 
