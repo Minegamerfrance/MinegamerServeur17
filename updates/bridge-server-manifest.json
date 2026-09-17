@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.64",
-    "notes":  "MNG FUT Server 2.1.64: active les equipes concept et affiche le catalogue complet des joueurs FIFA 17, cartes speciales et legendes incluses, sans modifier le vrai club.",
+    "version":  "2.1.65",
+    "notes":  "MNG FUT Server 2.1.65: corrige le selecteur d'equipes concept vide avec quatre equipes completes, puis permet de rechercher tous les joueurs en concept.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.64/server/fut-backend.js",
+                      "source":  "files/releases/2.1.65/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "b6c8d30a80599568ee3e4bc912ce6703afd9ed04f7ec88eb8545ae8d68140cfb",
-                      "size":  538838
+                      "sha256":  "c7539e8fc738ecca56222aa916b7cbb46fe43ae1c4951055b9650946df22e4de",
+                      "size":  540190
                   },
                   {
                       "scope":  "server",
