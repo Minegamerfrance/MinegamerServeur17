@@ -1,8 +1,8 @@
 {
-  "version": "1.2.0",
-  "build": "MNG-FUT-PUBLIC-notification-center",
-  "source": "files/launcher/1.2.0/MNG-FUT-V1-1.2.0-public-update.zip",
-  "sha256": "4bf990bfa3fe6fd2e566f0e4a72adc749761d457815e1f7687d3362f5816dd04",
-  "size": 16597409,
-  "notes": "Nouvelle interface compacte et centre de notifications GitHub avec compteur 1-9+, apercu et images ouvrables en grand."
+  "version": "1.2.1",
+  "build": "MNG-FUT-PUBLIC-notification-image-size-fix",
+  "source": "files/launcher/1.2.1/MNG-FUT-V1-1.2.1-public-update.zip",
+  "sha256": "04714c0e80f275a64c90b77a9435959b50dd5d86b27dd22c3aaf953dde132ef1",
+  "size": 16597429,
+  "notes": "Les images des notifications s ouvrent dans un cadre 16:9 centre et ne redimensionnent plus l interface."
 }
