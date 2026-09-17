@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.61",
-    "notes":  "MNG FUT Server 2.1.61: ouvre correctement les packs de recompense SBC dont l identifiant depasse la limite FIFA 17 et arrive comme 65535.",
+    "version":  "2.1.62",
+    "notes":  "MNG FUT Server 2.1.62: protege le club contre toute sauvegarde tronquee lors d une reconnexion ou d un conflit cloud et empeche la reinitialisation apres un transfert.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.61/server/fut-backend.js",
+                      "source":  "files/releases/2.1.62/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "5f705b163e3da4cba13d12b378ee4ab9e5b3c44db7643e0d017ea7682c71e39d",
-                      "size":  531634
+                      "sha256":  "b4979f49d7fa94702a932fb5e47ab312da772024847ad37caab090953e74ae78",
+                      "size":  532859
                   },
                   {
                       "scope":  "server",
