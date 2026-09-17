@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.66",
-    "notes":  "MNG FUT Server 2.1.66: rend les tuiles du selecteur concept visibles et selectionnables avec les identifiants, libelles et statistiques attendus par FIFA 17.",
+    "version":  "2.1.67",
+    "notes":  "MNG FUT Server 2.1.67: empeche les saisons et coupes solo de se bloquer si le cloud coupe; lancement, progression et fin de match continuent automatiquement en local.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.66/server/fut-backend.js",
+                      "source":  "files/releases/2.1.67/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "983d857477479818620ace0954b608c48821ec0025f0ccc5f37dc455856406f6",
-                      "size":  540865
+                      "sha256":  "04a825e7c89eeb26215de266597ab28912fabdfab82f755e15059deb7d9ae6ab",
+                      "size":  541779
                   },
                   {
                       "scope":  "server",
