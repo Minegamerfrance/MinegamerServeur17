@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.65",
-    "notes":  "MNG FUT Server 2.1.65: corrige le selecteur d'equipes concept vide avec quatre equipes completes, puis permet de rechercher tous les joueurs en concept.",
+    "version":  "2.1.66",
+    "notes":  "MNG FUT Server 2.1.66: rend les tuiles du selecteur concept visibles et selectionnables avec les identifiants, libelles et statistiques attendus par FIFA 17.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.65/server/fut-backend.js",
+                      "source":  "files/releases/2.1.66/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "c7539e8fc738ecca56222aa916b7cbb46fe43ae1c4951055b9650946df22e4de",
-                      "size":  540190
+                      "sha256":  "983d857477479818620ace0954b608c48821ec0025f0ccc5f37dc455856406f6",
+                      "size":  540865
                   },
                   {
                       "scope":  "server",
