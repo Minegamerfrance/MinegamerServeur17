@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.68",
-    "notes":  "MNG FUT Server 2.1.68: conserve la progression d'une coupe solo lorsqu'on quitte puis revient dans le menu, sans devoir redemarrer le jeu.",
+    "version":  "2.1.69",
+    "notes":  "MNG FUT Server 2.1.69: conserve aussi une coupe solo lorsqu'on quitte juste apres l'avoir selectionnee, avant le premier match.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.68/server/fut-backend.js",
+                      "source":  "files/releases/2.1.69/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "3395ca9ca0728d6155c8ca8cfa815c1ef3efd384de5410b14e880e0bbbfbf7e2",
-                      "size":  542642
+                      "sha256":  "edb3dc3f2198506da6137db9bf783b7d1a52945bf1f17f0b5838e099cd0a492e",
+                      "size":  542841
                   },
                   {
                       "scope":  "server",
