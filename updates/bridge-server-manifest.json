@@ -1,13 +1,13 @@
 {
-    "version":  "2.1.57",
-    "notes":  "MNG FUT Server 2.1.57: conserve senorclutch.game sur les PC fonctionnels et utilise localhost comme repli DNS/TLS compatible pour les PC touchés par l erreur WinINet 12007.",
+    "version":  "2.1.58",
+    "notes":  "MNG FUT Server 2.1.58: corrige les textes SBC Ribery et Lahm sans modifier la connexion FIFA 17.",
     "files":  [
                   {
                       "scope":  "server",
-                      "source":  "files/releases/2.1.48/server/fut-backend.js",
+                      "source":  "files/releases/2.1.58/server/fut-backend.js",
                       "target":  "fut-backend.js",
-                      "sha256":  "028248e9ea6e4de2d5f91d6b1542c9df64339425329e69f28202c9bb6256a79b",
-                      "size":  529411
+                      "sha256":  "cdb91dc6719f71545978d59f7d219cfe167dc5a4459d2390e6a318267fba7b0f",
+                      "size":  530343
                   },
                   {
                       "scope":  "server",
