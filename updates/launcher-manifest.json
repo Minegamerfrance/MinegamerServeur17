@@ -1,8 +1,8 @@
 {
-  "version": "1.3.3",
-  "build": "MNG-FUT-PUBLIC-FIFA20-hidden-console-integrated-logs",
-  "source": "files/launcher/1.3.3/MNG-FUT-V1-1.3.3-public-update.zip",
-  "sha256": "425e2a02b832fa10298e97d52fec76a02ac2abba6a4485605da846516d6c927f",
-  "size": 12137997,
-  "notes": "Le lanceur demande les droits administrateur une seule fois au démarrage. FIFA 20 se lance sans fenêtre PowerShell visible et les messages de démarrage sont affichés dans le panneau Afficher les logs."
+  "version": "1.3.4",
+  "build": "MNG-FUT-PUBLIC-FROSTY-2.0.19.3",
+  "source": "files/launcher/1.3.4/MNG-FUT-V1-1.3.4-public-update.zip",
+  "sha256": "fb8136a186183c485394f86f1ef8b53e58a6d3d5e98b88e84644e4d03d428e25",
+  "size": 12200527,
+  "notes": "Le bouton Frosty installe maintenant la version 2.0.19.3, qui démarre EA App pour FIFA 20 et détecte correctement une fermeture immédiate du jeu."
 }
