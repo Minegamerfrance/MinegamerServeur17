@@ -1,8 +1,8 @@
 {
-  "version": "1.3.4",
-  "build": "MNG-FUT-PUBLIC-FROSTY-2.0.19.3",
-  "source": "files/launcher/1.3.4/MNG-FUT-V1-1.3.4-public-update.zip",
-  "sha256": "fb8136a186183c485394f86f1ef8b53e58a6d3d5e98b88e84644e4d03d428e25",
-  "size": 12200527,
-  "notes": "Le bouton Frosty installe maintenant la version 2.0.19.3, qui démarre EA App pour FIFA 20 et détecte correctement une fermeture immédiate du jeu."
+  "version": "1.3.5",
+  "build": "MNG-FUT-PUBLIC-FROSTY-AUTO-UPDATE-2.0.19.3",
+  "source": "files/launcher/1.3.5/MNG-FUT-V1-1.3.5-public-update.zip",
+  "sha256": "b526db5340987472768ce228f36830615282ee8c4e337ff4a16ada00676c0614",
+  "size": 12200720,
+  "notes": "Le lanceur remplace automatiquement les anciennes DLL Frosty par la version 2.0.19.3 avant ouverture. FIFA 20 est surveillé et toute fermeture immédiate affiche maintenant une erreur précise."
 }
