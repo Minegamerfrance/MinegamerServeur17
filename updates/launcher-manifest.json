@@ -1,8 +1,8 @@
 {
-  "version": "1.3.7",
-  "build": "MNG-FUT-PUBLIC-RESPONSIVE-LAYOUT",
-  "source": "files/launcher/1.3.7/MNG-FUT-V1-1.3.7-public-update.zip",
-  "sha256": "aa895538cd4ae2c944531db3bdc13a1156e9e3ba8bc8cbfc2ea36892ed4ac3e0",
-  "size": 43997,
-  "notes": "Affichage plus compact, logos entiers et boutons adaptatifs. Mise à jour du lanceur principal sans remplacement des serveurs ni des données."
+  "version": "1.3.8",
+  "build": "MNG-FUT-PUBLIC-SERVER-FROSTY-SEPARATE",
+  "source": "files/launcher/1.3.8/MNG-FUT-V1-1.3.8-public-update.zip",
+  "sha256": "246869e048b8f5f8bc17c41ef5e1b8f57bd36afe79bfc4e9207f341e64a5a66d",
+  "size": 43848,
+  "notes": "FIFA 17 et FIFA 20 : le bouton serveur démarre uniquement le serveur ; le bouton voisin ouvre Frosty Mod Manager sans lancer le jeu ni redémarrer le serveur."
 }
