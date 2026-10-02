@@ -1,8 +1,8 @@
 {
-  "version": "1.3.6",
-  "build": "MNG-FUT-PUBLIC-FROSTY-DIRECT-2.0.19.4",
-  "source": "files/launcher/1.3.6/MNG-FUT-V1-1.3.6-public-update.zip",
-  "sha256": "5ecae9ac69d897e3c18f18935a6966af74ed060915101ff42e0ecd41c5535066",
-  "size": 12200725,
-  "notes": "Frosty 2.0.19.4 restaure le lancement direct de l’exécutable configuré avec ModData, sans démarrer EA App ou Origin."
+  "version": "1.3.7",
+  "build": "MNG-FUT-PUBLIC-RESPONSIVE-LAYOUT",
+  "source": "files/launcher/1.3.7/MNG-FUT-V1-1.3.7-public-update.zip",
+  "sha256": "aa895538cd4ae2c944531db3bdc13a1156e9e3ba8bc8cbfc2ea36892ed4ac3e0",
+  "size": 43997,
+  "notes": "Affichage plus compact, logos entiers et boutons adaptatifs. Mise à jour du lanceur principal sans remplacement des serveurs ni des données."
 }
