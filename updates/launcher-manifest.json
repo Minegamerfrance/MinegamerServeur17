@@ -1,8 +1,8 @@
 {
-  "version": "1.3.8",
-  "build": "MNG-FUT-PUBLIC-SERVER-FROSTY-SEPARATE",
-  "source": "files/launcher/1.3.8/MNG-FUT-V1-1.3.8-public-update.zip",
-  "sha256": "246869e048b8f5f8bc17c41ef5e1b8f57bd36afe79bfc4e9207f341e64a5a66d",
-  "size": 43848,
-  "notes": "FIFA 17 et FIFA 20 : le bouton serveur démarre uniquement le serveur ; le bouton voisin ouvre Frosty Mod Manager sans lancer le jeu ni redémarrer le serveur."
+  "version": "1.3.9",
+  "build": "MNG-FUT-FIFA21-LAUNCHER-ENTRY",
+  "source": "files/launcher/1.3.9/MNG-FUT-V1-1.3.9-public-update.zip",
+  "sha256": "04b416cadfbead4600a7e8b65d0f5b0c4b1039da4ab21f33be792d283992affc",
+  "size": 1573679,
+  "notes": "Ajout de FIFA 21 avec son logo et le lancement normal du jeu. Serveur FIFA 21 en préparation, connexion non validée ; aucun serveur FIFA 17/20 lancé pour FIFA 21."
 }

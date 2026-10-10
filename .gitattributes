@@ -5,6 +5,8 @@ updates/manifest.json text eol=lf
 updates/bridge-server-manifest.json text eol=lf
 updates/manifest.json.sig -text
 updates/bridge-server-manifest.json.sig -text
+updates/launcher-manifest.json -text
+updates/launcher-manifest.json.sig -text
 updates/files/bridge/*.ps1 text eol=lf
 updates/files/bridge/*.json text eol=lf
 updates/files/releases/**/server/*.ps1 text eol=lf
