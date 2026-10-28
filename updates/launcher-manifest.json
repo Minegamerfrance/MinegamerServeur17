@@ -1,8 +1,8 @@
 {
-  "version": "1.3.13",
-  "build": "MNG-FUT-AUTOMATIC-ADMIN",
-  "source": "files/launcher/1.3.13/MNG-FUT-V1-1.3.13-public-update.zip",
-  "sha256": "077a0d6c77a3b5f40d4767804bbcd922cf8bce4af4402ff33d2c9d4393f1e404",
-  "size": 1564640,
-  "notes": "Chargement du modèle expérimental désactivé par défaut pour rétablir le lancement normal de FIFA 20. Récompenses et sauvegardes conservées."
+  "version": "1.3.25",
+  "build": "MNG-FUT-FIFA21-AVAILABLE",
+  "source": "https://github.com/Minegamerfrance/MNG-FUT-FIFA21/releases/download/launcher-v1.3.25/MNG-FUT-Launcher-1.3.25.zip",
+  "sha256": "f46b09a2d2e1d7d90eab81f802e3a5d00f6df826e9f02685e2ed15fc818fab36",
+  "size": 11164977,
+  "notes": "FIFA 21 disponible : installation, mise à jour et réparation depuis le lanceur commun. Synchronisation du numéro de version du lanceur et de sa mise à jour publique. Clubs et paramètres personnels conservés."
 }
