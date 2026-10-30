@@ -1,8 +1,8 @@
 {
-  "version": "1.3.32",
-  "build": "MNG-FUT-FIFA21-WINDOWS-LISTENERS",
-  "source": "https://github.com/Minegamerfrance/MNG-FUT-FIFA21/releases/download/launcher-v1.3.32/MNG-FUT-Launcher-1.3.32.zip",
-  "sha256": "2e05a6abd73297fe19900eb29632d5251da170abd971a1ef83acf0d054510c0c",
-  "size": 11253281,
-  "notes": "Correction de la detection des ports Windows actifs mais annonces Closed ou Bound : verification par connexion locale et conservation du controle du processus proprietaire. Preparation du serveur et bouton Lancer / Arreter corriges. Clubs et comptes conserves."
+  "version": "1.3.33",
+  "build": "MNG-FUT-FIFA21-REGISTRATION-ERRORS",
+  "source": "https://github.com/Minegamerfrance/MNG-FUT-FIFA21/releases/download/launcher-v1.3.33/MNG-FUT-Launcher-1.3.33.zip",
+  "sha256": "a743978628b4aaa3491ed3a38910d6607a6f16d5d3a2f002bff1c131f91cb5d0",
+  "size": 11254107,
+  "notes": "Creation de compte : affichage des vraies erreurs du serveur, sans les remplacer par une erreur 404. Verification du pseudo et du mot de passe avant envoi ; mot de passe de 8 a 128 caracteres. Comptes et clubs conserves."
 }
