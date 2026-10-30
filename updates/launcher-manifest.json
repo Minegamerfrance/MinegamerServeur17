@@ -1,8 +1,8 @@
 {
-  "version": "1.3.31",
-  "build": "MNG-FUT-FIFA21-ACCOUNT-READINESS",
-  "source": "https://github.com/Minegamerfrance/MNG-FUT-FIFA21/releases/download/launcher-v1.3.31/MNG-FUT-Launcher-1.3.31.zip",
-  "sha256": "d47519ec66bb331e8501db78497315843ad8d47def37ddb1e36080510c388ccb",
-  "size": 11252794,
-  "notes": "Preparation de la connexion aux clubs : delai adapte au demarrage du serveur distant, verification des ports, echec immediat si le connecteur quitte et message precis en cas de probleme. Clubs et comptes conserves."
+  "version": "1.3.32",
+  "build": "MNG-FUT-FIFA21-WINDOWS-LISTENERS",
+  "source": "https://github.com/Minegamerfrance/MNG-FUT-FIFA21/releases/download/launcher-v1.3.32/MNG-FUT-Launcher-1.3.32.zip",
+  "sha256": "2e05a6abd73297fe19900eb29632d5251da170abd971a1ef83acf0d054510c0c",
+  "size": 11253281,
+  "notes": "Correction de la detection des ports Windows actifs mais annonces Closed ou Bound : verification par connexion locale et conservation du controle du processus proprietaire. Preparation du serveur et bouton Lancer / Arreter corriges. Clubs et comptes conserves."
 }
