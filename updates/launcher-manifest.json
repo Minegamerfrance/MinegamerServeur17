@@ -1,8 +1,8 @@
 {
-  "version": "1.3.33",
-  "build": "MNG-FUT-FIFA21-REGISTRATION-ERRORS",
-  "source": "https://github.com/Minegamerfrance/MNG-FUT-FIFA21/releases/download/launcher-v1.3.33/MNG-FUT-Launcher-1.3.33.zip",
-  "sha256": "a743978628b4aaa3491ed3a38910d6607a6f16d5d3a2f002bff1c131f91cb5d0",
-  "size": 11254107,
-  "notes": "Creation de compte : affichage des vraies erreurs du serveur, sans les remplacer par une erreur 404. Verification du pseudo et du mot de passe avant envoi ; mot de passe de 8 a 128 caracteres. Comptes et clubs conserves."
+  "version": "1.3.34",
+  "build": "MNG-FUT-FIFA21-PACK-DISPLAY-ORDER",
+  "source": "https://github.com/Minegamerfrance/MNG-FUT-FIFA21/releases/download/launcher-v1.3.34/MNG-FUT-Launcher-1.3.34.zip",
+  "sha256": "8ce3c06627028b96bf007845e8313c48929c933aef07c8703627c03f968f2bfd",
+  "size": 11262097,
+  "notes": "Tri des packs corrige dans FIFA : cartes speciales en premier, notes decroissantes dans chaque groupe. Correction active a chaque entree dans FUT, sans modifier les fichiers du jeu, les joueurs ou leurs valeurs. Comptes et clubs conserves."
 }
